@@ -8,11 +8,14 @@ def get_movies(top_directory):
     Args:
         - top_directory: the directory to explore to find movie files
     """
+    movies = []
     for (dir_path, _, filenames) in os.walk(top_directory):
         for filename in filenames:
             (__, extension) = os.path.splitext(filename)
             if extension in [".avi", ".mkv", ".mpg", ".AVI", ".wmv", ".mp4"]:
-                yield os.path.join(dir_path, filename)
+                movies.append(os.path.join(dir_path, filename))
+    random.shuffle(movies)
+    return movies
 
 
 def get_start_time(min_start=0, max_start=90):
@@ -24,7 +27,7 @@ def get_start_time(min_start=0, max_start=90):
         - min_start: the smallest minute at which the movie can start
         - max_start: the biggest minute at which the movie can start
     """
-    return random.randint(min_start, max_start) * 60
+    return random.randint(min_start, max_start) * random.randint(10, 60)
 
 
 def get_run_time(min_run_time=1, max_run_time=10):
@@ -34,7 +37,7 @@ def get_run_time(min_run_time=1, max_run_time=10):
         - min_run_time: the min amount of minutes the video will be played
         - max_run_time: the max amount of minutes the video will be played
     """
-    return random.randint(min_run_time, max_run_time) * 60
+    return random.randint(min_run_time, max_run_time) * random.randint(10, 60)
 
 
 def get_playlist_entry(movie_file):
@@ -61,5 +64,5 @@ def generate_playlist(top_directory, playlist):
             playlist_file.write(get_playlist_entry(m))
 
 
-generate_playlist("/media/bvidal/Elements/Films", "random.vlc")
+generate_playlist("/media/bvidal/Elements/Films", "playlist_random.vlc")
 
