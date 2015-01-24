@@ -37,3 +37,6 @@ nosetests.xml
 
 # Virtualenv dir
 env/
+
+#Sqlite3 files
+*.sqlite3
