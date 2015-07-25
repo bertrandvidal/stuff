@@ -12,5 +12,13 @@ Display NURBS
 
 BF/GF suggestion box
 --------------------
-
 Idea I had in Paris with X
+
+Serendipity path
+----------------
+Mobile app that selects a random street/road to go to - ideal when doing a
+random road trip
+
+Trees
+-----
+Use generative grammar to create 'trees'
