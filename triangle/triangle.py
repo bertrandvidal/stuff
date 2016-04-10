@@ -6,7 +6,7 @@ import time
 start = time.time()
 triangle_file = sys.argv[1] if len(sys.argv) == 2 else "big_triangle.txt"
 
-print "Using '%s'" % triangle_file
+print "normal using '%s'" % triangle_file
 
 file_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                          triangle_file))
