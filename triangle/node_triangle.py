@@ -25,6 +25,7 @@ class Node(object):
         self.left = None
         self.right = None
         self.best_max = None
+        self.nb_visit = 0
 
     def __str__(self):
         return "[%s/%s] l: %s - r: %s" % (self.value, self.best_max,
@@ -37,6 +38,7 @@ class Node(object):
 def get_max(current_node):
     if current_node.best_max is not None:
         return current_node.best_max
+    current_node.nb_visit += 1
     left = get_max(current_node.left) if current_node.left is not None else 0
     right = get_max(current_node.right) if current_node.right is not None else 0
     current_node.best_max = current_node.value + max(left, right)
@@ -69,3 +71,5 @@ while left_index + 1 < max_len:
         left_index += 1
 
 print "max %s in %s" % (get_max(values[0]), time.time() - start)
+print "average nb visit per node %s" % (sum(x.nb_visit for x in values))
+
