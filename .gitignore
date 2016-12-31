@@ -40,3 +40,7 @@ env/
 
 #Sqlite3 files
 *.sqlite3
+
+# IntellJ
+*.iml
+.idea/
