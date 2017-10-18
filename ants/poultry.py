@@ -1,6 +1,5 @@
-from hashlib import md5
 from collections import Counter
-from pprint import pprint
+
 from tree_format import format_tree
 
 wordslist = []
@@ -24,6 +23,7 @@ root = ([], 0, Counter(), [])
 
 print "Looking for %s" % anagram
 
+
 def add_node(node, new_word):
     (words, length, counter, children) = node
     l = len(new_word)
@@ -35,6 +35,7 @@ def add_node(node, new_word):
     new_node_length = length + l
     if new_node_length <= anagram_length:
         children.append((words + [new_word], new_node_length, None, []))
+
 
 for w in wordslist[:10]:
     add_node(root, w)
@@ -62,9 +63,8 @@ print "%s:%s" % (anagram, anagram_length)
 
 print format_tree(root,
                   format_node=lambda x: "-".join(_ for _ in x[0]) + ":" +
-                  str(x[1]) + ":%s" % (str(x[2]) if not x[3] else ""),
+                                        str(x[1]) + ":%s" % (
+                  str(x[2]) if not x[3] else ""),
                   get_children=lambda x: x[3])
 
-
 print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
-
