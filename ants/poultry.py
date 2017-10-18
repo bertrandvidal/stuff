@@ -1,4 +1,6 @@
 from collections import Counter
+from itertools import permutations
+from hashlib import md5
 
 from tree_format import format_tree
 
@@ -54,6 +56,19 @@ def nb_leaf_nodes(node, nb_leaves):
     return nb_leaves + r
 
 
+def find_match(node):
+    (words, length, _, children) = node
+    # we've reached a leaf node that has the right amount of letters
+    if not children and length == anagram_length:
+        # check for md5 of all permutations with white spaces
+        for perm in permutations(words):
+            digest = md5(" ".join(perm)).hexdigest()
+            if digest == target_md5:
+                print "\n\nWINNER!! - %s \n\n" % list(perm)
+    for child in children:
+        find_match(child)
+
+
 print "%s:%s" % (anagram, anagram_length)
 
 print format_tree(root,
@@ -63,3 +78,5 @@ print format_tree(root,
                   get_children=lambda x: x[3])
 
 print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
+
+find_match(root)
