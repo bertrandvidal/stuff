@@ -15,7 +15,6 @@ with open("./anagram.txt", "r") as f:
 with open("./md5.txt", "r") as f:
     target_md5 = f.readline().strip("\n")
 
-
 anagram_counter = Counter(anagram)
 anagram_length = len(anagram)
 anagram_letters = set(anagram)
@@ -34,7 +33,8 @@ def add_node(node, new_word):
     new_node_counter = Counter(new_word) + counter
     copy_counter = anagram_counter.copy()
     copy_counter.subtract(new_node_counter)
-    if new_node_length <= anagram_length and all(x >= 0 for x in copy_counter.values()):
+    if new_node_length <= anagram_length and all(
+                    x >= 0 for x in copy_counter.values()):
         children.append((words + [new_word], new_node_length, new_node_counter, []))
 
 
@@ -59,8 +59,7 @@ print "%s:%s" % (anagram, anagram_length)
 print format_tree(root,
                   format_node=lambda x: "-".join(_ for _ in x[0]) + ":" +
                                         str(x[1]) + ":%s" % (
-                  str(x[2]) if not x[3] else ""),
+                      str(x[2]) if not x[3] else ""),
                   get_children=lambda x: x[3])
 
 print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
-
