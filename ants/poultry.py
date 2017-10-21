@@ -22,13 +22,13 @@ anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
 
-def add_node(node, new_word):
+def add_node(node, new_word, new_word_counter):
     (words, length, counter, children) = node
     for c in children:
-        add_node(c, new_word)
+        add_node(c, new_word, new_word_counter)
     l = len(new_word)
     new_node_length = length + l
-    new_node_counter = Counter(new_word) + counter
+    new_node_counter = new_word_counter + counter
     copy_counter = anagram_counter.copy()
     copy_counter.subtract(new_node_counter)
     if new_node_length <= anagram_length and all(
@@ -65,14 +65,18 @@ print "Looking for %s" % anagram
 
 i = 0
 for word in set(wordslist):
-    # If all letters of the word are in the anagram
-    if not set(word).difference(anagram_letters):
-        add_node(root, word)
-    i += 1
-    if i % 1000 == 0:
-        print "done: ", i
-        if i % 5000 == 0:
-            print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
+    try:
+        # If all letters of the word are in the anagram
+        word_counter = Counter(word)
+        if not set(word).difference(anagram_letters):
+            add_node(root, word, word_counter)
+        i += 1
+        if i % 1000 == 0:
+            print "done: ", i
+            if i % 5000 == 0:
+                print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
+    except KeyboardInterrupt as e:
+        break
 
 print "%s:%s" % (anagram, anagram_length)
 
