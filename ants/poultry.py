@@ -21,10 +21,6 @@ anagram_counter = Counter(anagram)
 anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
-root = ([], 0, Counter(), [])
-
-print "Looking for %s" % anagram
-
 
 def add_node(node, new_word):
     (words, length, counter, children) = node
@@ -38,12 +34,6 @@ def add_node(node, new_word):
     if new_node_length <= anagram_length and all(
                     x >= 0 for x in copy_counter.values()):
         children.append((words + [new_word], new_node_length, new_node_counter, []))
-
-
-for word in set(wordslist):
-    # If all letters of the word are in the anagram
-    if not set(word).difference(anagram_letters):
-        add_node(root, word)
 
 
 def nb_leaf_nodes(node, nb_leaves):
@@ -63,11 +53,28 @@ def find_match(node):
         # check for md5 of all permutations with white spaces
         for perm in permutations(words):
             digest = md5(" ".join(perm)).hexdigest()
-            if digest == target_md5:
+            if digest in ["e4820b45d2277f3844eac66c903e84be",
+                          "23170acc097c24edb98fc5488ab033fe",
+                          "665e5bcb0c20062fe8abaaf4628bb154"]:
                 print "\n\nWINNER!! - %s \n\n" % list(perm)
     for child in children:
         find_match(child)
 
+
+root = ([], 0, Counter(), [])
+
+print "Looking for %s" % anagram
+
+i = 0
+for word in set(wordslist):
+    # If all letters of the word are in the anagram
+    if not set(word).difference(anagram_letters):
+        add_node(root, word)
+    i += 1
+    if i % 1000 == 0:
+        print "done: ", i
+        if i % 5000 == 0:
+            print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
 
 print "%s:%s" % (anagram, anagram_length)
 
