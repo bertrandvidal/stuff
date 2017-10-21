@@ -2,7 +2,6 @@ from collections import Counter
 from itertools import permutations
 from hashlib import md5
 
-from tree_format import format_tree
 
 wordslist = []
 anagram = None
@@ -22,6 +21,10 @@ anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
 
+def word_contains(needle, haystack):
+    return all(haystack[k] - v >= 0 for k,v in needle.items())
+
+
 def add_node(node, new_word, new_word_counter):
     (words, length, counter, children) = node
     for c in children:
@@ -29,10 +32,7 @@ def add_node(node, new_word, new_word_counter):
     l = len(new_word)
     new_node_length = length + l
     new_node_counter = new_word_counter + counter
-    copy_counter = anagram_counter.copy()
-    copy_counter.subtract(new_node_counter)
-    if new_node_length <= anagram_length and all(
-                    x >= 0 for x in copy_counter.values()):
+    if word_contains(new_node_counter, anagram_counter):
         children.append((words + [new_word], new_node_length, new_node_counter, []))
 
 
@@ -61,14 +61,14 @@ def find_match(node):
 
 root = ([], 0, Counter(), [])
 
-print "Looking for %s" % anagram
+print "Looking for %s: %s" % (anagram, anagram_counter)
 
 i = 0
 for word in set(wordslist):
     try:
         # If all letters of the word are in the anagram
         word_counter = Counter(word)
-        if not set(word).difference(anagram_letters):
+        if word_contains(word_counter, anagram_counter):
             add_node(root, word, word_counter)
         i += 1
         if i % 1000 == 0:
@@ -79,13 +79,6 @@ for word in set(wordslist):
         break
 
 print "%s:%s" % (anagram, anagram_length)
-
-print format_tree(root,
-                  format_node=lambda x: "-".join(_ for _ in x[0]) + ":" +
-                                        str(x[1]) + ":%s" % (
-                      str(x[2]) if not x[3] else ""),
-                  get_children=lambda x: x[3])
-
 print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
 
 find_match(root)
