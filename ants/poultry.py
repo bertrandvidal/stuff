@@ -15,7 +15,7 @@ with open("./anagram.txt", "r") as f:
     anagram = f.readline().strip("\n")
 
 with open("./md5.txt", "r") as f:
-    target_md5 = f.readline().strip("\n")
+    target_md5 = [l.strip("\n") for l in f]
 
 anagram_counter = Counter(anagram)
 anagram_length = len(anagram)
@@ -53,9 +53,7 @@ def find_match(node):
         # check for md5 of all permutations with white spaces
         for perm in permutations(words):
             digest = md5(" ".join(perm)).hexdigest()
-            if digest in ["e4820b45d2277f3844eac66c903e84be",
-                          "23170acc097c24edb98fc5488ab033fe",
-                          "665e5bcb0c20062fe8abaaf4628bb154"]:
+            if digest in target_md5:
                 print "\n\nWINNER!! - %s \n\n" % list(perm)
     for child in children:
         find_match(child)
