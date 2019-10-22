@@ -21,6 +21,21 @@ anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
 
+class PoultryAndAnts:
+
+    def find_match(self, node):
+        (words, length, _, children) = node
+        # we've reached a leaf node that has the right amount of letters
+        if not children and length == anagram_length:
+            # check for md5 of all permutations with white spaces
+            for perm in permutations(words):
+                digest = md5(" ".join(perm)).hexdigest()
+                if digest in target_md5:
+                    print "\n\nWINNER!! - %s \n\n" % list(perm)
+        for child in children:
+            self.find_match(child)
+
+
 def word_contains(needle, haystack):
     return all(haystack[k] - v >= 0 for k,v in needle.items())
 
@@ -46,19 +61,6 @@ def nb_leaf_nodes(node, nb_leaves):
     return nb_leaves + r
 
 
-def find_match(node):
-    (words, length, _, children) = node
-    # we've reached a leaf node that has the right amount of letters
-    if not children and length == anagram_length:
-        # check for md5 of all permutations with white spaces
-        for perm in permutations(words):
-            digest = md5(" ".join(perm)).hexdigest()
-            if digest in target_md5:
-                print "\n\nWINNER!! - %s \n\n" % list(perm)
-    for child in children:
-        find_match(child)
-
-
 if __name__ == "__main__":
     root = ([], 0, Counter(), [])
 
@@ -82,4 +84,4 @@ if __name__ == "__main__":
     print "%s:%s" % (anagram, anagram_length)
     print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
 
-    find_match(root)
+    PoultryAndAnts().find_match(root)
