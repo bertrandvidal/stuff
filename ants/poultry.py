@@ -44,20 +44,19 @@ class PoultryAndAnts:
             r += self.nb_leaf_nodes(c, nb_leaves)
         return nb_leaves + r
 
+    def add_node(self, node, new_word, new_word_counter):
+        (words, length, counter, children) = node
+        for c in children:
+            self.add_node(c, new_word, new_word_counter)
+        l = len(new_word)
+        new_node_length = length + l
+        new_node_counter = new_word_counter + counter
+        if self.word_contains(new_node_counter, anagram_counter):
+            children.append(
+                (words + [new_word], new_node_length, new_node_counter, []))
 
-def word_contains(needle, haystack):
-    return all(haystack[k] - v >= 0 for k,v in needle.items())
-
-
-def add_node(node, new_word, new_word_counter):
-    (words, length, counter, children) = node
-    for c in children:
-        add_node(c, new_word, new_word_counter)
-    l = len(new_word)
-    new_node_length = length + l
-    new_node_counter = new_word_counter + counter
-    if word_contains(new_node_counter, anagram_counter):
-        children.append((words + [new_word], new_node_length, new_node_counter, []))
+    def word_contains(self, needle, haystack):
+        return all(haystack[k] - v >= 0 for k,v in needle.items())
 
 
 if __name__ == "__main__":
@@ -71,8 +70,8 @@ if __name__ == "__main__":
         try:
             # If all letters of the word are in the anagram
             word_counter = Counter(word)
-            if word_contains(word_counter, anagram_counter):
-                add_node(root, word, word_counter)
+            if ants.word_contains(word_counter, anagram_counter):
+                ants.add_node(root, word, word_counter)
             i += 1
             if i % 1000 == 0:
                 print "done: ", i
