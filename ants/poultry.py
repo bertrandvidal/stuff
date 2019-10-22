@@ -59,26 +59,27 @@ def find_match(node):
         find_match(child)
 
 
-root = ([], 0, Counter(), [])
+if __name__ == "__main__":
+    root = ([], 0, Counter(), [])
 
-print "Looking for %s: %s" % (anagram, anagram_counter)
+    print "Looking for %s: %s" % (anagram, anagram_counter)
 
-i = 0
-for word in set(wordslist):
-    try:
-        # If all letters of the word are in the anagram
-        word_counter = Counter(word)
-        if word_contains(word_counter, anagram_counter):
-            add_node(root, word, word_counter)
-        i += 1
-        if i % 1000 == 0:
-            print "done: ", i
-            if i % 5000 == 0:
-                print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
-    except KeyboardInterrupt as e:
-        break
+    i = 0
+    for word in set(wordslist):
+        try:
+            # If all letters of the word are in the anagram
+            word_counter = Counter(word)
+            if word_contains(word_counter, anagram_counter):
+                add_node(root, word, word_counter)
+            i += 1
+            if i % 1000 == 0:
+                print "done: ", i
+                if i % 5000 == 0:
+                    print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
+        except KeyboardInterrupt as e:
+            break
 
-print "%s:%s" % (anagram, anagram_length)
-print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
+    print "%s:%s" % (anagram, anagram_length)
+    print "nb-leaves: %d" % nb_leaf_nodes(root, 0)
 
-find_match(root)
+    find_match(root)
