@@ -106,7 +106,7 @@ class PoultryAndAnts:
                 if i % 1000 == 0:
                     print "done: ", i
                     if i % 5000 == 0:
-                        print "nb-leaves: %d" % self.nb_leaf_nodes(node, 0)
+                        print "nb-leaves: %d" % self.nb_leaf_nodes(node)
             except KeyboardInterrupt as e:
                 break
 
