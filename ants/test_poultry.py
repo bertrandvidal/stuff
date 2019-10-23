@@ -42,6 +42,22 @@ class PoultryAndAntsTest(unittest.TestCase):
             PoultryAndAnts("", []).word_contains(Counter("aba"),
                                                  Counter("ab")))
 
+    def test_nb_leaf_nodes_empty_tree(self):
+        nodes = PoultryAndAnts("", []).nb_leaf_nodes((None, None, None, []))
+        self.assertEqual(nodes, 1)
+
+    def test_nb_leaf_nodes_with_one_level(self):
+        children = [(None, None, None, []) for _ in [1, 2, 3]]
+        nodes = PoultryAndAnts("", []).nb_leaf_nodes(
+            (None, None, None, children))
+        self.assertEqual(nodes, len(children))
+
+    def test_nb_leaf_nodes_with_multiple_level(self):
+        child_1 = (None, None, None, [(None, None, None, []) for _ in range(3)])
+        nodes = PoultryAndAnts("", []).nb_leaf_nodes(
+            (None, None, None, [child_1, child_1]))
+        self.assertEqual(nodes, 6)
+
 
 if __name__ == '__main__':
     unittest.main()

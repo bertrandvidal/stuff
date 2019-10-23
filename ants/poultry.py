@@ -38,21 +38,20 @@ class PoultryAndAnts:
         for child in children:
             self.find_match(child)
 
-    def nb_leaf_nodes(self, node, nb_leaves):
+    def nb_leaf_nodes(self, node):
         """ Informational method to get the number of leaf nodes that can be
         reached from the given node. Recursive method.
 
         :param node: node being visited
-        :param nb_leaves: current number of leaf node found so far
         :return: number of leaf nodes that can be reached from the given node
         """
         (_, __, ___, children) = node
         if not children:
             return 1
-        r = 0
+        leaves = 0
         for c in children:
-            r += self.nb_leaf_nodes(c, nb_leaves)
-        return nb_leaves + r
+            leaves += self.nb_leaf_nodes(c)
+        return leaves
 
     def add_node(self, node, new_word, new_word_counter):
         """ Add 'new_word' to the given node and to any of its children if
@@ -128,5 +127,5 @@ if __name__ == "__main__":
     ants = PoultryAndAnts(anagram_text, target_md5)
     print "Looking for %s: %s" % (anagram_text, ants.anagram_counter)
     tree = ants.build_tree(wordlist)
-    print "total nb-leaves: %d" % ants.nb_leaf_nodes(tree, 0)
+    print "total nb-leaves: %d" % ants.nb_leaf_nodes(tree)
     ants.find_match(tree)
