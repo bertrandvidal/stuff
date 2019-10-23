@@ -16,8 +16,6 @@ with open("./anagram.txt", "r") as f:
 with open("./md5.txt", "r") as f:
     target_md5 = [l.strip("\n") for l in f]
 
-anagram_letters = set(anagram)
-
 
 class PoultryAndAnts:
 
