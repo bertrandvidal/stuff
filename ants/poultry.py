@@ -16,12 +16,14 @@ with open("./anagram.txt", "r") as f:
 with open("./md5.txt", "r") as f:
     target_md5 = [l.strip("\n") for l in f]
 
-anagram_counter = Counter(anagram)
 anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
 
 class PoultryAndAnts:
+
+    def __init__(self, anagram):
+        self.anagram_counter = Counter(anagram)
 
     def find_match(self, node):
         (words, length, _, children) = node
@@ -51,7 +53,7 @@ class PoultryAndAnts:
         l = len(new_word)
         new_node_length = length + l
         new_node_counter = new_word_counter + counter
-        if self.word_contains(new_node_counter, anagram_counter):
+        if self.word_contains(new_node_counter, self.anagram_counter):
             children.append(
                 (words + [new_word], new_node_length, new_node_counter, []))
 
@@ -64,7 +66,7 @@ class PoultryAndAnts:
             try:
                 # If all letters of the word are in the anagram
                 word_counter = Counter(word)
-                if self.word_contains(word_counter, anagram_counter):
+                if self.word_contains(word_counter, self.anagram_counter):
                     self.add_node(root, word, word_counter)
                 i += 1
                 if i % 1000 == 0:
@@ -80,6 +82,6 @@ class PoultryAndAnts:
 
 if __name__ == "__main__":
     root = ([], 0, Counter(), [])
-    ants = PoultryAndAnts()
-    print "Looking for %s: %s" % (anagram, anagram_counter)
+    ants = PoultryAndAnts(anagram)
+    print "Looking for %s: %s" % (anagram, ants.anagram_counter)
     ants.find_anagram()
