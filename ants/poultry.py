@@ -84,7 +84,7 @@ class PoultryAndAnts:
         """
         return all(haystack[k] - v >= 0 for k, v in needle.items())
 
-    def find_anagram(self, wordlist):
+    def build_tree(self, wordlist):
         """ Build a tree of nodes that only contain letter from the anagram
         and each letter will appear no more times that it does in the anagram
 
@@ -93,25 +93,27 @@ class PoultryAndAnts:
         TODO: output should not be mingled with the logic
 
         :param wordlist: the word list to use to find an anagram
-        :return: None
+        :return: the original node that was passed in
         """
+        node = ([], 0, Counter(), [])
         i = 0
         for word in set(wordlist):
             try:
                 # If all letters of the word are in the anagram
                 word_counter = Counter(word)
                 if self.word_contains(word_counter, self.anagram_counter):
-                    self.add_node(root, word, word_counter)
+                    self.add_node(node, word, word_counter)
                 i += 1
                 if i % 1000 == 0:
                     print "done: ", i
                     if i % 5000 == 0:
-                        print "nb-leaves: %d" % self.nb_leaf_nodes(root, 0)
+                        print "nb-leaves: %d" % self.nb_leaf_nodes(node, 0)
             except KeyboardInterrupt as e:
                 break
 
         print "%s:%s" % (anagram, self.anagram_length)
-        print "nb-leaves: %d" % ants.nb_leaf_nodes(root, 0)
+        print "nb-leaves: %d" % self.nb_leaf_nodes(node, 0)
+        return node
 
 
 if __name__ == "__main__":
@@ -125,7 +127,7 @@ if __name__ == "__main__":
     with open("./anagram.txt", "r") as f:
         anagram = f.readline().strip("\n")
 
-    root = ([], 0, Counter(), [])
     ants = PoultryAndAnts(anagram, target_md5)
     print "Looking for %s: %s" % (anagram, ants.anagram_counter)
-    ants.find_anagram(wordlist)
+    tree = ants.build_tree(wordlist)
+    ants.find_match(tree)
