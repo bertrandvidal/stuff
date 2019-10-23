@@ -16,7 +16,6 @@ with open("./anagram.txt", "r") as f:
 with open("./md5.txt", "r") as f:
     target_md5 = [l.strip("\n") for l in f]
 
-anagram_length = len(anagram)
 anagram_letters = set(anagram)
 
 
@@ -24,11 +23,12 @@ class PoultryAndAnts:
 
     def __init__(self, anagram):
         self.anagram_counter = Counter(anagram)
+        self.anagram_length = len(anagram)
 
     def find_match(self, node):
         (words, length, _, children) = node
         # we've reached a leaf node that has the right amount of letters
-        if not children and length == anagram_length:
+        if not children and length == self.anagram_length:
             # check for md5 of all permutations with white spaces
             for perm in permutations(words):
                 digest = md5(" ".join(perm)).hexdigest()
@@ -76,7 +76,7 @@ class PoultryAndAnts:
             except KeyboardInterrupt as e:
                 break
 
-        print "%s:%s" % (anagram, anagram_length)
+        print "%s:%s" % (anagram, self.anagram_length)
         print "nb-leaves: %d" % ants.nb_leaf_nodes(root, 0)
 
 
