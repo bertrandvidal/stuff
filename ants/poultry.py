@@ -3,25 +3,12 @@ from itertools import permutations
 from hashlib import md5
 
 
-wordslist = []
-anagram = None
-target_md5 = None
-
-with open("./words.txt", "r") as f:
-    wordslist = [line.strip("\n") for line in f]
-
-with open("./anagram.txt", "r") as f:
-    anagram = f.readline().strip("\n")
-
-with open("./md5.txt", "r") as f:
-    target_md5 = [l.strip("\n") for l in f]
-
-
 class PoultryAndAnts:
 
-    def __init__(self, anagram):
+    def __init__(self, anagram, target):
         self.anagram_counter = Counter(anagram)
         self.anagram_length = len(anagram)
+        self.target = target
 
     def find_match(self, node):
         (words, length, _, children) = node
@@ -30,7 +17,7 @@ class PoultryAndAnts:
             # check for md5 of all permutations with white spaces
             for perm in permutations(words):
                 digest = md5(" ".join(perm)).hexdigest()
-                if digest in target_md5:
+                if digest in self.target:
                     print "\n\nWINNER!! - %s \n\n" % list(perm)
         for child in children:
             self.find_match(child)
@@ -58,9 +45,9 @@ class PoultryAndAnts:
     def word_contains(self, needle, haystack):
         return all(haystack[k] - v >= 0 for k,v in needle.items())
 
-    def find_anagram(self):
+    def find_anagram(self, wordlist):
         i = 0
-        for word in set(wordslist):
+        for word in set(wordlist):
             try:
                 # If all letters of the word are in the anagram
                 word_counter = Counter(word)
@@ -79,7 +66,17 @@ class PoultryAndAnts:
 
 
 if __name__ == "__main__":
+
+    with open("./md5.txt", "r") as f:
+        target_md5 = [l.strip("\n") for l in f]
+
+    with open("./words.txt", "r") as f:
+        wordlist = [line.strip("\n") for line in f]
+
+    with open("./anagram.txt", "r") as f:
+        anagram = f.readline().strip("\n")
+
     root = ([], 0, Counter(), [])
-    ants = PoultryAndAnts(anagram)
+    ants = PoultryAndAnts(anagram, target_md5)
     print "Looking for %s: %s" % (anagram, ants.anagram_counter)
-    ants.find_anagram()
+    ants.find_anagram(wordlist)
