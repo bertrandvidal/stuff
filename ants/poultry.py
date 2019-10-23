@@ -58,29 +58,28 @@ class PoultryAndAnts:
     def word_contains(self, needle, haystack):
         return all(haystack[k] - v >= 0 for k,v in needle.items())
 
+    def find_anagram(self):
+        i = 0
+        for word in set(wordslist):
+            try:
+                # If all letters of the word are in the anagram
+                word_counter = Counter(word)
+                if self.word_contains(word_counter, anagram_counter):
+                    self.add_node(root, word, word_counter)
+                i += 1
+                if i % 1000 == 0:
+                    print "done: ", i
+                    if i % 5000 == 0:
+                        print "nb-leaves: %d" % self.nb_leaf_nodes(root, 0)
+            except KeyboardInterrupt as e:
+                break
+
+        print "%s:%s" % (anagram, anagram_length)
+        print "nb-leaves: %d" % ants.nb_leaf_nodes(root, 0)
+
 
 if __name__ == "__main__":
     root = ([], 0, Counter(), [])
     ants = PoultryAndAnts()
-
     print "Looking for %s: %s" % (anagram, anagram_counter)
-
-    i = 0
-    for word in set(wordslist):
-        try:
-            # If all letters of the word are in the anagram
-            word_counter = Counter(word)
-            if ants.word_contains(word_counter, anagram_counter):
-                ants.add_node(root, word, word_counter)
-            i += 1
-            if i % 1000 == 0:
-                print "done: ", i
-                if i % 5000 == 0:
-                    print "nb-leaves: %d" % ants.nb_leaf_nodes(root, 0)
-        except KeyboardInterrupt as e:
-            break
-
-    print "%s:%s" % (anagram, anagram_length)
-    print "nb-leaves: %d" % ants.nb_leaf_nodes(root, 0)
-
-    ants.find_match(root)
+    ants.find_anagram()
