@@ -58,6 +58,24 @@ class PoultryAndAntsTest(unittest.TestCase):
             (None, None, None, [child_1, child_1]))
         self.assertEqual(nodes, 6)
 
+    def _print_tree(self, node, indent):
+        (words, _, counter, children) = node
+        print '  ' * indent, words, ' -- ', counter, ': ', len(children)
+        for c in children:
+            self._print_tree(c, indent + 1)
+
+    def test_build_tree(self):
+        ants = PoultryAndAnts("ac", [])
+        tree = ants.build_tree(["a", "b", "c", "d"])
+        self.assertEqual(ants.nb_leaf_nodes(tree), 2)
+
+        ac_node = (["a", "c"], 2, Counter("ac"), [])
+        a_node = (["a"], 1, Counter("a"), [ac_node])
+        c_node = (["c"], 1, Counter("c"), [])
+        expected_tree = ([], 0, Counter(), [a_node, c_node])
+        self.assertEqual(tree, expected_tree)
+        self._print_tree(tree, 0)
+
 
 if __name__ == '__main__':
     unittest.main()
