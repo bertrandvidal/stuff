@@ -111,8 +111,6 @@ class PoultryAndAnts:
             except KeyboardInterrupt as e:
                 break
 
-        print "%s:%s" % (anagram, self.anagram_length)
-        print "nb-leaves: %d" % self.nb_leaf_nodes(node, 0)
         return node
 
 
@@ -130,4 +128,5 @@ if __name__ == "__main__":
     ants = PoultryAndAnts(anagram_text, target_md5)
     print "Looking for %s: %s" % (anagram_text, ants.anagram_counter)
     tree = ants.build_tree(wordlist)
+    print "total nb-leaves: %d" % ants.nb_leaf_nodes(tree, 0)
     ants.find_match(tree)
