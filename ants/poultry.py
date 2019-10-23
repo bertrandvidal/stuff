@@ -84,7 +84,7 @@ class PoultryAndAnts:
         """
         return all(haystack[k] - v >= 0 for k, v in needle.items())
 
-    def build_tree(self, wordlist):
+    def build_tree(self, words):
         """ Build a tree of nodes that only contain letter from the anagram
         and each letter will appear no more times that it does in the anagram
 
@@ -92,12 +92,12 @@ class PoultryAndAnts:
 
         TODO: output should not be mingled with the logic
 
-        :param wordlist: the word list to use to find an anagram
+        :param words: the word list to use to find an anagram
         :return: the original node that was passed in
         """
         node = ([], 0, Counter(), [])
         i = 0
-        for word in set(wordlist):
+        for word in set(words):
             try:
                 # If all letters of the word are in the anagram
                 word_counter = Counter(word)
