@@ -125,9 +125,9 @@ if __name__ == "__main__":
         wordlist = [line.strip("\n") for line in f]
 
     with open("./anagram.txt", "r") as f:
-        anagram = f.readline().strip("\n")
+        anagram_text = f.readline().strip("\n")
 
-    ants = PoultryAndAnts(anagram, target_md5)
-    print "Looking for %s: %s" % (anagram, ants.anagram_counter)
+    ants = PoultryAndAnts(anagram_text, target_md5)
+    print "Looking for %s: %s" % (anagram_text, ants.anagram_counter)
     tree = ants.build_tree(wordlist)
     ants.find_match(tree)
