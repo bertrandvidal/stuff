@@ -65,8 +65,8 @@ class PoultryAndAnts:
         (words, length, counter, children) = node
         for c in children:
             self.add_node(c, new_word, new_word_counter)
-        l = len(new_word)
-        new_node_length = length + l
+        new_word_length = len(new_word)
+        new_node_length = length + new_word_length
         new_node_counter = new_word_counter + counter
         if self.word_contains(new_node_counter, self.anagram_counter):
             children.append(
