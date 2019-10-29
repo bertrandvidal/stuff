@@ -76,6 +76,29 @@ class PoultryAndAntsTest(unittest.TestCase):
         self.assertEqual(tree, expected_tree)
         self._print_tree(tree, 0)
 
+    def test_add_node_top_node(self):
+        ants = PoultryAndAnts("abc", [])
+        node = ([], 1, Counter(), [])
+        ants.add_node(node, "a", Counter("a"))
+        nb_nodes = ants.nb_leaf_nodes(node)
+        self.assertEqual(nb_nodes, 1)
+
+    def test_add_node_not_part_of_anagram(self):
+        ants = PoultryAndAnts("abc", [])
+        node = ([], 1, Counter(), [])
+        ants.add_node(node, "d", Counter("d"))
+        nb_nodes = ants.nb_leaf_nodes(node)
+        self.assertEqual(nb_nodes, 1)  # the root node is also a leaf
+
+    def test_add_node_all_letters(self):
+        ants = PoultryAndAnts("abc", [])
+        node = ([], 1, Counter(), [])
+        ants.add_node(node, "a", Counter("a"))
+        ants.add_node(node, "b", Counter("b"))
+        ants.add_node(node, "c", Counter("c"))
+        nb_nodes = ants.nb_leaf_nodes(node)
+        self.assertEqual(nb_nodes, 4)
+
 
 if __name__ == '__main__':
     unittest.main()
