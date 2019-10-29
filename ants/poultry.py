@@ -36,7 +36,7 @@ class PoultryAndAnts:
                 if digest in self.targets:
                     return list(perm)
         for child in children:
-            self.find_match(child)
+            return self.find_match(child)
 
     def nb_leaf_nodes(self, node):
         """ Informational method to get the number of leaf nodes that can be

@@ -1,5 +1,6 @@
 import unittest
 from collections import Counter
+from hashlib import md5
 
 from poultry import PoultryAndAnts
 
@@ -110,6 +111,18 @@ class PoultryAndAntsTest(unittest.TestCase):
         nodes = ants.build_tree(["d", "e"])
         nb_nodes = ants.nb_leaf_nodes(nodes)
         self.assertEqual(nb_nodes, 1) # the root node is also a leaf
+
+    def test_find_match(self):
+        ants = PoultryAndAnts("ab", [md5("b a").hexdigest()])
+        nodes = ants.build_tree(["a", "b", "c", "d"])
+        match = ants.find_match(nodes)
+        self.assertEqual(match, ["b", "a"])
+
+    def test_find_match_no_match(self):
+        ants = PoultryAndAnts("ab", [md5("b a").hexdigest()])
+        nodes = ants.build_tree(["c", "d"])
+        match = ants.find_match(nodes)
+        self.assertIsNone(match)
 
 
 if __name__ == '__main__':
