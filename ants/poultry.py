@@ -14,8 +14,9 @@ class PoultryAndAnts:
         :param targets: list of md5s of anagrams that would match the given
         anagram
         """
-        self.anagram_counter = Counter(anagram)
-        self.anagram_length = len(anagram)
+        anagram_text = anagram.replace(" ", "")
+        self.anagram_counter = Counter(anagram_text)
+        self.anagram_length = len(anagram_text)
         self.targets = targets
 
     def find_match(self, node):
@@ -66,9 +67,11 @@ class PoultryAndAnts:
         for c in children:
             self.add_node(c, new_word, new_word_counter)
         new_node_counter = new_word_counter + counter
-        if self.word_contains(new_node_counter, self.anagram_counter):
+        new_word_length = length + len(new_word)
+        if new_word_length <= self.anagram_length and self.word_contains(
+                new_node_counter, self.anagram_counter):
             children.append(
-                (words + [new_word], length + len(new_word), new_node_counter, []))
+                (words + [new_word], new_word_length, new_node_counter, []))
 
     def word_contains(self, needle, haystack):
         """ Check whether or not the needle (Counter of a node) can be
@@ -93,21 +96,20 @@ class PoultryAndAnts:
         :return: the original node that was passed in
         """
         node = ([], 0, Counter(), [])
-        i = 0
+        eligible_words = []
         for word in set(words):
-            try:
-                # If all letters of the word are in the anagram
-                word_counter = Counter(word)
-                if self.word_contains(word_counter, self.anagram_counter):
-                    self.add_node(node, word, word_counter)
-                i += 1
-                if i % 1000 == 0:
-                    print "done: ", i
-                    if i % 5000 == 0:
-                        print "nb-leaves: %d" % self.nb_leaf_nodes(node)
-            except KeyboardInterrupt as e:
-                break
-
+            # If all letters of the word are in the anagram
+            word_counter = Counter(word)
+            if self.word_contains(word_counter, self.anagram_counter):
+                eligible_words.append((word, word_counter))
+        print 'eligible words: ', len(eligible_words)
+        try:
+            for (idx, (word, counter)) in enumerate(eligible_words):
+                if not idx % 10:
+                    print 'done: ', idx, ' - nb leaves: ', self.nb_leaf_nodes(node)
+                self.add_node(node, word, counter)
+        except KeyboardInterrupt:
+            pass
         return node
 
 
@@ -119,11 +121,10 @@ if __name__ == "__main__":
     with open("./words.txt", "r") as f:
         wordlist = [line.strip("\n") for line in f]
 
-    with open("./anagram.txt", "r") as f:
-        anagram_text = f.readline().strip("\n")
+    anagram = "poultry outwits ants"
 
-    ants = PoultryAndAnts(anagram_text, target_md5)
-    print "Looking for %s: %s" % (anagram_text, ants.anagram_counter)
+    ants = PoultryAndAnts(anagram, target_md5)
+    print "Looking for '%s': %s" % (anagram, ants.anagram_counter)
     tree = ants.build_tree(wordlist)
     print "total nb-leaves: %d" % ants.nb_leaf_nodes(tree)
-    ants.find_match(tree)
+    print "match: %s" % ants.find_match(tree)
