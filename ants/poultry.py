@@ -65,12 +65,10 @@ class PoultryAndAnts:
         (words, length, counter, children) = node
         for c in children:
             self.add_node(c, new_word, new_word_counter)
-        new_word_length = len(new_word)
-        new_node_length = length + new_word_length
         new_node_counter = new_word_counter + counter
         if self.word_contains(new_node_counter, self.anagram_counter):
             children.append(
-                (words + [new_word], new_node_length, new_node_counter, []))
+                (words + [new_word], length + len(new_word), new_node_counter, []))
 
     def word_contains(self, needle, haystack):
         """ Check whether or not the needle (Counter of a node) can be

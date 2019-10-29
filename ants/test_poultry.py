@@ -105,7 +105,7 @@ class PoultryAndAntsTest(unittest.TestCase):
         nb_nodes = ants.nb_leaf_nodes(nodes)
         self.assertEqual(nb_nodes, 4)
 
-    def test_build_tree(self):
+    def test_build_tree_not_part_of_anagram(self):
         ants = PoultryAndAnts("abc", [])
         nodes = ants.build_tree(["d", "e"])
         nb_nodes = ants.nb_leaf_nodes(nodes)
