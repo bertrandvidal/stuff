@@ -65,7 +65,7 @@ class PoultryAndAntsTest(unittest.TestCase):
         for c in children:
             self._print_tree(c, indent + 1)
 
-    def test_build_tree(self):
+    def test_build_tree_structure(self):
         ants = PoultryAndAnts("ac", [])
         tree = ants.build_tree(["a", "b", "c", "d"])
         self.assertEqual(ants.nb_leaf_nodes(tree), 2)
@@ -75,7 +75,6 @@ class PoultryAndAntsTest(unittest.TestCase):
         c_node = (["c"], 1, Counter("c"), [])
         expected_tree = ([], 0, Counter(), [a_node, c_node])
         self.assertEqual(tree, expected_tree)
-        self._print_tree(tree, 0)
 
     def test_add_node_top_node(self):
         ants = PoultryAndAnts("abc", [])
