@@ -99,6 +99,18 @@ class PoultryAndAntsTest(unittest.TestCase):
         nb_nodes = ants.nb_leaf_nodes(node)
         self.assertEqual(nb_nodes, 4)
 
+    def test_build_tree(self):
+        ants = PoultryAndAnts("abc", [])
+        nodes = ants.build_tree(["a", "b", "c", "d"])
+        nb_nodes = ants.nb_leaf_nodes(nodes)
+        self.assertEqual(nb_nodes, 4)
+
+    def test_build_tree(self):
+        ants = PoultryAndAnts("abc", [])
+        nodes = ants.build_tree(["d", "e"])
+        nb_nodes = ants.nb_leaf_nodes(nodes)
+        self.assertEqual(nb_nodes, 1) # the root node is also a leaf
+
 
 if __name__ == '__main__':
     unittest.main()
