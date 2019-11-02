@@ -106,11 +106,19 @@ class PoultryAndAnts:
         try:
             for (idx, (word, word_len, counter)) in enumerate(eligible_words):
                 if not idx % 10:
-                    print 'done: ', idx, ' - nb leaves: ', self.nb_leaf_nodes(node)
+                    print 'done: ', idx, ' - nb leaves: ', self.nb_leaf_nodes(
+                        node)
                 self.add_node(node, word, counter)
         except KeyboardInterrupt:
-            pass
+            print_tree(node)
         return node
+
+
+def print_tree(node, indent=0):
+    (words, _, counter, children) = node
+    print '  ' * indent, words, ' -- ', counter, ': ', len(children)
+    for c in children:
+        print_tree(c, indent + 1)
 
 
 if __name__ == "__main__":
