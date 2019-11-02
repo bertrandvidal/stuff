@@ -101,10 +101,10 @@ class PoultryAndAnts:
             # If all letters of the word are in the anagram
             word_counter = Counter(word)
             if self.word_contains(word_counter, self.anagram_counter):
-                eligible_words.append((word, word_counter))
+                eligible_words.append((word, len(word), word_counter))
         print 'eligible words: ', len(eligible_words)
         try:
-            for (idx, (word, counter)) in enumerate(eligible_words):
+            for (idx, (word, word_len, counter)) in enumerate(eligible_words):
                 if not idx % 10:
                     print 'done: ', idx, ' - nb leaves: ', self.nb_leaf_nodes(node)
                 self.add_node(node, word, counter)
