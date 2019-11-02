@@ -28,9 +28,10 @@ class PoultryAndAnts:
         :return: the first found list of words that have an md5 found in
         self.targets, None if no such list of words can be found
         """
-        (words, length, _, children) = node
+        (words, length, counter, children) = node
         # we've reached a leaf node that has the right amount of letters
-        if not children and length == self.anagram_length:
+        if not children and length == self.anagram_length \
+                and counter == self.anagram_counter:
             # check for md5 of all permutations with white spaces
             for perm in permutations(words):
                 digest = md5(" ".join(perm)).hexdigest()
