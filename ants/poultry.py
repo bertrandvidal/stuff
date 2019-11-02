@@ -123,16 +123,17 @@ def print_tree(node, indent=0):
 
 if __name__ == "__main__":
 
-    with open("./md5.txt", "r") as f:
+    with open("./md5_test.txt", "r") as f:
         target_md5 = [l.strip("\n") for l in f]
 
-    with open("./words.txt", "r") as f:
+    with open("./words_test.txt", "r") as f:
         wordlist = [line.strip("\n") for line in f]
 
-    anagram = "poultry outwits ants"
+    anagram = "bert goes to the circus"
 
     ants = PoultryAndAnts(anagram, target_md5)
     print "Looking for '%s': %s" % (anagram, ants.anagram_counter)
     tree = ants.build_tree(wordlist)
+    print_tree(tree)
     print "total nb-leaves: %d" % ants.nb_leaf_nodes(tree)
     print "match: %s" % ants.find_match(tree)
