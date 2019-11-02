@@ -19,6 +19,16 @@ class PoultryAndAnts:
         self.anagram_length = len(anagram_text)
         self.targets = targets
 
+    def _words_match_anagram(self, words):
+        for perm in permutations(words):
+            # check for md5 of all permutations with white spaces
+            sentence = " ".join(perm)
+            digest = md5(sentence).hexdigest()
+            if digest in self.targets:
+                print "*" * 25, "\n%s\n" % sentence, "*" * 25
+                return list(perm)
+        return []
+
     def find_match(self, node):
         """ Given a fully built tree return the first anagram found that has
         an md5 found in self.targets. Recursive method visiting the given
@@ -30,13 +40,11 @@ class PoultryAndAnts:
         """
         (words, length, counter, children) = node
         # we've reached a leaf node that has the right amount of letters
-        if not children and length == self.anagram_length \
-                and counter == self.anagram_counter:
-            # check for md5 of all permutations with white spaces
-            for perm in permutations(words):
-                digest = md5(" ".join(perm)).hexdigest()
-                if digest in self.targets:
-                    return list(perm)
+        if not children and length == self.anagram_length and counter == \
+                self.anagram_counter:
+            match = self._words_match_anagram(words)
+            if match:
+                return match
         for child in children:
             return self.find_match(child)
 
@@ -71,8 +79,11 @@ class PoultryAndAnts:
         if new_word_length <= self.anagram_length:
             new_node_counter = new_word_counter + counter
             if self.word_contains(new_node_counter, self.anagram_counter):
-                children.append(
-                    (words + [new_word], new_word_length, new_node_counter, []))
+                new_node_words = words + [new_word]
+                if new_node_counter == self.anagram_counter:
+                    self._words_match_anagram(new_node_words)
+                node = (new_node_words, new_word_length, new_node_counter, [])
+                children.append(node)
 
     def word_contains(self, needle, haystack):
         """ Check whether or not the needle (Counter of a node) can be
