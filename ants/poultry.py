@@ -110,7 +110,7 @@ class PoultryAndAnts:
                         node)
                 self.add_node(node, word, counter)
         except KeyboardInterrupt:
-            print_tree(node)
+            pass
         return node
 
 
