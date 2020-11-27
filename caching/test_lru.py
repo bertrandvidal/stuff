@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from lru import LeastRecentlyUsedCache
+from lru import LeastRecentlyUsedCache, lru
 
 
 class TestLeastRecentlyUsedCache(TestCase):
@@ -68,3 +68,27 @@ class TestLeastRecentlyUsedCache(TestCase):
         value = lru.get(2)
         self.assertEqual(value, 4)
         self.assertEqual(nb_calls, 1)
+
+    def test_decorator(self):
+        nb_calls = 0
+
+        @lru(3)
+        def square(x):
+            nonlocal nb_calls
+            nb_calls += 1
+            return x ** 2
+
+        value = square(3)
+        self.assertEqual(value, 9)
+        self.assertEqual(nb_calls, 1)
+        value = square(3)
+        self.assertEqual(value, 9)
+        self.assertEqual(nb_calls, 1)
+
+        square(4)
+        square(5)
+        square(6)
+        self.assertEqual(nb_calls, 4)
+        value = square(3)
+        self.assertEqual(value, 9)
+        self.assertEqual(nb_calls, 5)

@@ -47,8 +47,7 @@ class LeastRecentlyUsedCache:
             return self._storage.get(key)
         value = self._callback(key)
         if value:
-            self._storage[key] = value
-            self._evict_if_necessary()
+            self.add(key, value)
         return value
 
     def _update_keys_access_order(self, key) -> None:
@@ -69,3 +68,10 @@ class LeastRecentlyUsedCache:
         if keys_length > self._capacity:
             evicted = self._keys.pop(keys_length - 1)
             self._storage.pop(evicted)
+
+
+def lru(size):
+    def wrapped(function):
+        cache = LeastRecentlyUsedCache(capacity=size, callback=function)
+        return cache.get
+    return wrapped
