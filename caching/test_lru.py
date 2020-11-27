@@ -45,27 +45,26 @@ class TestLeastRecentlyUsedCache(TestCase):
         lru.get(nb_items + 1)
         self.assertEqual(list(reversed(range(nb_items))), lru._keys)
 
-    def test_returns_default_value(self):
-        lru = LeastRecentlyUsedCache()
-        default = "some-default"
-        value = lru.get("non-existent-value", default)
-        self.assertEqual(value, default)
-
-    def test_returns_actual_value_despite_default_value(self):
-        lru = LeastRecentlyUsedCache()
-        key = "non-existent-value"
-        actual_value = 12
-        lru.add(key, actual_value)
-        default = "some-default"
-        value = lru.get(key, default)
-        self.assertEqual(value, actual_value)
-
     def test_eviction_on_add_value(self):
         nb_items = 3
         lru = LeastRecentlyUsedCache(nb_items)
         [lru.add(x, x ** 2) for x in range(5)]
-        default_value = "default-value"
-        value = lru.get(1, default_value)
-        self.assertEqual(value, default_value)
+        self.assertIsNone(lru.get(1))
         self.assertEqual(list(reversed(range(5)))[:-2], lru._keys)
         self.assertEqual({x: x ** 2 for x in list(reversed(range(5)))[:-2]}, lru._storage)
+
+    def test_callback_called_for_non_cached_values(self):
+        nb_calls = 0
+
+        def square(key):
+            nonlocal nb_calls
+            nb_calls += 1
+            return key ** 2
+
+        lru = LeastRecentlyUsedCache(callback=square)
+        value = lru.get(2)
+        self.assertEqual(value, 4)
+        self.assertEqual(nb_calls, 1)
+        value = lru.get(2)
+        self.assertEqual(value, 4)
+        self.assertEqual(nb_calls, 1)

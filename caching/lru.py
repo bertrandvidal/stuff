@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 
 class LeastRecentlyUsedCache:
@@ -7,8 +7,9 @@ class LeastRecentlyUsedCache:
     """
     _DEFAULT_CAPACITY = 10
 
-    def __init__(self, capacity: int = _DEFAULT_CAPACITY):
+    def __init__(self, capacity: int = _DEFAULT_CAPACITY, callback: Callable = None):
         self._storage = {}
+        self._callback = callback or self._storage.get
         self._capacity = capacity
         self._keys = []
 
@@ -30,16 +31,20 @@ class LeastRecentlyUsedCache:
         self._evict_if_necessary()
         self._storage[key] = value
 
-    def get(self, key: Any, default: Any = None) -> Any:
+    def get(self, key: Any) -> Any:
         """ Return the value stored for the given key or the provided default
 
         :param key: key associated to the value we are trying to retrieve
-        :param default: value returned in case the given key isn't present in cache
         :return: value associated with key if any or the given default
         """
         if key in self._storage:
             self._update_keys_access_order(key)
-        return self._storage.get(key, default)
+            return self._storage.get(key)
+        value = self._callback(key)
+        if value:
+            self._storage[key] = value
+            self._evict_if_necessary()
+        return value
 
     def _update_keys_access_order(self, key) -> None:
         """ Keep the list of keys in accessed order """
