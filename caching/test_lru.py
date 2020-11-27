@@ -13,3 +13,10 @@ class TestLeastRecentlyUsedCache(TestCase):
         capacity = 12
         lru = LeastRecentlyUsedCache(capacity)
         self.assertEqual(lru.get_capacity(), capacity)
+
+    def test_retrieve_value(self):
+        key = "some-test-value"
+        value = "some-test-value"
+        lru = LeastRecentlyUsedCache()
+        lru.add(key, value)
+        self.assertEqual(value, lru.get(key))
