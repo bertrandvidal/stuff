@@ -8,6 +8,11 @@ class LeastRecentlyUsedCache:
     _DEFAULT_CAPACITY = 10
 
     def __init__(self, capacity: int = _DEFAULT_CAPACITY, callback: Callable = None):
+        """
+
+        :param capacity: the maximum number of key/value pairs that will be held in memory
+        :param callback: callback to invoke if the key isn't known
+        """
         self._storage = {}
         self._callback = callback or self._storage.get
         self._capacity = capacity
