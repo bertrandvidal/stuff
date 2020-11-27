@@ -10,6 +10,7 @@ class LeastRecentlyUsedCache:
     def __init__(self, capacity: int = _DEFAULT_CAPACITY):
         self._storage = {}
         self._capacity = capacity
+        self._keys = []
 
     def get_capacity(self) -> Any:
         """
@@ -25,6 +26,8 @@ class LeastRecentlyUsedCache:
         :param value: value link to the given key
         :return: None
         """
+        self._update_keys_access_order(key)
+        self._evict_if_necessary()
         self._storage[key] = value
 
     def get(self, key: Any, default: Any = None) -> Any:
@@ -34,4 +37,25 @@ class LeastRecentlyUsedCache:
         :param default: value returned in case the given key isn't present in cache
         :return: value associated with key if any or the given default
         """
+        if key in self._storage:
+            self._update_keys_access_order(key)
         return self._storage.get(key, default)
+
+    def _update_keys_access_order(self, key) -> None:
+        """ Keep the list of keys in accessed order """
+        try:
+            # we remove the key from the "spot" it was last access so it can be put
+            # at the head of the list
+            self._keys.remove(key)
+        except ValueError:
+            # key is new so their is nothing to do
+            pass
+        # always add 'key' at the head of the list since it's the last item that was accessed
+        self._keys.insert(0, key)
+
+    def _evict_if_necessary(self):
+        """ Ensure we do not store more value than 'capacity' """
+        keys_length = len(self._keys)
+        if keys_length > self._capacity:
+            evicted = self._keys.pop(keys_length - 1)
+            self._storage.pop(evicted)
