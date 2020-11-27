@@ -1,3 +1,5 @@
+from typing import Any
+
 
 class LeastRecentlyUsedCache:
     """
@@ -8,5 +10,9 @@ class LeastRecentlyUsedCache:
     def __init__(self, capacity: int = _DEFAULT_CAPACITY):
         self._capacity = capacity
 
-    def get_capacity(self):
+    def get_capacity(self) -> Any:
+        """
+
+        :return: maximum number of key/value pairs the cache can hold before eviction takes place
+        """
         return self._capacity
