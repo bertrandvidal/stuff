@@ -12,12 +12,10 @@ duration = 3
 frequency = 440.0
 
 bw_image = None
-debug_image = None
 
 with Image.open(sys.argv[1]) as img:
     # convert image to 1-bit B&W image
     bw_image = img.convert("1")
-    debug_image = img.copy()
 
 (width, height) = bw_image.size
 
@@ -38,9 +36,6 @@ for w in range(width):
     if min_h < max_h:
         # w pixel column only has black pixels
         min_h = max_h = 0
-    # mark the top pixel with red and lower with green #visualdebug
-    debug_image.putpixel((w, max_h), (255, 0, 0))
-    debug_image.putpixel((w, min_h), (0, 255, 0))
 
     assert min_h >= max_h, f"{w} x {h}: {min_h} / {max_h}"
     min_max.append((min_h, max_h))
@@ -80,7 +75,6 @@ viz_frame = int(viz_w / idx_range)
 
 for idx, (min_val, max_val) in enumerate(min_max):
     original_average = max_val + int((min_val - max_val) / 2)
-    debug_image.putpixel((idx, original_average), (0, 0, 255))
     viz_avg = scale(original_average, 0, height, 0, viz_h)
     # Add min/max/avg in wave_viz_img for visual debugging!!!
     viz_idx = scale(idx, 0, idx_range, 0, viz_w)
@@ -94,9 +88,6 @@ for idx, (min_val, max_val) in enumerate(min_max):
             (255, 255, 0))
     prev_avg = viz_avg
     prev_idx = viz_idx
-
-with open("debug-%s" % sys.argv[1], "wb") as dbg_file:
-    debug_image.save(dbg_file)
 
 with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
     viz_img.save(wave_dbg_file)
