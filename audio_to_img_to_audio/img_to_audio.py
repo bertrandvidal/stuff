@@ -50,9 +50,10 @@ with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setsampwidth(2)
     wave_file.setframerate(sampleRate)
     for idx, (min_val, max_val) in enumerate(min_max):
-        value = min_val if idx % 2 == 0 else max_val
-        scaled_value = scale_value(value)
-        # we repeat that same value 'wave_frame' time in the file
-        for _ in range(wave_frame):
-            data = struct.pack('<h', scaled_value)
+        scaled_min = scale_value(min_val)
+        scaled_max = scale_value(max_val)
+        per_frame_diff = int((scaled_max - scaled_min) / wave_frame)
+        # we gradually go from min to max in "wave_frame" steps
+        for step in range(wave_frame):
+            data = struct.pack('<h', scaled_min + (step * per_frame_diff))
             wave_file.writeframesraw(data)
