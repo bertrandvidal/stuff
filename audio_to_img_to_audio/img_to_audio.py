@@ -73,35 +73,30 @@ prev_avg = 0
 prev_idx = 0
 wave_values = []
 
-wave_viz_w, wave_viz_h = (8192, 2880)
-wave_viz_img = Image.new("RGB", (wave_viz_w, wave_viz_h))
+viz_w, viz_h = (8192, 2880)
+viz_img = Image.new("RGB", (viz_w, viz_h))
 idx_range = len(min_max)
-wave_viz_frame = int(wave_viz_w / idx_range)
+viz_frame = int(viz_w / idx_range)
 
 for idx, (min_val, max_val) in enumerate(min_max):
     original_average = max_val + int((min_val - max_val) / 2)
     debug_image.putpixel((idx, original_average), (0, 0, 255))
-
-    wave_viz_avg = scale(original_average, 0, height, 0, wave_viz_h)
+    viz_avg = scale(original_average, 0, height, 0, viz_h)
     # Add min/max/avg in wave_viz_img for visual debugging!!!
-    wave_viz_idx = scale(idx, 0, idx_range, 0, wave_viz_w)
-    wave_viz_img.putpixel((wave_viz_idx, scale(min_val, 0, height, 0, wave_viz_h)),
-                          (0, 255, 0))
-    wave_viz_img.putpixel((wave_viz_idx, scale(max_val, 0, height, 0, wave_viz_h)),
-                          (255, 0, 0))
-    wave_viz_img.putpixel(
-        (wave_viz_idx, wave_viz_avg),
-        (0, 0, 255))
-    increment_per_step = (wave_viz_avg - prev_avg) / wave_viz_frame
-    for step in range(wave_viz_frame + 1):
-        wave_viz_img.putpixel(
-            (prev_idx + step, prev_avg + int(step * increment_per_step)),
+    viz_idx = scale(idx, 0, idx_range, 0, viz_w)
+    viz_img.putpixel((viz_idx, scale(min_val, 0, height, 0, viz_h)), (0, 255, 0))
+    viz_img.putpixel((viz_idx, scale(max_val, 0, height, 0, viz_h)), (255, 0, 0))
+    viz_img.putpixel((viz_idx, viz_avg), (0, 0, 255))
+    viz_increment_per_step = (viz_avg - prev_avg) / viz_frame
+    for viz_step in range(viz_frame + 1):
+        viz_img.putpixel(
+            (prev_idx + viz_step, prev_avg + int(viz_step * viz_increment_per_step)),
             (255, 255, 0))
-    prev_avg = wave_viz_avg
-    prev_idx = wave_viz_idx
+    prev_avg = viz_avg
+    prev_idx = viz_idx
 
 with open("debug-%s" % sys.argv[1], "wb") as dbg_file:
     debug_image.save(dbg_file)
 
 with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
-    wave_viz_img.save(wave_dbg_file)
+    viz_img.save(wave_dbg_file)
