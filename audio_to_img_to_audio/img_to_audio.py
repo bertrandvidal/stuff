@@ -70,9 +70,9 @@ def clamp(value, to_min, to_max):
 
 
 prev_avg = 0
+prev_idx = 0
 wave_values = []
 
-array_data = np.zeros((int(duration * sampleRate), wave_range), dtype=(np.uint8, 3))
 wave_viz_w, wave_viz_h = (8192, 2880)
 wave_viz_img = Image.new("RGB", (wave_viz_w, wave_viz_h))
 idx_range = len(min_max)
@@ -95,9 +95,10 @@ for idx, (min_val, max_val) in enumerate(min_max):
     increment_per_step = (wave_viz_avg - prev_avg) / wave_viz_frame
     for step in range(wave_viz_frame + 1):
         wave_viz_img.putpixel(
-            (wave_viz_idx + step, prev_avg + int(step * increment_per_step)),
+            (prev_idx + step, prev_avg + int(step * increment_per_step)),
             (255, 255, 0))
     prev_avg = wave_viz_avg
+    prev_idx = wave_viz_idx
 
 with open("debug-%s" % sys.argv[1], "wb") as dbg_file:
     debug_image.save(dbg_file)
