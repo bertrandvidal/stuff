@@ -49,8 +49,6 @@ wave_range = wave_max - wave_min
 
 
 def scale_value(v):
-    """TODO(bvidal): not only should we scale but also we should handle the fact
-    that max < min because (0, 0) is upper left"""
     return int(v * wave_range / image_range) + wave_min
 
 
@@ -60,7 +58,7 @@ with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setframerate(sampleRate)
     prev_avg = 0
     for idx, (min_val, max_val) in enumerate(min_max):
-        scaled_avg = (scale_value(max_val) - scale_value(min_val)) / 2
+        scaled_avg = scale_value((min_val - max_val) / 2)
         # we gradually go from the previous avg to the current one
         per_frame_diff = int((scaled_avg - prev_avg) / wave_frame)
         for frame in range(wave_frame):
