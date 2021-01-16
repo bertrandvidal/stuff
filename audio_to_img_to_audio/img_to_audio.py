@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-
+import struct
 import sys
+import wave
 
 import numpy as np
 from PIL import Image
@@ -39,14 +40,6 @@ for w in range(width):
 
     min_max.append((min_h, max_h))
 
-# each column of the image will be "stretched" to this many "frame" of the wave file
-wave_frame = int(duration * sampleRate / len(min_max))
-image_range = height
-# range of a 16-bit wave
-wave_min = -32768
-wave_max = 32767
-wave_range = wave_max - wave_min
-
 
 def image_to_wave_scale(v):
     return int(v * wave_range / image_range) + wave_min
@@ -65,12 +58,21 @@ def clamp(value, to_min, to_max):
 
 viz_prev_avg = 0
 viz_prev_idx = 0
-wave_values = []
-
 viz_w, viz_h = (8192, 2880)
 viz_img = Image.new("RGB", (viz_w, viz_h))
 idx_range = len(min_max)
 viz_frame = int(viz_w / idx_range)
+
+# each column of the image will be "stretched" to this many "frame" of the wave file
+wave_length = int(duration * sampleRate)
+wave_frame = int(wave_length / idx_range)
+image_range = height
+# range of a 16-bit wave
+wave_min = -32768
+wave_max = 32767
+wave_range = wave_max - wave_min
+wave_prev_avg = 0
+wave_values = []
 
 for idx, (min_val, max_val) in enumerate(min_max):
     original_average = max_val + int((min_val - max_val) / 2)
@@ -87,6 +89,20 @@ for idx, (min_val, max_val) in enumerate(min_max):
             (255, 255, 0))
     viz_prev_avg = viz_avg
     viz_prev_idx = viz_idx
+    # Handle wave's values
+    wave_avg = scale(original_average, 0, height, wave_min, wave_max)
+    wave_increment_per_step = (wave_avg - wave_prev_avg) / wave_frame
+    for wave_step in range(wave_frame + 1):
+        wave_values.append(wave_prev_avg + int(wave_step * wave_increment_per_step))
+    wave_values.append(wave_avg)
+    wave_prev_avg = wave_avg
 
 with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
     viz_img.save(wave_dbg_file)
+
+with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
+    wave_file.setnchannels(1)  # mono
+    wave_file.setsampwidth(2)
+    wave_file.setframerate(sampleRate)
+    for wave_value in wave_values:
+        wave_file.writeframesraw(struct.pack('<h', int(wave_value)))
