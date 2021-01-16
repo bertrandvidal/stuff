@@ -14,7 +14,7 @@ frequency = 440.0
 
 with Image.open(sys.argv[1]) as img:
     # convert image to 1-bit B&W image
-    bw_image = img.convert()
+    bw_image = img.convert("1")
 
 (width, height) = bw_image.size
 
@@ -27,8 +27,8 @@ for w in range(width):
     max_h = height
     min_h = 0
     for h in range(height):
-        (r, g, b, _) = bw_image.getpixel((w, h))
-        if r + g + b != 0:
+        pixel_value = bw_image.getpixel((w, h))
+        if pixel_value != 0:
             max_h = min(max_h, h)
             min_h = max(min_h, h)
     # that one is weird but again that's because (0, 0) is upper left of image
