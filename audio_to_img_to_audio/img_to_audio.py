@@ -20,19 +20,23 @@ with Image.open(sys.argv[1]) as img:
 
 min_max = []
 
+# Note that (0, 0) is upper left corner as per
+# https://pillow.readthedocs.io/en/4.0.x/handbook/concepts.html#coordinate-system
+# So when we are looking for the highest non black pixel it actually has the lowest h
 for w in range(width):
-    max_h = 0
-    min_h = height
+    max_h = height
+    min_h = 0
     for h in range(height):
         (r, g, b, _) = bw_image.getpixel((w, h))
         if r + g + b != 0:
-            max_h = max(max_h, h)
-            min_h = min(min_h, h)
-    if min_h > max_h:
+            max_h = min(max_h, h)
+            min_h = max(min_h, h)
+    # that one is weird but again that's because (0, 0) is upper left of image
+    if min_h < max_h:
         # w pixel column only has black pixels
         min_h = max_h = 0
 
-    assert min_h <= max_h, f"{w} x {h}: {min_h} / {max_h}"
+    assert min_h >= max_h, f"{w} x {h}: {min_h} / {max_h}"
     min_max.append((min_h, max_h))
 
 # each column of the image will be "stretched" to this many "frame" of the wave file
