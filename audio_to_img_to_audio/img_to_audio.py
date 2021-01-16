@@ -59,8 +59,11 @@ def scale_value(v):
     return int(v * wave_range / image_range) + wave_min
 
 
+prev_avg = 0
 for idx, (min_val, max_val) in enumerate(min_max):
-    scaled_avg = scale_value((min_val - max_val) / 2)
+    original_average = int((min_val - max_val) / 2)
+    debug_image.putpixel((idx, original_average), (0, 0, 255))
+    scaled_avg = scale_value(original_average)
     # we gradually go from the previous avg to the current one
     per_frame_diff = int((scaled_avg - prev_avg) / wave_frame)
     for frame in range(wave_frame):
