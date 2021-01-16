@@ -12,9 +12,13 @@ sampleRate = 48000
 duration = 3
 frequency = 440.0
 
+bw_image = None
+debug_image = None
+
 with Image.open(sys.argv[1]) as img:
     # convert image to 1-bit B&W image
     bw_image = img.convert("1")
+    debug_image = img.copy()
 
 (width, height) = bw_image.size
 
@@ -35,6 +39,9 @@ for w in range(width):
     if min_h < max_h:
         # w pixel column only has black pixels
         min_h = max_h = 0
+    # mark the top pixel with red and lower with green #visualdebug
+    debug_image.putpixel((w, max_h), (255, 0, 0))
+    debug_image.putpixel((w, min_h), (0, 255, 0))
 
     assert min_h >= max_h, f"{w} x {h}: {min_h} / {max_h}"
     min_max.append((min_h, max_h))
@@ -68,3 +75,6 @@ with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
             data = struct.pack('<h', int(value))
             wave_file.writeframesraw(data)
         prev_avg = scaled_avg
+
+with open("debug-%s" % sys.argv[1], "wb") as dbg_file:
+    debug_image.save(dbg_file)
