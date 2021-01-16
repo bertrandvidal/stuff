@@ -52,6 +52,14 @@ image_range = height
 # range of a 16-bit wave
 wave_min = -32768
 wave_max = 32767
+
+
+# TODO(bvidal): only for visual debug
+sampleRate = 4800
+duration = 1
+wave_min = 0
+wave_max = int(4800 / width)
+
 wave_range = wave_max - wave_min
 
 
