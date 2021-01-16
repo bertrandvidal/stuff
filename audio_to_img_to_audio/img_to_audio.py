@@ -58,11 +58,15 @@ with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setnchannels(1)  # mono
     wave_file.setsampwidth(2)
     wave_file.setframerate(sampleRate)
+    prev_avg = 0
     for idx, (min_val, max_val) in enumerate(min_max):
-        scaled_min = scale_value(min_val)
-        scaled_max = scale_value(max_val)
-        per_frame_diff = int((scaled_max - scaled_min) / wave_frame)
-        # we gradually go from min to max in "wave_frame" steps
-        for step in range(wave_frame):
-            data = struct.pack('<h', scaled_min + (step * per_frame_diff))
+        scaled_avg = (scale_value(max_val) - scale_value(min_val)) / 2
+        # we gradually go from the previous avg to the current one
+        per_frame_diff = int((scaled_avg - prev_avg) / wave_frame)
+        for frame in range(wave_frame):
+            value = prev_avg + (frame * per_frame_diff)
+            if value > wave_max or value < wave_min:
+                print(f"bad value: {value} @ index {idx} @ frame {frame}")
+            data = struct.pack('<h', int(value))
             wave_file.writeframesraw(data)
+        prev_avg = scaled_avg
