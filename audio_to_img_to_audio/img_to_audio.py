@@ -2,6 +2,7 @@
 
 import sys
 
+import numpy as np
 from PIL import Image
 
 width = None
@@ -58,42 +59,48 @@ def image_to_wave_scale(v):
 
 
 def scale(v, from_min, from_max, to_min, to_max):
-    return int(to_min + (
-            ((v - from_min) / (from_max - from_min))
-            * (to_max - to_min)
-    ))
+    """Scaled and clamped value"""
+    scaled_value = int(
+        to_min + (((v - from_min) / (from_max - from_min)) * (to_max - to_min)))
+    return clamp(scaled_value, to_min, to_max)
+
+
+def clamp(value, to_min, to_max):
+    return max(min(value, to_max - 1), to_min + 1)
 
 
 prev_avg = 0
 wave_values = []
+
+array_data = np.zeros((int(duration * sampleRate), wave_range), dtype=(np.uint8, 3))
+wave_viz_w, wave_viz_h = (8192, 2880)
+wave_viz_img = Image.new("RGB", (wave_viz_w, wave_viz_h))
+idx_range = len(min_max)
+wave_viz_frame = int(wave_viz_w / idx_range)
+
 for idx, (min_val, max_val) in enumerate(min_max):
     original_average = max_val + int((min_val - max_val) / 2)
     debug_image.putpixel((idx, original_average), (0, 0, 255))
-    scaled_avg = scale(original_average, 0, height, wave_min, wave_max)
-    # we gradually go from the previous avg to the current one
-    per_frame_diff = int((scaled_avg - prev_avg) / wave_frame)
-    for frame in range(wave_frame):
-        value = prev_avg + (frame * per_frame_diff)
-        if value > wave_max or value < wave_min:
-            print(f"bad value: {value} @ index {idx} @ frame {frame}")
-        wave_values.append(value)
-    prev_avg = scaled_avg
+
+    wave_viz_avg = scale(original_average, 0, height, 0, wave_viz_h)
+    # Add min/max/avg in wave_viz_img for visual debugging!!!
+    wave_viz_idx = scale(idx, 0, idx_range, 0, wave_viz_w)
+    wave_viz_img.putpixel((wave_viz_idx, scale(min_val, 0, height, 0, wave_viz_h)),
+                          (0, 255, 0))
+    wave_viz_img.putpixel((wave_viz_idx, scale(max_val, 0, height, 0, wave_viz_h)),
+                          (255, 0, 0))
+    wave_viz_img.putpixel(
+        (wave_viz_idx, wave_viz_avg),
+        (0, 0, 255))
+    increment_per_step = (wave_viz_avg - prev_avg) / wave_viz_frame
+    for step in range(wave_viz_frame + 1):
+        wave_viz_img.putpixel(
+            (wave_viz_idx + step, prev_avg + int(step * increment_per_step)),
+            (255, 255, 0))
+    prev_avg = wave_viz_avg
 
 with open("debug-%s" % sys.argv[1], "wb") as dbg_file:
     debug_image.save(dbg_file)
 
-wave_viz_w, wave_viz_h = (int(len(wave_values) / 8), int(wave_range / 100))
-# Entirely black image
-wave_visualization = Image.new("RGB", (wave_viz_w, wave_viz_h), color=0)
-
 with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
-    # we "sample" the wave values to adapt to the wave_viz width
-    for idx, wave_value in enumerate(wave_values[:wave_viz_w]):
-        try:
-            wave_viz_value = scale(wave_value, wave_min, wave_max, 0, wave_viz_h)
-            wave_visualization.putpixel((idx, wave_viz_value),
-                                        (0, 255, 255))
-        except Exception as e:
-            print(f"@{idx}: scale({wave_value}) = {wave_viz_value}")
-            raise e
-    wave_visualization.save(wave_dbg_file)
+    wave_viz_img.save(wave_dbg_file)
