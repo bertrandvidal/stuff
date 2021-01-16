@@ -47,7 +47,12 @@ wave_min = -32768
 wave_max = 32767
 wave_range = wave_max - wave_min
 
-scale_value = lambda v: int(v * wave_range / image_range) + wave_min
+
+def scale_value(v):
+    """TODO(bvidal): not only should we scale but also we should handle the fact
+    that max < min because (0, 0) is upper left"""
+    return int(v * wave_range / image_range) + wave_min
+
 
 with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setnchannels(1)  # mono
