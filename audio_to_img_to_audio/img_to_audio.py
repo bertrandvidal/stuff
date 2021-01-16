@@ -63,8 +63,8 @@ def clamp(value, to_min, to_max):
     return max(min(value, to_max - 1), to_min + 1)
 
 
-prev_avg = 0
-prev_idx = 0
+viz_prev_avg = 0
+viz_prev_idx = 0
 wave_values = []
 
 viz_w, viz_h = (8192, 2880)
@@ -80,13 +80,13 @@ for idx, (min_val, max_val) in enumerate(min_max):
     viz_img.putpixel((viz_idx, scale(min_val, 0, height, 0, viz_h)), (0, 255, 0))
     viz_img.putpixel((viz_idx, scale(max_val, 0, height, 0, viz_h)), (255, 0, 0))
     viz_img.putpixel((viz_idx, viz_avg), (0, 0, 255))
-    viz_increment_per_step = (viz_avg - prev_avg) / viz_frame
+    viz_increment_per_step = (viz_avg - viz_prev_avg) / viz_frame
     for viz_step in range(viz_frame + 1):
         viz_img.putpixel(
-            (prev_idx + viz_step, prev_avg + int(viz_step * viz_increment_per_step)),
+            (viz_prev_idx + viz_step, viz_prev_avg + int(viz_step * viz_increment_per_step)),
             (255, 255, 0))
-    prev_avg = viz_avg
-    prev_idx = viz_idx
+    viz_prev_avg = viz_avg
+    viz_prev_idx = viz_idx
 
 with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
     viz_img.save(wave_dbg_file)
