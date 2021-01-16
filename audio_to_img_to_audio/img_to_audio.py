@@ -38,10 +38,12 @@ for w in range(width):
 # each column of the image will be "stretched" to this many "frame" of the wave file
 wave_frame = int(duration * sampleRate / len(min_max))
 image_range = height
-# as per http://soundfile.sapp.org/doc/WaveFormat/, see 8-bit sample
-wave_range = 255
+# range of a 16-bit wave
+wave_min = -32768
+wave_max = 32767
+wave_range = wave_max - wave_min
 
-scale_value = lambda v: int(v * wave_range / image_range)
+scale_value = lambda v: int(v * wave_range / image_range) + wave_min
 
 with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setnchannels(1)  # mono
