@@ -37,7 +37,6 @@ for w in range(width):
         # w pixel column only has black pixels
         min_h = max_h = 0
 
-    assert min_h >= max_h, f"{w} x {h}: {min_h} / {max_h}"
     min_max.append((min_h, max_h))
 
 # each column of the image will be "stretched" to this many "frame" of the wave file
