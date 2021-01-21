@@ -42,7 +42,7 @@ for w in range(width):
 
 
 def image_to_wave_scale(v):
-    return int(v * wave_range / image_range) + wave_min
+    return int(v * wave_range / image_range) + wave_interval_min
 
 
 def scale(v, from_min, from_max, to_min, to_max):
@@ -68,9 +68,11 @@ wave_length = int(duration * sampleRate)
 wave_frame = int(wave_length / idx_range)
 image_range = height
 # range of a 16-bit wave
-wave_min = -32768
-wave_max = 32767
-wave_range = wave_max - wave_min
+wave_interval_min = -32768
+wave_interval_max = 32767
+wave_min = wave_interval_max
+wave_max = wave_interval_min
+wave_range = wave_interval_max - wave_interval_min
 wave_prev_avg = 0
 wave_values = []
 
@@ -90,7 +92,9 @@ for idx, (min_val, max_val) in enumerate(min_max):
     viz_prev_avg = viz_avg
     viz_prev_idx = viz_idx
     # Handle wave's values
-    wave_avg = scale(original_average, 0, height, wave_min, wave_max)
+    wave_avg = scale(original_average, 0, height, wave_interval_min, wave_interval_max)
+    wave_min = min(wave_min, wave_avg)
+    wave_max = max(wave_max, wave_avg)
     wave_increment_per_step = (wave_avg - wave_prev_avg) / wave_frame
     for wave_step in range(wave_frame + 1):
         wave_values.append(wave_prev_avg + int(wave_step * wave_increment_per_step))
