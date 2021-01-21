@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-import struct
 import sys
 import wave
-import numpy as np
 
+import numpy as np
 from PIL import Image
 
 width = None
@@ -103,17 +102,27 @@ for idx, (min_val, max_val) in enumerate(min_max):
     wav_values.append(wav_avg)
     wav_prev_avg = wav_avg
 
-with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
-    viz_img.save(wav_dbg_file)
+with open("viz-debug-%s" % sys.argv[1], "wb") as viz_dbg_file:
+    viz_img.save(viz_dbg_file)
 
-wav_viz_width_ratio = 1000
-wav_viz_height_ratio = 1000
+wav_viz_width_ratio = 25
+wav_viz_height_ratio = 25
 wav_viz_width = int(len(wav_values) / wav_viz_width_ratio)
 wav_viz_height = int(
     (wav_interval_max - wav_interval_min) / wav_viz_height_ratio)
+wav_viz_img = Image.new("RGB", (wav_viz_width, wav_viz_height))
+
+for wav_viz_idx, wave_value in enumerate(wav_values[::wav_viz_width_ratio]):
+    wav_viz_value = scale(wave_value, wav_interval_min, wav_interval_max, 0,
+                          wav_viz_height)
+    wav_viz_img.putpixel((min(wav_viz_idx, wav_viz_width - 1), wav_viz_value),
+                         (0, 255, 255))
+
+with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
+    wav_viz_img.save(wav_dbg_file)
 
 wav_int16_values = np.array(wav_values, dtype="int16")
-with wave.open("output-%s.wav" % sys.argv[1], 'w') as wav_file:
+with wave.open("output-%s.wav" % sys.argv[1], 'wb') as wav_file:
     wav_file.setnchannels(1)  # mono
     wav_file.setsampwidth(2)
     wav_file.setframerate(sampleRate)
