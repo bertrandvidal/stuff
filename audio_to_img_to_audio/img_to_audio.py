@@ -41,8 +41,8 @@ for w in range(width):
     min_max.append((min_h, max_h))
 
 
-def image_to_wave_scale(v):
-    return int(v * wave_range / image_range) + wave_interval_min
+def image_to_wav_scale(v):
+    return int(v * wav_range / image_range) + wav_interval_min
 
 
 def scale(v, from_min, from_max, to_min, to_max):
@@ -63,23 +63,23 @@ viz_img = Image.new("RGB", (viz_w, viz_h))
 idx_range = len(min_max)
 viz_frame = int(viz_w / idx_range)
 
-# each column of the image will be "stretched" to this many "frame" of the wave file
-wave_length = int(duration * sampleRate)
-wave_frame = int(wave_length / idx_range)
+# each column of the image will be "stretched" to this many "frame" of the wav file
+wav_length = int(duration * sampleRate)
+wav_frame = int(wav_length / idx_range)
 image_range = height
-# range of a 16-bit wave
-wave_interval_min = -32768
-wave_interval_max = 32767
-wave_min = wave_interval_max
-wave_max = wave_interval_min
-wave_range = wave_interval_max - wave_interval_min
-wave_prev_avg = 0
-wave_values = []
+# range of a 16-bit wav
+wav_interval_min = -32768
+wav_interval_max = 32767
+wav_min = wav_interval_max
+wav_max = wav_interval_min
+wav_range = wav_interval_max - wav_interval_min
+wav_prev_avg = 0
+wav_values = []
 
 for idx, (min_val, max_val) in enumerate(min_max):
     original_average = max_val + int((min_val - max_val) / 2)
     viz_avg = scale(original_average, 0, height, 0, viz_h)
-    # Add min/max/avg in wave_viz_img for visual debugging!!!
+    # Add min/max/avg in wav_viz_img for visual debugging!!!
     viz_idx = scale(idx, 0, idx_range, 0, viz_w)
     viz_img.putpixel((viz_idx, scale(min_val, 0, height, 0, viz_h)), (0, 255, 0))
     viz_img.putpixel((viz_idx, scale(max_val, 0, height, 0, viz_h)), (255, 0, 0))
@@ -92,31 +92,30 @@ for idx, (min_val, max_val) in enumerate(min_max):
             (255, 255, 0))
     viz_prev_avg = viz_avg
     viz_prev_idx = viz_idx
-    # Handle wave's values
-    wave_avg = scale(original_average, 0, height, wave_interval_min,
-                     wave_interval_max)
-    wave_min = min(wave_min, wave_avg)
-    wave_max = max(wave_max, wave_avg)
-    wave_increment_per_step = (wave_avg - wave_prev_avg) / wave_frame
-    for wave_step in range(wave_frame + 1):
-        wave_values.append(wave_prev_avg + int(wave_step * wave_increment_per_step))
-    wave_values.append(wave_avg)
-    wave_prev_avg = wave_avg
+    # Handle wav's values
+    wav_avg = scale(original_average, 0, height, wav_interval_min,
+                     wav_interval_max)
+    wav_min = min(wav_min, wav_avg)
+    wav_max = max(wav_max, wav_avg)
+    wav_increment_per_step = (wav_avg - wav_prev_avg) / wav_frame
+    for wav_step in range(wav_frame + 1):
+        wav_values.append(wav_prev_avg + int(wav_step * wav_increment_per_step))
+    wav_values.append(wav_avg)
+    wav_prev_avg = wav_avg
 
-with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
-    viz_img.save(wave_dbg_file)
+with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
+    viz_img.save(wav_dbg_file)
 
-wave_viz_width_ratio = 1000
-wave_viz_height_ratio = 1000
-wave_viz_width = int(len(wave_values) / wave_viz_width_ratio)
-wave_viz_height = int(
-    (wave_interval_max - wave_interval_min) / wave_viz_height_ratio)
+wav_viz_width_ratio = 1000
+wav_viz_height_ratio = 1000
+wav_viz_width = int(len(wav_values) / wav_viz_width_ratio)
+wav_viz_height = int(
+    (wav_interval_max - wav_interval_min) / wav_viz_height_ratio)
 
-
-wave_int16_values = np.array(wave_values, dtype="int16")
-with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
-    wave_file.setnchannels(1)  # mono
-    wave_file.setsampwidth(2)
-    wave_file.setframerate(sampleRate)
-    for wave_value in wave_int16_values:
-        wave_file.writeframesraw(wave_value)
+wav_int16_values = np.array(wav_values, dtype="int16")
+with wave.open("output-%s.wav" % sys.argv[1], 'w') as wav_file:
+    wav_file.setnchannels(1)  # mono
+    wav_file.setsampwidth(2)
+    wav_file.setframerate(sampleRate)
+    for wav_value in wav_int16_values:
+        wav_file.writeframesraw(wav_value)
