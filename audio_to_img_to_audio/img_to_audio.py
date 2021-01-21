@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import struct
 import sys
 import wave
 
@@ -121,6 +122,7 @@ for wav_viz_idx, wave_value in enumerate(wav_values[::wav_viz_width_ratio]):
 with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
     wav_viz_img.save(wav_dbg_file)
 
+# Try https://stackoverflow.com/a/57950911/2003420 next and draw the numpy values
 
 wav_np_int_values = np.array(wav_values, dtype="int16")
 with wave.open("output-%s.wav" % sys.argv[1], 'wb') as wav_file:
@@ -132,4 +134,4 @@ with wave.open("output-%s.wav" % sys.argv[1], 'wb') as wav_file:
     wav_file.setsampwidth(4)
     wav_file.setframerate(sampleRate)  # obtain from audio software
     for wav_value in wav_np_int_values:
-        wav_file.writeframesraw(wav_value)
+        wav_file.writeframesraw(struct.pack('h', wav_value))
