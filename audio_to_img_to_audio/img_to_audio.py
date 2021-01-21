@@ -3,7 +3,6 @@ import struct
 import sys
 import wave
 
-import numpy as np
 from PIL import Image
 
 width = None
@@ -87,12 +86,14 @@ for idx, (min_val, max_val) in enumerate(min_max):
     viz_increment_per_step = (viz_avg - viz_prev_avg) / viz_frame
     for viz_step in range(viz_frame + 1):
         viz_img.putpixel(
-            (viz_prev_idx + viz_step, viz_prev_avg + int(viz_step * viz_increment_per_step)),
+            (viz_prev_idx + viz_step,
+             viz_prev_avg + int(viz_step * viz_increment_per_step)),
             (255, 255, 0))
     viz_prev_avg = viz_avg
     viz_prev_idx = viz_idx
     # Handle wave's values
-    wave_avg = scale(original_average, 0, height, wave_interval_min, wave_interval_max)
+    wave_avg = scale(original_average, 0, height, wave_interval_min,
+                     wave_interval_max)
     wave_min = min(wave_min, wave_avg)
     wave_max = max(wave_max, wave_avg)
     wave_increment_per_step = (wave_avg - wave_prev_avg) / wave_frame
