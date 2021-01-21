@@ -103,15 +103,15 @@ for idx, (min_val, max_val) in enumerate(min_max):
     wave_values.append(wave_avg)
     wave_prev_avg = wave_avg
 
+with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
+    viz_img.save(wave_dbg_file)
+
 wave_viz_sample_width = 1000
 wave_viz_sample_height = 1000
 wave_viz_width = int(len(wave_values) / wave_viz_sample_width)
 wave_viz_height = int(
     (wave_interval_max - wave_interval_min) / wave_viz_sample_height)
 wave_int16_values = np.array(wave_values, dtype="int16")
-
-with open("wave-debug-%s" % sys.argv[1], "wb") as wave_dbg_file:
-    viz_img.save(wave_dbg_file)
 
 with wave.open("output-%s.wav" % sys.argv[1], 'w') as wave_file:
     wave_file.setnchannels(1)  # mono
