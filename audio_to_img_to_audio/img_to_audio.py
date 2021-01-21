@@ -121,10 +121,15 @@ for wav_viz_idx, wave_value in enumerate(wav_values[::wav_viz_width_ratio]):
 with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
     wav_viz_img.save(wav_dbg_file)
 
-wav_int16_values = np.array(wav_values, dtype="int16")
+
+wav_np_int_values = np.array(wav_values, dtype="int16")
 with wave.open("output-%s.wav" % sys.argv[1], 'wb') as wav_file:
     wav_file.setnchannels(1)  # mono
-    wav_file.setsampwidth(2)
-    wav_file.setframerate(sampleRate)
-    for wav_value in wav_int16_values:
+    # https://docs.python.org/3/library/wave.html#wave.Wave_write.setsampwidth: "Set
+    # the sample width to n bytes." and
+    # https://www.metadata2go.com/result/2728f923-05ac-43ed-a413-cf3ff59e6689
+    # shows 32 bits per sample => 4 bytes
+    wav_file.setsampwidth(4)
+    wav_file.setframerate(sampleRate)  # obtain from audio software
+    for wav_value in wav_np_int_values:
         wav_file.writeframesraw(wav_value)
