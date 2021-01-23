@@ -127,8 +127,6 @@ with open(f"{original_file_name}-wav-debug.{original_file_format}", "wb") as \
         wav_dbg_file:
     wav_viz_img.save(wav_dbg_file)
 
-# Try https://stackoverflow.com/a/57950911/2003420 next and draw the numpy values
-
 wav_np_int_values = np.array(wav_values, dtype="int16")
 with wave.open(f"{original_file_name}-output.wav", 'wb') as wav_file:
     wav_file.setnchannels(1)  # mono
