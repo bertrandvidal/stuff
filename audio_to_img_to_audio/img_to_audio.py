@@ -44,10 +44,6 @@ for w in range(width):
     min_max.append((min_h, max_h))
 
 
-def image_to_wav_scale(v):
-    return int(v * wav_range / image_range) + wav_interval_min
-
-
 def scale(v, from_min, from_max, to_min, to_max):
     """Scaled and clamped value"""
     scaled_value = int(
