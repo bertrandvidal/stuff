@@ -36,6 +36,12 @@ with Image.open(original_file_name) as img:
     original_file_format = img.format
 (width, height) = bw_image.size
 
+# TODO(bvidal): Ideas
+# [] input/output folder
+# [] dockerize
+# [] do not collect min/max to get avg rather take pixel with highest intensity
+# [] using sin wave/numpy to link timeseries rather than linear
+
 # Note that (0, 0) is upper left corner as per
 # https://pillow.readthedocs.io/en/4.0.x/handbook/concepts.html#coordinate-system
 # So when we are looking for the highest non black pixel it actually has the lowest h
