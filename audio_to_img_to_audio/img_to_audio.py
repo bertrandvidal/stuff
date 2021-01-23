@@ -45,9 +45,11 @@ for w in range(width):
     min_h = 0
     for h in range(height):
         pixel_value = bw_image.getpixel((w, h))
-        if pixel_value != 0:
+        if pixel_value > 50:
             max_h = min(max_h, h)
             min_h = max(min_h, h)
+            # TODO(bvidal): if min or max = height / 2 it might be the x-axis so
+            #  ignore it?
     # that one is weird but again that's because (0, 0) is upper left of image
     if min_h < max_h:
         # w pixel column only has black pixels
