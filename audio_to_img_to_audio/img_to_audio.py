@@ -14,9 +14,13 @@ frequency = 440.0
 
 bw_image = None
 
-with Image.open(sys.argv[1]) as img:
+original_file_name = sys.argv[1]
+original_file_format = None
+
+with Image.open(original_file_name) as img:
     # convert image to 1-bit B&W image
     bw_image = img.convert("L")
+    original_file_format = img.format
 (width, height) = bw_image.size
 
 min_max = []
@@ -102,7 +106,8 @@ for idx, (min_val, max_val) in enumerate(min_max):
     wav_values.append(wav_avg)
     wav_prev_avg = wav_avg
 
-with open("viz-debug-%s" % sys.argv[1], "wb") as viz_dbg_file:
+with open(f"{original_file_name}-viz-debug.{original_file_format}", "wb") as \
+        viz_dbg_file:
     viz_img.save(viz_dbg_file)
 
 wav_viz_width_ratio = 25
@@ -118,13 +123,14 @@ for wav_viz_idx, wave_value in enumerate(wav_values[::wav_viz_width_ratio]):
     wav_viz_img.putpixel((min(wav_viz_idx, wav_viz_width - 1), wav_viz_value),
                          (0, 255, 255))
 
-with open("wav-debug-%s" % sys.argv[1], "wb") as wav_dbg_file:
+with open(f"{original_file_name}-wav-debug.{original_file_format}", "wb") as \
+        wav_dbg_file:
     wav_viz_img.save(wav_dbg_file)
 
 # Try https://stackoverflow.com/a/57950911/2003420 next and draw the numpy values
 
 wav_np_int_values = np.array(wav_values, dtype="int16")
-with wave.open("output-%s.wav" % sys.argv[1], 'wb') as wav_file:
+with wave.open(f"{original_file_name}-output.wav", 'wb') as wav_file:
     wav_file.setnchannels(1)  # mono
     # https://docs.python.org/3/library/wave.html#wave.Wave_write.setsampwidth: "Set
     # the sample width to n bytes." and
