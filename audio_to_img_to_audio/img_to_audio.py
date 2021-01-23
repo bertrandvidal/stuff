@@ -17,6 +17,18 @@ bw_image = None
 original_file_name = sys.argv[1]
 original_file_format = None
 
+
+def scale(v, from_min, from_max, to_min, to_max):
+    """Scaled and clamped value"""
+    scaled_value = int(
+        to_min + (((v - from_min) / (from_max - from_min)) * (to_max - to_min)))
+    return clamp(scaled_value, to_min, to_max)
+
+
+def clamp(value, to_min, to_max):
+    return max(min(value, to_max - 1), to_min + 1)
+
+
 with Image.open(original_file_name) as img:
     # convert image to 1-bit B&W image
     bw_image = img.convert("L")
@@ -42,18 +54,6 @@ for w in range(width):
         min_h = max_h = 0
 
     min_max.append((min_h, max_h))
-
-
-def scale(v, from_min, from_max, to_min, to_max):
-    """Scaled and clamped value"""
-    scaled_value = int(
-        to_min + (((v - from_min) / (from_max - from_min)) * (to_max - to_min)))
-    return clamp(scaled_value, to_min, to_max)
-
-
-def clamp(value, to_min, to_max):
-    return max(min(value, to_max - 1), to_min + 1)
-
 
 viz_prev_avg = 0
 viz_prev_idx = 0
