@@ -9,15 +9,14 @@ from PIL import Image
 width = None
 height = None
 sampleRate = 48000
-duration = 3
+duration = 1.5
 frequency = 440.0
 
 bw_image = None
 
 with Image.open(sys.argv[1]) as img:
     # convert image to 1-bit B&W image
-    bw_image = img.convert("1")
-
+    bw_image = img.convert("L")
 (width, height) = bw_image.size
 
 min_max = []
@@ -58,7 +57,7 @@ def clamp(value, to_min, to_max):
 
 viz_prev_avg = 0
 viz_prev_idx = 0
-viz_w, viz_h = (8192, 2880)
+viz_w, viz_h = (4096, 1440)
 viz_img = Image.new("RGB", (viz_w, viz_h))
 idx_range = len(min_max)
 viz_frame = int(viz_w / idx_range)
