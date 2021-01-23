@@ -11,7 +11,8 @@ height = None
 sampleRate = 48000
 duration = 1.5
 frequency = 440.0
-
+border_skip = 10
+min_max = []
 bw_image = None
 
 original_file_name = sys.argv[1]
@@ -35,15 +36,14 @@ with Image.open(original_file_name) as img:
     original_file_format = img.format
 (width, height) = bw_image.size
 
-min_max = []
-
 # Note that (0, 0) is upper left corner as per
 # https://pillow.readthedocs.io/en/4.0.x/handbook/concepts.html#coordinate-system
 # So when we are looking for the highest non black pixel it actually has the lowest h
 for w in range(width):
     max_h = height
     min_h = 0
-    for h in range(height):
+    # We skip the very top and bottom where there often is noise
+    for h in range(border_skip, height - border_skip):
         # The x-axis is left on the screenshot so we ignore it when collecting
         # min/max
         if h == height/2:
