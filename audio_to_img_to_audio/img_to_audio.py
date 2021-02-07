@@ -79,8 +79,6 @@ image_range = height
 # range of a 16-bit wav
 wav_interval_min = -32768
 wav_interval_max = 32767
-wav_min = wav_interval_max
-wav_max = wav_interval_min
 wav_range = wav_interval_max - wav_interval_min
 wav_prev_avg = 0
 wav_values = []
@@ -103,9 +101,7 @@ for idx, (min_val, max_val) in enumerate(min_max):
     viz_prev_idx = viz_idx
     # Handle wav's values
     wav_avg = scale(original_average, 0, height, wav_interval_min,
-                     wav_interval_max)
-    wav_min = min(wav_min, wav_avg)
-    wav_max = max(wav_max, wav_avg)
+                    wav_interval_max)
     wav_increment_per_step = (wav_avg - wav_prev_avg) / wav_frame
     for wav_step in range(wav_frame + 1):
         wav_values.append(wav_prev_avg + int(wav_step * wav_increment_per_step))
