@@ -80,7 +80,6 @@ image_range = height
 wav_interval_min = -32768
 wav_interval_max = 32767
 wav_range = wav_interval_max - wav_interval_min
-wav_prev_avg = 0
 wav_values = []
 
 for idx, (min_val, max_val) in enumerate(min_max):
@@ -102,11 +101,7 @@ for idx, (min_val, max_val) in enumerate(min_max):
     # Handle wav's values
     wav_avg = scale(original_average, 0, height, wav_interval_min,
                     wav_interval_max)
-    wav_increment_per_step = (wav_avg - wav_prev_avg) / wav_frame
-    for wav_step in range(wav_frame + 1):
-        wav_values.append(wav_prev_avg + int(wav_step * wav_increment_per_step))
     wav_values.append(wav_avg)
-    wav_prev_avg = wav_avg
 
 with open(f"{original_file_name}-viz-debug.{original_file_format}", "wb") as \
         viz_dbg_file:
@@ -119,7 +114,15 @@ wav_viz_height = int(
     (wav_interval_max - wav_interval_min) / wav_viz_height_ratio)
 wav_viz_img = Image.new("RGB", (wav_viz_width, wav_viz_height))
 
-for wav_viz_idx, wave_value in enumerate(wav_values[::wav_viz_width_ratio]):
+# Fit wav value with a polynomial curve
+from numpy.polynomial import Chebyshev
+# The xs coordinate for the wav file are "stretched" using the the size of a wav_frame
+wav_xs = list(range(0, len(wav_values) * wav_frame, wav_frame))
+polynomial_fit_function = Chebyshev.fit(wav_xs, wav_values, 3)
+wav_np_int_values = np.array(wav_values, dtype="int16")
+fitted_values = polynomial_fit_function(range(len(wav_values) * wav_frame))
+
+for wav_viz_idx, wave_value in enumerate(fitted_values[::wav_viz_width_ratio]):
     wav_viz_value = scale(wave_value, wav_interval_min, wav_interval_max, 0,
                           wav_viz_height)
     wav_viz_img.putpixel((min(wav_viz_idx, wav_viz_width - 1), wav_viz_value),
@@ -129,7 +132,6 @@ with open(f"{original_file_name}-wav-debug.{original_file_format}", "wb") as \
         wav_dbg_file:
     wav_viz_img.save(wav_dbg_file)
 
-wav_np_int_values = np.array(wav_values, dtype="int16")
 with wave.open(f"{original_file_name}-output.wav", 'wb') as wav_file:
     wav_file.setnchannels(1)  # mono
     # https://docs.python.org/3/library/wave.html#wave.Wave_write.setsampwidth: "Set
@@ -138,5 +140,5 @@ with wave.open(f"{original_file_name}-output.wav", 'wb') as wav_file:
     # shows 32 bits per sample => 4 bytes
     wav_file.setsampwidth(4)
     wav_file.setframerate(sampleRate)  # obtain from audio software
-    for wav_value in wav_np_int_values:
-        wav_file.writeframesraw(struct.pack('h', wav_value))
+    for wav_value in fitted_values:
+        wav_file.writeframesraw(struct.pack('h', int(wav_value)))
