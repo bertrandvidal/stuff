@@ -10,6 +10,4 @@ Remember your few months of learning 3d? For some reason the one thing that has 
 # What to do with that?
 
 Generate images!
-Start with a black RGB image, your grammar takes a pixel [(x,y), (R, G, B)] and transform it to [(x', y'), (R', G', B')] ... and that's it I hope it'll look nice.
-And maybe make GIFs out of it!?
-I should probably look at existing libraries that help you define grammars
+Start with a black RGB image, your grammar takes a pixel `[(x,y), (R, G, B)]` and transform it to `[(x', y'), (R', G', B')]` ... and that's it I hope it'll look nice. And maybe make GIFs out of it!? I should probably look at existing libraries that help you define grammars
