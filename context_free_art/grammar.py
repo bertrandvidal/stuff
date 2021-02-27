@@ -37,6 +37,6 @@ class GrammarGenerator:
                 for pixel in pixels:
                     for rule in self.grammar.rules:
                         generated_pixels.extend(rule(pixel))
-                yield generated_pixels
+                yield set(generated_pixels)
 
         return _iterator()
