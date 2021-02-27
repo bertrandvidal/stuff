@@ -23,15 +23,15 @@ class GrammarGenerator:
     grammar: Grammar
     start: Pixel
 
-    def generate(self):
+    def generate(self, n):
         """
-        Generate 10 iterations for the Grammar
+        Generate n iterations for the Grammar
 
-        :return: iterator for sequence of the grammar
+        :return: iterator for n sequences of the grammar
         """
         def _iterator():
             generated_pixels = [self.start]
-            for _ in range(10):
+            for _ in range(n):
                 pixels = generated_pixels
                 generated_pixels = []
                 for pixel in pixels:
