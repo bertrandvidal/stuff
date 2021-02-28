@@ -1,18 +1,22 @@
 import unittest
+from io import StringIO
 
 from display import Terminal
-from grammar import GrammarGenerator, Grammar
 from pixel import Pixel
 
 
 class TerminalTest(unittest.TestCase):
 
-    def test_something(self):
-        grammar = Grammar(rules=[lambda p: [p, Pixel(x=p.x + 1, y=p.y + 1)]])
-        generator = GrammarGenerator(grammar=grammar, start=Pixel())
-        terminal = Terminal(3, #io.StringIO)
-        pixels = next(generator.generate(1))
-        terminal.display(pixels)
+    def test_display_output(self):
+        output_buffer = StringIO()
+        terminal = Terminal(3, output_buffer)
+        terminal.display([Pixel(), Pixel(x=1, y=1)])
+        expected_output = "".join([
+            "   \n",
+            " X \n",
+            "X  \n"
+        ])
+        self.assertEqual(output_buffer.getvalue(), expected_output)
 
 
 if __name__ == '__main__':

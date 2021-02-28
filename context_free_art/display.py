@@ -1,5 +1,6 @@
 import sys
 from dataclasses import dataclass
+from io import TextIOWrapper
 from typing import List
 
 from pixel import Pixel
@@ -20,10 +21,11 @@ class Terminal(Display):
     Display Pixels in a terminal
     """
     size: int
-    output_stream = sys.stdout
+    output_stream: TextIOWrapper = sys.stdout
 
     def display(self, pixels: List[Pixel]):
         points = {(p.x, p.y): p for p in pixels}
-        for y in range(self.size, 0, -1):
+        for y in range(self.size - 1, -1, -1):
             for x in range(self.size):
-                print("X" if (x, y) in points else " ", file=self.output_stream)
+                print("X" if (x, y) in points else " ", end="", file=self.output_stream, flush=True)
+            print("\n", end="", file=self.output_stream)
