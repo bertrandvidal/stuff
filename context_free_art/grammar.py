@@ -34,14 +34,14 @@ class GrammarGenerator:
 
         def _iterator():
             generated_pixels = [self.start]
-            max_width, max_height = self.display.dimension()
+            width, height = self.display.dimension()
             for _ in range(n):
                 pixels = generated_pixels
                 generated_pixels = set()
                 for pixel in pixels:
                     for rule in self.grammar.rules:
                         for p in rule(pixel):
-                            if 0 <= p.x < max_width and 0 <= p.y < max_height:
+                            if 0 <= p.x < width and 0 <= p.y < height:
                                 generated_pixels.add(p)
                 yield set(generated_pixels)
 
