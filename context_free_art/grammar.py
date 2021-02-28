@@ -49,6 +49,7 @@ class GrammarGenerator:
                         for p in rule(pixel, width, height):
                             if 0 <= p.x < width and 0 <= p.y < height:
                                 generated_pixels.add(p)
-                yield set(generated_pixels)
+                if generated_pixels:
+                    yield generated_pixels
 
         return _iterator()
