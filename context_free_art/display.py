@@ -33,7 +33,7 @@ class Terminal(Display):
         points = {(p.x, p.y): p for p in pixels}
         for y in range(self.size - 1, -1, -1):
             for x in range(self.size):
-                print("X" if (x, y) in points else " ", end="", file=self.output_stream, flush=True)
+                print("X" if (x, y) in points else " ", end=" ", file=self.output_stream, flush=True)
             print("\n", end="", file=self.output_stream)
 
     def dimension(self):
