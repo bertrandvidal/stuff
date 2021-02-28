@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Callable, List
 
+from display import Display
 from pixel import Pixel
 
 # Define the interface for a transformation rule applied to Pixels
@@ -22,6 +23,7 @@ class GrammarGenerator:
     """
     grammar: Grammar
     start: Pixel
+    display: Display
 
     def generate(self, n):
         """
@@ -29,14 +31,18 @@ class GrammarGenerator:
 
         :return: iterator for n sequences of the grammar
         """
+
         def _iterator():
             generated_pixels = [self.start]
+            max_width, max_height = self.display.dimension()
             for _ in range(n):
                 pixels = generated_pixels
-                generated_pixels = []
+                generated_pixels = set()
                 for pixel in pixels:
                     for rule in self.grammar.rules:
-                        generated_pixels.extend(rule(pixel))
+                        for p in rule(pixel):
+                            if 0 <= p.x < max_width and 0 <= p.y < max_height:
+                                generated_pixels.add(p)
                 yield set(generated_pixels)
 
         return _iterator()
