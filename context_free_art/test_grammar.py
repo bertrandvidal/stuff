@@ -1,11 +1,11 @@
 import unittest
 from dataclasses import dataclass
-from io import StringIO
 from typing import List
 
 from display import Display
-from grammar import GrammarGenerator, Grammar
+from grammar import GrammarGenerator, Grammar, Rule
 from pixel import Pixel
+
 
 @dataclass
 class DummyDisplay(Display):
@@ -18,10 +18,16 @@ class DummyDisplay(Display):
         pass
 
 
+class RuleTest(unittest.TestCase):
+
+    def test_rule_default_implementation(self):
+        self.assertEqual([Pixel()], Rule()(Pixel(), 1, 1))
+
+
 class GrammarGeneratorTest(unittest.TestCase):
-    _identity_grammar = Grammar(rules=[lambda p: [p]])
-    _duplicate_grammar = Grammar(rules=[lambda p: [p, p]])
-    _next_diagonal_grammar = Grammar(rules=[lambda p: [p, Pixel(x=p.x + 1, y=p.y + 1)]])
+    _identity_grammar = Grammar(rules=[lambda p, w, h: [p]])
+    _duplicate_grammar = Grammar(rules=[lambda p, w, h: [p, p]])
+    _next_diagonal_grammar = Grammar(rules=[lambda p, w, h: [p, Pixel(x=p.x + 1, y=p.y + 1)]])
 
     def test_nb_iteration(self):
         size = 12

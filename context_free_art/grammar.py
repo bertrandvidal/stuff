@@ -1,11 +1,17 @@
 from dataclasses import dataclass
-from typing import Callable, List
+from typing import List, Callable
 
 from display import Display
 from pixel import Pixel
 
-# Define the interface for a transformation rule applied to Pixels
-Rule = Callable[[Pixel], List[Pixel]]
+
+class Rule(Callable):
+    """
+    Define interface for rules applied to Pixel, default implementation returns the given Pixel unchanged
+    """
+
+    def __call__(self, pixel: Pixel, width: int, height: int) -> List[Pixel]:
+        return [pixel]
 
 
 @dataclass
@@ -13,7 +19,7 @@ class Grammar:
     """
     Contains the set of Rules that define the entirety of the Grammar.
     """
-    rules: List[Rule]
+    rules: List[Callable[[Pixel, int, int], List[Pixel]]]
 
 
 @dataclass
@@ -40,7 +46,7 @@ class GrammarGenerator:
                 generated_pixels = set()
                 for pixel in pixels:
                     for rule in self.grammar.rules:
-                        for p in rule(pixel):
+                        for p in rule(pixel, width, height):
                             if 0 <= p.x < width and 0 <= p.y < height:
                                 generated_pixels.add(p)
                 yield set(generated_pixels)
