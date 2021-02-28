@@ -14,6 +14,12 @@ class Display:
     def display(self, pixels: List[Pixel]):
         raise NotImplementedError()
 
+    def dimension(self):
+        """
+        :return: (width, height) of the display area
+        """
+        raise NotImplementedError()
+
 
 @dataclass
 class Terminal(Display):
@@ -29,3 +35,6 @@ class Terminal(Display):
             for x in range(self.size):
                 print("X" if (x, y) in points else " ", end="", file=self.output_stream, flush=True)
             print("\n", end="", file=self.output_stream)
+
+    def dimension(self):
+        return self.size, self.size
