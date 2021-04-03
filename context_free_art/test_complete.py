@@ -1,8 +1,11 @@
+import os
+import pathlib
+import tempfile
 import unittest
 from random import randint
 from typing import List
 
-from canvas import Terminal, Canvas
+from canvas import Terminal, Canvas, RgbImage
 from grammar import Grammar, GrammarGenerator, Rule
 from pixel import Pixel
 
@@ -27,6 +30,22 @@ class CompleteTest(unittest.TestCase):
             canvas.display(generated_pixels)
             print("-" * 25)
         self.assertEqual(True, True)
+
+    def test_rgb_image(self):
+        size = 64
+        start = Pixel()
+        (_, output_path) = tempfile.mkstemp(suffix=".png")
+        canvas = RgbImage(size, size, output_path)
+        try:
+            rules = [RandomRule()]
+            grammar = Grammar(rules)
+            generator = GrammarGenerator(grammar, start, canvas)
+            image_content = list(generator.generate(50))[-1]
+            canvas.display(image_content)
+            self.assertTrue(os.path.isfile(output_path))
+        finally:
+            if os.path.isfile(output_path):
+                os.unlink(output_path)
 
 
 if __name__ == '__main__':

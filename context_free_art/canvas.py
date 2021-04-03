@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from io import TextIOWrapper
 from typing import List, Tuple
 
+from PIL import Image
 from pixel import Pixel
 
 
@@ -59,10 +60,14 @@ class RgbImage(Canvas):
     """
     width: int
     height: int
-    output_path: os.PathLike
+    output_path: str
 
     def display(self, pixels: List[Pixel]):
-        pass
+        image = Image.new("RGB", self.dimension())
+        for p in pixels:
+            image.putpixel((p.x, p.y), (p.r, p.g, p.b))
+        with open(self.output_path, "wb") as image_file:
+            image.save(image_file)
 
     def dimension(self) -> Tuple[int, int]:
         return self.width, self.height
