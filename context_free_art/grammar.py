@@ -19,7 +19,7 @@ class Grammar:
     """
     Contains the set of Rules that define the entirety of the Grammar.
     """
-    rules: List[Callable[[Pixel, int, int], List[Pixel]]]
+    rules: List[Rule]
 
 
 @dataclass
