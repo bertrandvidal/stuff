@@ -1,3 +1,4 @@
+import os
 import sys
 from dataclasses import dataclass
 from io import TextIOWrapper
@@ -38,3 +39,19 @@ class Terminal(Canvas):
 
     def dimension(self):
         return self.size, self.size
+
+
+@dataclass
+class RgbImage(Canvas):
+    """
+    Output pixels to an RGB image
+    """
+    width: int
+    height: int
+    output_path: os.PathLike
+
+    def display(self, pixels: List[Pixel]):
+        pass
+
+    def dimension(self):
+        pass
