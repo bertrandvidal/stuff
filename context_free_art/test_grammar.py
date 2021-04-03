@@ -2,13 +2,13 @@ import unittest
 from dataclasses import dataclass
 from typing import List
 
-from display import Display
+from canvas import Canvas
 from grammar import GrammarGenerator, Grammar, Rule
 from pixel import Pixel
 
 
 @dataclass
-class DummyDisplay(Display):
+class DummyDisplay(Canvas):
     size: int
 
     def dimension(self):

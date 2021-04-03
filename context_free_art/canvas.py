@@ -6,7 +6,7 @@ from typing import List
 from pixel import Pixel
 
 
-class Display:
+class Canvas:
     """
     Define basic behavior to display a set of Pixels
     """
@@ -22,9 +22,9 @@ class Display:
 
 
 @dataclass
-class Terminal(Display):
+class Terminal(Canvas):
     """
-    Display Pixels in a terminal
+    Canvas Pixels in a terminal
     """
     size: int
     output_stream: TextIOWrapper = sys.stdout

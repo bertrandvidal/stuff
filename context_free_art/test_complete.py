@@ -2,7 +2,7 @@ import unittest
 from random import randint
 from typing import List
 
-from display import Terminal
+from canvas import Terminal
 from grammar import Grammar, GrammarGenerator, Rule
 from pixel import Pixel
 

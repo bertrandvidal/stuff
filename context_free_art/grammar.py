@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Callable
 
-from display import Display
+from canvas import Canvas
 from pixel import Pixel
 
 
@@ -29,7 +29,7 @@ class GrammarGenerator:
     """
     grammar: Grammar
     start: Pixel
-    display: Display
+    display: Canvas
 
     def generate(self, n):
         """

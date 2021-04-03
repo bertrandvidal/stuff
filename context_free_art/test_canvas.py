@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 
-from display import Terminal
+from canvas import Terminal
 from pixel import Pixel
 
 
