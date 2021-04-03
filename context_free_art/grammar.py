@@ -47,7 +47,7 @@ class GrammarGenerator:
                 for pixel in pixels:
                     for rule in self.grammar.rules:
                         for p in rule(pixel, width, height):
-                            if 0 <= p.x < width and 0 <= p.y < height:
+                            if self.canvas.contains(p):
                                 generated_pixels.add(p)
                 if generated_pixels:
                     yield generated_pixels
