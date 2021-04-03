@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 
-from canvas import Terminal
+from canvas import Terminal, RgbImage
 from pixel import Pixel
 
 
@@ -17,6 +17,13 @@ class TerminalTest(unittest.TestCase):
             "X  \n"
         ])
         self.assertEqual(output_buffer.getvalue(), expected_output)
+
+
+class RgbImageTest(unittest.TestCase):
+
+    def test_dimension(self):
+        image = RgbImage(12, 23, None)
+        self.assertEqual(image.dimension(), (12, 23))
 
 
 if __name__ == '__main__':

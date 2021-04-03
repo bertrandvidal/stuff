@@ -54,4 +54,4 @@ class RgbImage(Canvas):
         pass
 
     def dimension(self) -> Tuple[int, int]:
-        pass
+        return self.width, self.height
