@@ -2,14 +2,14 @@ import unittest
 from random import randint
 from typing import List
 
-from canvas import Terminal
+from canvas import Terminal, Canvas
 from grammar import Grammar, GrammarGenerator, Rule
 from pixel import Pixel
 
 
 class RandomRule(Rule):
 
-    def __call__(self, pixel: Pixel, width: int, height: int) -> List[Pixel]:
+    def __call__(self, pixel: Pixel, canvas: Canvas) -> List[Pixel]:
         return [pixel, Pixel(x=pixel.x + randint(-1, 1), y=pixel.y + randint(-1, 1))]
 
 

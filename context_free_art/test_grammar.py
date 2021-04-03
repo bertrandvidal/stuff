@@ -1,9 +1,9 @@
 import unittest
 from dataclasses import dataclass
-from typing import List
+from typing import List, Any, Callable
 
 from canvas import Canvas
-from grammar import GrammarGenerator, Grammar, Rule
+from grammar import GrammarGenerator, Grammar, Rule, LambdaRule
 from pixel import Pixel
 
 
@@ -21,13 +21,18 @@ class DummyCanvas(Canvas):
 class RuleTest(unittest.TestCase):
 
     def test_rule_default_implementation(self):
-        self.assertEqual([Pixel()], Rule()(Pixel(), 1, 1))
+        self.assertEqual([Pixel()], Rule()(Pixel(), DummyCanvas(1)))
+
+    def test_lambda(self):
+        pixel = Pixel()
+        identity_rule = LambdaRule(lambda p, c: p)
+        self.assertEqual(identity_rule(pixel, None), pixel)
 
 
 class GrammarGeneratorTest(unittest.TestCase):
-    _identity_grammar = Grammar(rules=[lambda p, w, h: [p]])
-    _duplicate_grammar = Grammar(rules=[lambda p, w, h: [p, p]])
-    _next_diagonal_grammar = Grammar(rules=[lambda p, w, h: [p, Pixel(x=p.x + 1, y=p.y + 1)]])
+    _identity_grammar = Grammar(rules=[Rule()])
+    _duplicate_grammar = Grammar(rules=[LambdaRule(lambda p, c: [p, p])])
+    _next_diagonal_grammar = Grammar(rules=[LambdaRule(lambda p, c: [p, Pixel(x=p.x + 1, y=p.y + 1)])])
 
     def test_nb_iteration(self):
         size = 12

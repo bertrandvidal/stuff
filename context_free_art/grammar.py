@@ -10,8 +10,16 @@ class Rule(Callable):
     Define interface for rules applied to Pixel, default implementation returns the given Pixel unchanged
     """
 
-    def __call__(self, pixel: Pixel, width: int, height: int) -> List[Pixel]:
+    def __call__(self, pixel: Pixel, canvas: Canvas) -> List[Pixel]:
         return [pixel]
+
+
+@dataclass
+class LambdaRule(Rule):
+    _lambda: Callable[[Pixel, Canvas], List[Pixel]] = lambda x, c: x
+
+    def __call__(self, pixel: Pixel, canvas: Canvas) -> List[Pixel]:
+        return self._lambda(pixel, canvas)
 
 
 @dataclass
@@ -40,13 +48,12 @@ class GrammarGenerator:
 
         def _iterator():
             generated_pixels = [self.start]
-            width, height = self.canvas.dimension()
             for _ in range(n):
                 pixels = generated_pixels
                 generated_pixels = set()
                 for pixel in pixels:
                     for rule in self.grammar.rules:
-                        for p in rule(pixel, width, height):
+                        for p in rule(pixel, self.canvas):
                             if self.canvas.contains(p):
                                 generated_pixels.add(p)
                 if generated_pixels:
