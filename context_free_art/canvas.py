@@ -2,7 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 from io import TextIOWrapper
-from typing import List
+from typing import List, Tuple
 
 from pixel import Pixel
 
@@ -15,7 +15,7 @@ class Canvas:
     def display(self, pixels: List[Pixel]):
         raise NotImplementedError()
 
-    def dimension(self):
+    def dimension(self) -> Tuple[int, int]:
         """
         :return: (width, height) of the display area
         """
@@ -37,7 +37,7 @@ class Terminal(Canvas):
                 print("X" if (x, y) in points else " ", end="", file=self.output_stream, flush=True)
             print("\n", end="", file=self.output_stream)
 
-    def dimension(self):
+    def dimension(self) -> Tuple[int, int]:
         return self.size, self.size
 
 
@@ -53,5 +53,5 @@ class RgbImage(Canvas):
     def display(self, pixels: List[Pixel]):
         pass
 
-    def dimension(self):
+    def dimension(self) -> Tuple[int, int]:
         pass
