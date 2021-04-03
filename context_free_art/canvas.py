@@ -21,6 +21,17 @@ class Canvas:
         """
         raise NotImplementedError()
 
+    def contains(self, pixel: Pixel) -> bool:
+        """ Check if the given pixel is contained in the canvas.
+        Provide a simple default implementation such that the pixel is contained in the canvas if:
+            0 <= pixel.x < width and 0 <= pixel.y < height
+
+        :param pixel: Pixel to check
+        :return: whether or not the given Pixel is in the canvas
+        """
+        width, height = self.dimension()
+        return 0 <= pixel.x < width and 0 <= pixel.y < height
+
 
 @dataclass
 class Terminal(Canvas):
