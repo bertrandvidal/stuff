@@ -8,7 +8,7 @@ from pixel import Pixel
 
 
 @dataclass
-class DummyDisplay(Canvas):
+class DummyCanvas(Canvas):
     size: int
 
     def dimension(self):
@@ -31,18 +31,18 @@ class GrammarGeneratorTest(unittest.TestCase):
 
     def test_nb_iteration(self):
         size = 12
-        generator = GrammarGenerator(grammar=self._identity_grammar, start=Pixel(), display=DummyDisplay(size))
+        generator = GrammarGenerator(grammar=self._identity_grammar, start=Pixel(), canvas=DummyCanvas(size))
         self.assertEqual(len(list(generator.generate(size))), size)
 
     def test_generation_without_duplication(self):
         size = 5
-        generator = GrammarGenerator(grammar=self._duplicate_grammar, start=Pixel(), display=DummyDisplay(size))
+        generator = GrammarGenerator(grammar=self._duplicate_grammar, start=Pixel(), canvas=DummyCanvas(size))
         for iteration in generator.generate(size):
             self.assertEqual(len(iteration), 1)
 
     def test_existing_pixels_are_retained(self):
         n = 10
-        generator = GrammarGenerator(grammar=self._next_diagonal_grammar, start=Pixel(), display=DummyDisplay(n + 1))
+        generator = GrammarGenerator(grammar=self._next_diagonal_grammar, start=Pixel(), canvas=DummyCanvas(n + 1))
         # n + 1 because the n iteration add element to start so: n + start
         self.assertEqual(len(list(generator.generate(n))[-1]), n + 1)
 

@@ -18,13 +18,13 @@ class CompleteTest(unittest.TestCase):
     def test_something(self):
         size = 25
         start = Pixel()
-        display = Terminal(size)
+        canvas = Terminal(size)
         rules = [RandomRule()]
         grammar = Grammar(rules)
-        generator = GrammarGenerator(grammar, start, display)
+        generator = GrammarGenerator(grammar, start, canvas)
         for generated_pixels in generator.generate(50):
             print("-" * 25)
-            display.display(generated_pixels)
+            canvas.display(generated_pixels)
             print("-" * 25)
         self.assertEqual(True, True)
 

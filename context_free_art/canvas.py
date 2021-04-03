@@ -9,7 +9,7 @@ from pixel import Pixel
 
 class Canvas:
     """
-    Define basic behavior to display a set of Pixels
+    Define basic behavior to canvas a set of Pixels
     """
 
     def display(self, pixels: List[Pixel]):
@@ -17,7 +17,7 @@ class Canvas:
 
     def dimension(self) -> Tuple[int, int]:
         """
-        :return: (width, height) of the display area
+        :return: (width, height) of the canvas area
         """
         raise NotImplementedError()
 

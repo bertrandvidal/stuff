@@ -29,7 +29,7 @@ class GrammarGenerator:
     """
     grammar: Grammar
     start: Pixel
-    display: Canvas
+    canvas: Canvas
 
     def generate(self, n):
         """
@@ -40,7 +40,7 @@ class GrammarGenerator:
 
         def _iterator():
             generated_pixels = [self.start]
-            width, height = self.display.dimension()
+            width, height = self.canvas.dimension()
             for _ in range(n):
                 pixels = generated_pixels
                 generated_pixels = set()
