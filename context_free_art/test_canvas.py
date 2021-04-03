@@ -18,6 +18,13 @@ class TerminalTest(unittest.TestCase):
         ])
         self.assertEqual(output_buffer.getvalue(), expected_output)
 
+    def test_contains(self):
+        size = 3
+        terminal = Terminal(size, None)
+        for i in range(size):
+            self.assertTrue(terminal.contains(Pixel(i, i)))
+        self.assertFalse(terminal.contains(Pixel(size +1, size + 1)))
+
 
 class RgbImageTest(unittest.TestCase):
 
