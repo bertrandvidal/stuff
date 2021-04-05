@@ -30,7 +30,6 @@ class Grammar:
     rules: List[Rule]
 
 
-@dataclass
 class GrammarGenerator:
     """
     Given a Grammar and a starting point (a Pixel) generate an iterator for all sequences of the Grammar.
@@ -38,6 +37,12 @@ class GrammarGenerator:
     grammar: Grammar
     start: Pixel
     canvas: Canvas
+    generated_pixels: List[Pixel]
+
+    def __init__(self, grammar: Grammar, start: Pixel, canvas: Canvas):
+        self.grammar = grammar
+        self.start = start
+        self.canvas = canvas
 
     def generate(self, n):
         """
@@ -45,18 +50,20 @@ class GrammarGenerator:
 
         :return: iterator for n sequences of the grammar
         """
+        self.generated_pixels = [self.start]
 
         def _iterator():
-            generated_pixels = [self.start]
+            new_pixels = [self.start]
             for _ in range(n):
-                pixels = generated_pixels
-                generated_pixels = set()
+                pixels = new_pixels
+                new_pixels = set()
                 for pixel in pixels:
                     for rule in self.grammar.rules:
                         for p in rule(pixel, self.canvas):
                             if self.canvas.contains(p):
-                                generated_pixels.add(p)
-                if generated_pixels:
-                    yield generated_pixels
+                                new_pixels.add(p)
+                if new_pixels:
+                    self.generated_pixels.extend(new_pixels)
+                yield new_pixels
 
         return _iterator()

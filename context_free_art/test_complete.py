@@ -1,5 +1,4 @@
 import os
-import pathlib
 import tempfile
 import unittest
 from random import randint
@@ -12,8 +11,12 @@ from pixel import Pixel
 
 class RandomRule(Rule):
 
+    def __init__(self, max_rand=1):
+        self.max_rand = max_rand
+
     def __call__(self, pixel: Pixel, canvas: Canvas) -> List[Pixel]:
-        return [pixel, Pixel(x=pixel.x + randint(-1, 1), y=pixel.y + randint(-1, 1))]
+        return [Pixel(x=pixel.x + randint(-self.max_rand, self.max_rand),
+                      y=pixel.y + randint(-self.max_rand, self.max_rand))]
 
 
 class CompleteTest(unittest.TestCase):
@@ -32,16 +35,17 @@ class CompleteTest(unittest.TestCase):
         self.assertEqual(True, True)
 
     def test_rgb_image(self):
-        size = 64
+        size = 256
         start = Pixel()
         (_, output_path) = tempfile.mkstemp(suffix=".png")
         canvas = RgbImage(size, size, output_path)
         try:
-            rules = [RandomRule()]
+            rules = [RandomRule(5)]
             grammar = Grammar(rules)
             generator = GrammarGenerator(grammar, start, canvas)
-            image_content = list(generator.generate(50))[-1]
-            canvas.display(image_content)
+            for i in generator.generate(100):
+                print(i)
+            canvas.display(generator.generated_pixels)
             self.assertTrue(os.path.isfile(output_path))
         finally:
             if os.path.isfile(output_path):

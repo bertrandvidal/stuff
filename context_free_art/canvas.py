@@ -66,6 +66,7 @@ class RgbImage(Canvas):
         image = Image.new("RGB", self.dimension())
         for p in pixels:
             image.putpixel((p.x, p.y), (p.r, p.g, p.b))
+        image.show()
         with open(self.output_path, "wb") as image_file:
             image.save(image_file)
 
