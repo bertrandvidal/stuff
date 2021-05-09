@@ -8,7 +8,8 @@ import java.util.List;
  */
 public final class Chamber {
 
-  private List<Pixel> pixels;
+  private final List<Pixel> pixels;
+
   private final Integer size;
 
   public Chamber(List<Pixel> pixels, Integer size) {
@@ -48,5 +49,9 @@ public final class Chamber {
       }
     }
     return this;
+  }
+
+  public Integer getSize() {
+    return this.size;
   }
 }
