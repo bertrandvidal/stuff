@@ -24,4 +24,8 @@ public enum Color {
   public Integer apply(Pixel pixel, int speed) {
     return this.moveFunction.apply(pixel.getPosition(), speed);
   }
+
+  public Character toChar() {
+    return this.name().charAt(0);
+  }
 }

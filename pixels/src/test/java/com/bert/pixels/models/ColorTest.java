@@ -16,4 +16,10 @@ class ColorTest {
     final Pixel pixel = new Pixel(null, 0);
     assertEquals(Color.Y.apply(pixel, 1), -1);
   }
+
+  @Test
+  void testToChar() {
+    assertEquals(Color.R.toChar(), 'R');
+    assertEquals(Color.Y.toChar(), 'Y');
+  }
 }
