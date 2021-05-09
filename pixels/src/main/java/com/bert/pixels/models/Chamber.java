@@ -12,6 +12,10 @@ public final class Chamber {
 
   private final Integer size;
 
+  /**
+   * @param pixels The original pixels present in the chamber
+   * @param size the total size of the chamber
+   */
   public Chamber(List<Pixel> pixels, Integer size) {
     this.pixels = pixels;
     this.size = size;
@@ -51,6 +55,9 @@ public final class Chamber {
     return this;
   }
 
+  /**
+   * @return the total size of the chamber, i.e. number of "spots"
+   */
   public Integer getSize() {
     return this.size;
   }
