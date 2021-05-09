@@ -17,7 +17,7 @@ class ChamberTest {
   @Test
   void testIsEmptyWithPixel() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.RED, 1));
+    pixels.add(new Pixel(Color.R, 1));
     assertFalse(new Chamber(pixels).isEmpty());
   }
 }

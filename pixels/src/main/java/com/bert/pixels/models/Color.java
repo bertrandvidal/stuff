@@ -7,9 +7,9 @@ public enum Color {
   /**
    * Red pixels can only more right.
    */
-  RED,
+  R,
   /**
    * Yellow pixels can only more left.
    */
-  YELLOW
+  Y
 }

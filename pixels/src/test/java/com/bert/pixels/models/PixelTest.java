@@ -16,9 +16,9 @@ class PixelTest {
 
   @Test
   void testGetPosition() {
-    assertEquals(new Pixel(Color.RED, -1).getPosition(), -1);
-    assertEquals(new Pixel(Color.RED, 0).getPosition(), 0);
-    assertEquals(new Pixel(Color.RED, 1).getPosition(), 1);
-    assertNull(new Pixel(Color.RED, null).getPosition());
+    assertEquals(new Pixel(Color.R, -1).getPosition(), -1);
+    assertEquals(new Pixel(Color.R, 0).getPosition(), 0);
+    assertEquals(new Pixel(Color.R, 1).getPosition(), 1);
+    assertNull(new Pixel(Color.R, null).getPosition());
   }
 }
