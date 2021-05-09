@@ -22,15 +22,6 @@ public enum Color {
   }
 
   /**
-   * @param pixel the pixel to apply the movement to
-   * @param speed the speed of the movement
-   * @return the resulting position of the pixel
-   */
-  public Integer apply(Pixel pixel, int speed) {
-    return this.moveFunction.apply(pixel.getPosition(), speed);
-  }
-
-  /**
    * @return the "movement" to apply to a pixel's position to get its new position
    */
   public BinaryOperator<Integer> getMovement() {
