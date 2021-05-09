@@ -5,6 +5,7 @@ import com.bert.pixels.models.Color;
 import com.bert.pixels.models.Pixel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,8 +47,22 @@ public class TextVisualization {
     return new Chamber(pixels, this.size);
   }
 
+  /**
+   * Return the textual representation of the given chamber
+   * @param chamber the chamber to visualize
+   * @return a textual representation of the given chamber
+   */
   public String to(Chamber chamber) {
-    return null;
+    final char[] output = String.join("", Collections.nCopies(chamber.getSize(), ".")).toCharArray();
+    for (Pixel pixel : chamber.pixels()) {
+      final Integer position = pixel.getPosition();
+      if (output[position] != '.') {
+        output[position] = 'O';
+      } else {
+        output[position] = pixel.getColor().toChar();
+      }
+    }
+    return new String(output);
   }
 
   /**

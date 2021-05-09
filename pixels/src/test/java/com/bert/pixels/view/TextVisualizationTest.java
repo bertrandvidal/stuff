@@ -5,6 +5,7 @@ import com.bert.pixels.models.Color;
 import com.bert.pixels.models.Pixel;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -51,5 +52,37 @@ class TextVisualizationTest {
         assertEquals(pixel.getPosition(), 1);
       }
     }
+  }
+
+  @Test
+  void testToEmptyChamber() {
+    final Chamber chamber = new Chamber(new ArrayList<>(), 5);
+    final TextVisualization visualization = new TextVisualization(5);
+    final String output = visualization.to(chamber);
+    assertEquals(output, ".....");
+  }
+
+  @Test
+  void testNoOverlap() {
+    final ArrayList<Pixel> pixels = new ArrayList<>();
+    pixels.add(new Pixel(Color.Y, 0));
+    pixels.add(new Pixel(Color.R, 2));
+    final Chamber chamber = new Chamber(pixels, 3);
+    final TextVisualization visualization = new TextVisualization(3);
+    final String output = visualization.to(chamber);
+    assertEquals(output, "Y.R");
+  }
+
+  @Test
+  void testWithOverlap() {
+    final ArrayList<Pixel> pixels = new ArrayList<>();
+    pixels.add(new Pixel(Color.R, 0));
+    pixels.add(new Pixel(Color.Y, 4));
+    pixels.add(new Pixel(Color.R, 2));
+    pixels.add(new Pixel(Color.Y, 2));
+    final Chamber chamber = new Chamber(pixels, 5);
+    final TextVisualization visualization = new TextVisualization(5);
+    final String output = visualization.to(chamber);
+    assertEquals(output, "R.O.Y");
   }
 }
