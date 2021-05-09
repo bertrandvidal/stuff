@@ -8,6 +8,10 @@ public final class Pixel {
   private final Color color;
   private Integer position;
 
+  /**
+   * @param color color of the pixel
+   * @param position original position of the pixel
+   */
   public Pixel(Color color, Integer position) {
     this.color = color;
     this.position = position;
@@ -27,6 +31,9 @@ public final class Pixel {
     return this.position;
   }
 
+  /**
+   * @param speed how many unit of space the pixel should be moved
+   */
   public void move(int speed) {
     this.position = this.color.apply(this, speed);
   }
