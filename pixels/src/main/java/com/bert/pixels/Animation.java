@@ -20,6 +20,7 @@ public class Animation {
     // We could try to get the max nb of iteration by using the size of the chamber and the speed
     // and only allocate that many entries in the list #prematureoptimization
     List<String> iterations = new ArrayList<>();
+    iterations.add(visualization.to(chamber));
     while (!chamber.isEmpty()) {
       iterations.add(visualization.to(chamber.movePixels(speed)));
     }
