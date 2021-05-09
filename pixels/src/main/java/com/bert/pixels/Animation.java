@@ -17,8 +17,8 @@ public class Animation {
     final int speed = Integer.parseInt(args[1]);
     TextVisualization visualization = new TextVisualization(MAX_SIZE);
     final Chamber chamber = visualization.from(args[0]);
-    // We could try to get the max nb of iteration by using the size of the chamber and the speed
-    // and only allocate that many entries in the list #prematureoptimization
+    // We could set the size of the list by using the size of the chamber and the value of speed
+    // but ... #prematureoptimization
     List<String> iterations = new ArrayList<>();
     iterations.add(visualization.to(chamber));
     while (!chamber.isEmpty()) {
