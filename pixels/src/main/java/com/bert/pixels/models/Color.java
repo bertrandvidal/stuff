@@ -7,14 +7,17 @@ import java.util.function.BinaryOperator;
  */
 public enum Color {
   /**
-   * Red pixels can only more right.
+   * Red pixels can only move right.
    */
   RED(Integer::sum),
   /**
-   * Yellow pixels can only more left.
+   * Yellow pixels can only move left.
    */
   YELLOW((a, b) -> a - b);
 
+  /**
+   * The movement function to apply to a pixel's position
+   */
   private final BinaryOperator<Integer> moveFunction;
 
   Color(BinaryOperator<Integer> moveFunction) {
