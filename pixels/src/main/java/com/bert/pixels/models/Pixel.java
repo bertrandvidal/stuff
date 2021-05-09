@@ -35,6 +35,6 @@ public final class Pixel {
    * @param speed how many unit of space the pixel should be moved
    */
   public void move(int speed) {
-    this.position = this.color.apply(this, speed);
+    this.position = this.color.getMovement().apply(this.position, speed);
   }
 }
