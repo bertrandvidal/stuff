@@ -26,4 +26,8 @@ public final class Pixel {
   public Integer getPosition() {
     return this.position;
   }
+
+  public void move(int speed) {
+    this.position = this.color.apply(this, speed);
+  }
 }
