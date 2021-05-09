@@ -45,6 +45,7 @@ public class TextVisualization {
     for (int i = 0; i < input.length(); i++) {
       final char character = input.charAt(i);
       Color color = TEXT_TO_COLOR.get(Character.toUpperCase(character));
+      // TODO(bvidal): The "blank" character could be made a constant and/or passed in the constructor
       if (color == null && character != '.') {
         throw new IllegalArgumentException(String.format("'%c' not supported", character));
       } else if (color != null) {
@@ -65,6 +66,7 @@ public class TextVisualization {
     for (Pixel pixel : chamber.pixels()) {
       final Integer position = pixel.getPosition();
       if (output[position] != '.') {
+        // TODO(bvidal): The "overlap" color could be obtain by "mixing" Color rather than being harcoded
         output[position] = 'O';
       } else {
         output[position] = pixel.getColor().toChar();
