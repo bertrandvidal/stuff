@@ -46,7 +46,7 @@ class TextVisualizationTest {
     assertFalse(chamber.isEmpty());
     assertEquals(chamber.pixels().size(), 2);
     for (Pixel pixel : chamber.pixels()) {
-      if (pixel.getColor() == Color.R) {
+      if (pixel.getColor() == Color.RED) {
         assertEquals(pixel.getPosition(), 0);
       } else {
         assertEquals(pixel.getPosition(), 1);
@@ -65,8 +65,8 @@ class TextVisualizationTest {
   @Test
   void testNoOverlap() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.Y, 0));
-    pixels.add(new Pixel(Color.R, 2));
+    pixels.add(new Pixel(Color.YELLOW, 0));
+    pixels.add(new Pixel(Color.RED, 2));
     final Chamber chamber = new Chamber(pixels, 3);
     final TextVisualization visualization = new TextVisualization(3);
     final String output = visualization.to(chamber);
@@ -76,10 +76,10 @@ class TextVisualizationTest {
   @Test
   void testWithOverlap() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.R, 0));
-    pixels.add(new Pixel(Color.Y, 4));
-    pixels.add(new Pixel(Color.R, 2));
-    pixels.add(new Pixel(Color.Y, 2));
+    pixels.add(new Pixel(Color.RED, 0));
+    pixels.add(new Pixel(Color.YELLOW, 4));
+    pixels.add(new Pixel(Color.RED, 2));
+    pixels.add(new Pixel(Color.YELLOW, 2));
     final Chamber chamber = new Chamber(pixels, 5);
     final TextVisualization visualization = new TextVisualization(5);
     final String output = visualization.to(chamber);

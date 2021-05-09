@@ -8,17 +8,17 @@ class ColorTest {
 
   @Test
   void testGetMovementRedColor() {
-    assertEquals(Color.R.getMovement().apply(0, 1), 1);
+    assertEquals(Color.RED.getMovement().apply(0, 1), 1);
   }
 
   @Test
   void testGetMovementYellowColor() {
-    assertEquals(Color.Y.getMovement().apply(0, 1), -1);
+    assertEquals(Color.YELLOW.getMovement().apply(0, 1), -1);
   }
 
   @Test
   void testToChar() {
-    assertEquals(Color.R.toChar(), 'R');
-    assertEquals(Color.Y.toChar(), 'Y');
+    assertEquals(Color.RED.toChar(), 'R');
+    assertEquals(Color.YELLOW.toChar(), 'Y');
   }
 }

@@ -9,11 +9,11 @@ public enum Color {
   /**
    * Red pixels can only more right.
    */
-  R(Integer::sum),
+  RED(Integer::sum),
   /**
    * Yellow pixels can only more left.
    */
-  Y((a, b) -> a - b);
+  YELLOW((a, b) -> a - b);
 
   private final BinaryOperator<Integer> moveFunction;
 

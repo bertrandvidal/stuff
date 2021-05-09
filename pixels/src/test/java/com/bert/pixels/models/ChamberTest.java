@@ -18,21 +18,21 @@ class ChamberTest {
   @Test
   void testIsEmptyWithPixel() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.R, 1));
+    pixels.add(new Pixel(Color.RED, 1));
     assertFalse(new Chamber(pixels, -1).isEmpty());
   }
 
   @Test
   void testMovePixels() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.R, 0));
-    pixels.add(new Pixel(Color.Y, 1));
+    pixels.add(new Pixel(Color.RED, 0));
+    pixels.add(new Pixel(Color.YELLOW, 1));
     final Chamber chamber = new Chamber(pixels, 2);
     chamber.movePixels(1);
     assertFalse(chamber.isEmpty());
     assertEquals(chamber.pixels().size(), 2);
     for (Pixel pixel : chamber.pixels()) {
-      if (Color.R.equals(pixel.getColor())) {
+      if (Color.RED.equals(pixel.getColor())) {
         assertEquals(pixel.getPosition(), 1);
       } else {
         assertEquals(pixel.getPosition(), 0);
@@ -43,8 +43,8 @@ class ChamberTest {
   @Test
   void testMovePixelsOutOfBoundAreRemoved() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
-    pixels.add(new Pixel(Color.R, 1));
-    pixels.add(new Pixel(Color.Y, 0));
+    pixels.add(new Pixel(Color.RED, 1));
+    pixels.add(new Pixel(Color.YELLOW, 0));
     final Chamber chamber = new Chamber(pixels, 2);
     chamber.movePixels(1);
     assertTrue(chamber.isEmpty());

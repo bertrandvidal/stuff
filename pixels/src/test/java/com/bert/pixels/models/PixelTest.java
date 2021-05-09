@@ -16,15 +16,15 @@ class PixelTest {
 
   @Test
   void testGetPosition() {
-    assertEquals(new Pixel(Color.R, -1).getPosition(), -1);
-    assertEquals(new Pixel(Color.R, 0).getPosition(), 0);
-    assertEquals(new Pixel(Color.R, 1).getPosition(), 1);
-    assertNull(new Pixel(Color.R, null).getPosition());
+    assertEquals(new Pixel(Color.RED, -1).getPosition(), -1);
+    assertEquals(new Pixel(Color.RED, 0).getPosition(), 0);
+    assertEquals(new Pixel(Color.RED, 1).getPosition(), 1);
+    assertNull(new Pixel(Color.RED, null).getPosition());
   }
 
   @Test
   void testMove() {
-    Pixel pixel = new Pixel(Color.R, 0);
+    Pixel pixel = new Pixel(Color.RED, 0);
     pixel.move(0);
     assertEquals(pixel.getPosition(), 0);
     pixel.move(1);
