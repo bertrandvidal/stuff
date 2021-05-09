@@ -16,6 +16,9 @@ public class TextVisualization {
   private final int maxSize;
   private int size;
 
+  /**
+   * @param maxSize the maximum size this textual visualization can support
+   */
   public TextVisualization(int maxSize) {
     this.maxSize = maxSize;
   }
