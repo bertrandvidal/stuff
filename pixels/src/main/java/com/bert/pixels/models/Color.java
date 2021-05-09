@@ -21,10 +21,18 @@ public enum Color {
     this.moveFunction = moveFunction;
   }
 
+  /**
+   * @param pixel the pixel to apply the movement to
+   * @param speed the speed of the movement
+   * @return the resulting position of the pixel
+   */
   public Integer apply(Pixel pixel, int speed) {
     return this.moveFunction.apply(pixel.getPosition(), speed);
   }
 
+  /**
+   * @return the single character representation of the Color
+   */
   public Character toChar() {
     return this.name().charAt(0);
   }
