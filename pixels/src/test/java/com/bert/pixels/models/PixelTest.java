@@ -32,4 +32,11 @@ class PixelTest {
     pixel.move(-2);
     assertEquals(pixel.getPosition(), -1);
   }
+
+  @Test
+  void testEqualsAndHashCode() {
+    Pixel redPixel = new Pixel(Color.RED, 0);
+    assertEquals(redPixel, redPixel);
+    assertEquals(redPixel, new Pixel(Color.RED, 0));
+  }
 }

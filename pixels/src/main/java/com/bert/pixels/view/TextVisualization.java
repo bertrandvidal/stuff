@@ -46,7 +46,10 @@ public class TextVisualization {
       final char character = input.charAt(i);
       Color color = TEXT_TO_COLOR.get(Character.toUpperCase(character));
       // TODO(bvidal): The "blank" character could be made a constant and/or passed in the constructor
-      if (color == null && character != '.') {
+      if (character == 'O' || character == 'o') {
+        pixels.add(new Pixel(Color.RED, i));
+        pixels.add(new Pixel(Color.YELLOW, i));
+      } else if (color == null && character != '.') {
         throw new IllegalArgumentException(String.format("'%c' not supported", character));
       } else if (color != null) {
         pixels.add(new Pixel(color, i));

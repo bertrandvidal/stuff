@@ -74,7 +74,7 @@ class TextVisualizationTest {
   }
 
   @Test
-  void testWithOverlap() {
+  void testOutputWithOverlap() {
     final ArrayList<Pixel> pixels = new ArrayList<>();
     pixels.add(new Pixel(Color.RED, 0));
     pixels.add(new Pixel(Color.YELLOW, 4));
@@ -84,5 +84,18 @@ class TextVisualizationTest {
     final TextVisualization visualization = new TextVisualization(5);
     final String output = visualization.to(chamber);
     assertEquals(output, "R.O.Y");
+  }
+
+  @Test
+  void testInputWithOverlap() {
+    final ArrayList<Pixel> pixels = new ArrayList<>();
+    pixels.add(new Pixel(Color.RED, 0));
+    pixels.add(new Pixel(Color.YELLOW, 4));
+    pixels.add(new Pixel(Color.RED, 2));
+    pixels.add(new Pixel(Color.YELLOW, 2));
+    final Chamber chamber = new Chamber(pixels, 5);
+    final TextVisualization visualization = new TextVisualization(5);
+    final Chamber expectedChamber = visualization.from("R.O.Y");
+    assertEquals(chamber.pixels(), expectedChamber.pixels());
   }
 }

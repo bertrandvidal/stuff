@@ -37,4 +37,28 @@ public final class Pixel {
   public void move(int speed) {
     this.position = this.color.getMovement().apply(this.position, speed);
   }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+        return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+        return false;
+    }
+
+    final Pixel pixel = (Pixel) o;
+
+    if (this.position != null ? !this.position.equals(pixel.position) : pixel.position != null) {
+        return false;
+    }
+    return !(this.color != null ? !this.color.equals(pixel.color) : pixel.color != null);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = this.position != null ? this.position.hashCode() : 0;
+    result = 31 * result + (this.color != null ? this.color.hashCode() : 0);
+    return result;
+  }
 }
