@@ -52,7 +52,7 @@ public class TextVisualization {
       } else if (color == null && character != EMPTY_SPACE) {
         throw new IllegalArgumentException(String.format("'%c' not supported", character));
       } else if (color != null) {
-        pixels.add(new Pixel(color, i));
+        pixels.addAll(color.pixelAt(i));
       }
     }
 
