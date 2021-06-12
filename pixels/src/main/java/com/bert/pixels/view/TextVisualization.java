@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class TextVisualization {
 
   private final int maxSize;
+  private final static char EMPTY_SPACE = '.';
   private int size;
   private static final Map<Character, Color> TEXT_TO_COLOR = setupTextToColor();
 
@@ -45,11 +46,10 @@ public class TextVisualization {
     for (int i = 0; i < input.length(); i++) {
       final char character = input.charAt(i);
       Color color = TEXT_TO_COLOR.get(Character.toUpperCase(character));
-      // TODO(bvidal): The "blank" character could be made a constant and/or passed in the constructor
       if (character == 'O' || character == 'o') {
         pixels.add(new Pixel(Color.RED, i));
         pixels.add(new Pixel(Color.YELLOW, i));
-      } else if (color == null && character != '.') {
+      } else if (color == null && character != EMPTY_SPACE) {
         throw new IllegalArgumentException(String.format("'%c' not supported", character));
       } else if (color != null) {
         pixels.add(new Pixel(color, i));
@@ -68,7 +68,7 @@ public class TextVisualization {
     final char[] output = String.join("", Collections.nCopies(chamber.getSize(), ".")).toCharArray();
     for (Pixel pixel : chamber.pixels()) {
       final Integer position = pixel.getPosition();
-      if (output[position] != '.') {
+      if (output[position] != EMPTY_SPACE) {
         // TODO(bvidal): The "overlap" color could be obtain by "mixing" Color rather than being harcoded
         output[position] = 'O';
       } else {
