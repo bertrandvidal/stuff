@@ -46,10 +46,7 @@ public class TextVisualization {
     for (int i = 0; i < input.length(); i++) {
       final char character = input.charAt(i);
       Color color = TEXT_TO_COLOR.get(Character.toUpperCase(character));
-      if (character == 'O' || character == 'o') {
-        pixels.add(new Pixel(Color.RED, i));
-        pixels.add(new Pixel(Color.YELLOW, i));
-      } else if (color == null && character != EMPTY_SPACE) {
+      if (color == null && character != EMPTY_SPACE) {
         throw new IllegalArgumentException(String.format("'%c' not supported", character));
       } else if (color != null) {
         pixels.addAll(color.pixelAt(i));
