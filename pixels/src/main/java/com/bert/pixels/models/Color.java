@@ -1,5 +1,7 @@
 package com.bert.pixels.models;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.function.BinaryOperator;
 
 /**
@@ -36,5 +38,14 @@ public enum Color {
    */
   public Character toChar() {
     return this.name().charAt(0);
+  }
+
+  /**
+   * Pixel(s) that should be created when reading chamber from input.
+   * @param position the position in the chamber at which the input that resolve to this color was fond
+   * @return Pixel(s) at the given position with the appropriate color
+   */
+  public Collection<Pixel> pixelAt(int position) {
+    return Collections.singleton(new Pixel(this, position));
   }
 }
