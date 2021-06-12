@@ -67,7 +67,7 @@ public class TextVisualization {
       final Integer position = pixel.getPosition();
       if (output[position] != EMPTY_SPACE) {
         // TODO(bvidal): The "overlap" color could be obtain by "mixing" Color rather than being harcoded
-        output[position] = 'O';
+        output[position] = Color.ORANGE.toChar();
       } else {
         output[position] = pixel.getColor().toChar();
       }
