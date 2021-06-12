@@ -96,6 +96,6 @@ class TextVisualizationTest {
     final Chamber chamber = new Chamber(pixels, 5);
     final TextVisualization visualization = new TextVisualization(5);
     final Chamber expectedChamber = visualization.from("R.O.Y");
-    assertEquals(chamber.pixels(), expectedChamber.pixels());
+    assertTrue(chamber.pixels().containsAll(expectedChamber.pixels()));
   }
 }
