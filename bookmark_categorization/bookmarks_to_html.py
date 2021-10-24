@@ -2,9 +2,9 @@
 import json
 import os
 import sys
-from typing import Dict
+from typing import Dict, List
 
-from bs4 import BeautifulSoup, Tag, NavigableString
+from bs4 import BeautifulSoup
 
 bookmark_file = sys.argv[1]
 LINKS = {}
@@ -27,34 +27,38 @@ with open(os.path.abspath('bookmarks_10_23_21.html')) as f:
     }
 
 
-def create_bookmark_tag(attributes: Dict, contents: str) -> Tag:
-    dt = Tag(soup, name='DT')
-    a = Tag(soup, name='A', attrs=attributes)
-    a.append(NavigableString(contents))
-    dt.append(a)
-    return dt
+def create_bookmark_tag(attributes: Dict, contents: str) -> str:
+    return f'<DT><A HREF="{attributes["HREF"]}" ICON="{attributes.get("ICON", "")}" ADD_DATE="{attributes["ADD_DATE"]}">{contents}</A>'
 
 
-def create_folder_tag(folder: Dict) -> Tag:
-    dt = Tag(soup, name='DT')
-    title = Tag(soup, name='H3', attrs={'ADD_DATE': 1596119447, 'LAST_MODIFIED': 1596119447})
-    title.append(NavigableString(folder['name']))
-    dt.append(title)
-    dl = Tag(soup, name='DL')
-    p = Tag(soup, name='p')
-    for link in folder['links']:
-        (attributes, contents) = LINKS[link]
-        p.append(create_bookmark_tag(attributes, contents))
+def create_folder_tag(folder: Dict) -> List[str]:
+    print(f"Handling folder {folder['name']}")
+    content = [f'<DT><H3 ADD_DATE="1554239916" LAST_MODIFIED="1620574779">{folder["name"]}</H3>',
+               '<DL><p>']
 
     for sub_folder in folder['children']:
-        dl.append(create_folder_tag(sub_folder))
-    dl.append(p)
-    dt.append(dl)
-    return dt
+        content.extend(create_folder_tag(sub_folder))
 
+    for link in folder['links']:
+        (attributes, contents) = LINKS[link]
+        content.append(create_bookmark_tag(attributes, contents))
+    content.append('</DL><p>')
+
+    return content
+
+
+html_content: list[str] = """<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>Bookmarks</TITLE>
+<H1>Bookmarks</H1>
+<DL><p>""".split('\n')
 
 with open(os.path.abspath(bookmark_file)) as f:
-    tree = create_folder_tag(json.load(f))
+    html_content.extend(create_folder_tag(json.load(f)))
+
+html_content.append("</DL><p>")
+
+print(len(html_content))
 
 with open(os.path.expanduser("~/Documents/bert.html"), "w") as f:
-    f.write(str(tree))
+    f.writelines([l + "\n" for l in html_content])
