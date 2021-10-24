@@ -90,7 +90,7 @@ def get_already_processed_links(node: BookmarkNode, accumulator: List[str] = Non
     return accumulator
 
 
-def categorize_bookmarks(root_node: BookmarkNode, links: Dict[dict]) -> None:
+def categorize_bookmarks(root_node: BookmarkNode, links: Dict[str, Dict]) -> None:
     already_processed_links = get_already_processed_links(root_node)
     for link, topics in links.items():
         if link in already_processed_links:
