@@ -135,8 +135,14 @@ root = BookmarkNode("root", None)
 if bookmarks:
     root = BookmarkNode.from_json(bookmarks)
 
+
+def save_bookmarks(file_path: str, node: BookmarkNode):
+    with open(file_path, 'w') as bookmark_file:
+        json.dump(node.to_json(), bookmark_file)
+
+
 try:
     categorize_bookmarks(root, link_categorization)
+    save_bookmarks(bookmark_path, root)
 except KeyboardInterrupt:
-    with open(bookmark_path, 'w') as f:
-        json.dump(root.to_json(), f)
+    save_bookmarks(bookmark_path, root)
