@@ -97,7 +97,7 @@ def categorize_bookmarks(root_node: BookmarkNode, links: Dict[dict]) -> None:
             continue
         choice = None
         current_node = root_node
-        while choice != 'a':
+        while choice != ADD_TO_CATEGORY:
             while choice not in commands:
                 print(print_bread_crumbs(current_node))
                 children_names = [(i, c.name) for (i, c) in enumerate(current_node.children)]
