@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import os
 import sys
-from typing import List, Dict
+from typing import List, Dict, Set
 
 with open(os.path.abspath(os.path.expanduser(sys.argv[1]))) as f:
     link_categorization = json.load(f)
@@ -82,12 +82,12 @@ def print_bread_crumbs(node: BookmarkNode) -> str:
     return " > ".join(reversed(components))
 
 
-def get_already_processed_links(node: BookmarkNode, accumulator: List[str] = None) -> List[str]:
+def get_already_processed_links(node: BookmarkNode, accumulator: List[str] = None) -> Set[str]:
     accumulator = accumulator or []
     for child in node.children:
         accumulator.extend(get_already_processed_links(child, accumulator))
     accumulator.extend(node.links)
-    return accumulator
+    return set(accumulator)
 
 
 def categorize_bookmarks(root_node: BookmarkNode, links: Dict[str, Dict]) -> None:
