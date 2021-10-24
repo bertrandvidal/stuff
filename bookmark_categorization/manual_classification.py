@@ -4,10 +4,10 @@ from __future__ import annotations
 import json
 import os
 import sys
-from typing import List
+from typing import List, Dict
 
 with open(os.path.abspath(os.path.expanduser(sys.argv[1]))) as f:
-    data = json.load(f)
+    link_categorization = json.load(f)
 
 bookmarks = None
 bookmark_path = os.path.join(os.path.curdir, 'bookmarks.json')
@@ -27,8 +27,8 @@ PRINT_BOOKMARKS = 'p'
 commands = [CREATE_NEW_CATEGORY, ADD_TO_CATEGORY, PRINT_BOOKMARKS, BACK_UP]
 prompt = """
 n: create new category
-a: add to current category
-b: go back one level
+a: add to current category [%s]
+b: go back one level [%s]
 p: print categories
 """
 
@@ -58,8 +58,15 @@ class BookmarkNode:
             'children': [child.to_json() for child in self.children]
         }
 
+    @staticmethod
+    def from_json(json_payload: dict, parent: BookmarkNode = None) -> BookmarkNode:
+        node = BookmarkNode(json_payload['name'], parent, json_payload['links'])
+        for children_payload in json_payload['children']:
+            BookmarkNode.from_json(children_payload, node)
+        return node
 
-def print_bookmarks(node: BookmarkNode, depth: int = 0) -> str:
+
+def print_bookmarks(node: BookmarkNode, depth: int = 0):
     print((' ' * depth), "- ", node.name, sep='')
     for link in node.links:
         print((' ' * depth), " > ", link, sep='')
@@ -75,10 +82,21 @@ def print_bread_crumbs(node: BookmarkNode) -> str:
     return " > ".join(reversed(components))
 
 
-def categorize_bookmarks(root: BookmarkNode) -> None:
-    for link, topics in data.items():
+def get_already_processed_links(node: BookmarkNode, accumulator: List[str] = None) -> List[str]:
+    accumulator = accumulator or []
+    for child in node.children:
+        accumulator.extend(get_already_processed_links(child, accumulator))
+    accumulator.extend(node.links)
+    return accumulator
+
+
+def categorize_bookmarks(root_node: BookmarkNode, links: Dict[dict]) -> None:
+    already_processed_links = get_already_processed_links(root_node)
+    for link, topics in links.items():
+        if link in already_processed_links:
+            continue
         choice = None
-        current_node = root
+        current_node = root_node
         while choice != 'a':
             while choice not in commands:
                 print(print_bread_crumbs(current_node))
@@ -86,7 +104,7 @@ def categorize_bookmarks(root: BookmarkNode) -> None:
                 print(f"{children_names}")
                 print(f"> {link} \n{topics}")
                 sub_category_selected = False
-                choice = input(prompt)
+                choice = input(prompt % (current_node.name, current_node.parent.name if current_node.parent else None))
 
                 try:
                     if int(choice) <= len(current_node.children):
@@ -102,7 +120,7 @@ def categorize_bookmarks(root: BookmarkNode) -> None:
                 elif choice == BACK_UP:
                     current_node = current_node.parent or current_node
                 elif choice == PRINT_BOOKMARKS:
-                    print_bookmarks(root)
+                    print_bookmarks(root_node)
 
                 if choice in [CREATE_NEW_CATEGORY, ADD_TO_CATEGORY, BACK_UP] or sub_category_selected:
                     print("\033c")  # clear screen
@@ -115,10 +133,10 @@ def categorize_bookmarks(root: BookmarkNode) -> None:
 root = BookmarkNode("root", None)
 
 if bookmarks:
-    pass
+    root = BookmarkNode.from_json(bookmarks)
 
 try:
-    categorize_bookmarks(root)
+    categorize_bookmarks(root, link_categorization)
 except KeyboardInterrupt:
     with open(bookmark_path, 'w') as f:
         json.dump(root.to_json(), f)
