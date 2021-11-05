@@ -12,8 +12,8 @@ file_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
 
 
 # method to integerify each entry in the file
-def clean_line(line):
-    return [int(e.strip()) for e in line.split(" ")]
+def clean_line(line, transformation=int):
+    return [transformation(e.strip()) for e in line.split(" ")]
 
 
 values = []
@@ -48,7 +48,7 @@ def get_max(current_node):
 # triangle is a list of list containing the numbers
 with open(file_path, "r") as triangle_file:
     for line in triangle_file.readlines():
-        for nb in clean_line(line):
+        for nb in clean_line(line, float):
             n = Node(nb)
             values.append(n)
 

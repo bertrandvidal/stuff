@@ -29,7 +29,7 @@ base = triangle.pop(0)
 for line in triangle:
     # We add this extra entry so we can use the trick where list[-1] is
     # the last element of the list
-    base.append(0)
+    base.append(min(0, min(base)))
     for index, entry in enumerate(line):
         # The current entry is added to the max between the number directly
         # above and the number above and one to the left - potentially the
