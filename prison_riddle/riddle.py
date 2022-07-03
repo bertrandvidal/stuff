@@ -6,7 +6,7 @@ import random
 
 nb_boxes = 100
 
-user_nb = random.randint(0, nb_boxes)
+user_nb = random.randint(0, nb_boxes - 1)
 boxes = [i for i in range(nb_boxes)]
 
 for _ in range(10):
