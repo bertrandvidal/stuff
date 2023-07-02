@@ -19,7 +19,7 @@ def get_thermostat_data(file_path):
     :return: yield json objects from the given file path
     """
     with open(file_path, "r") as f:
-        for line in f.readlines():
+        for line in f:
             yield json.loads(line.strip("\n"))
 
 
