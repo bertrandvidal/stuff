@@ -1,6 +1,8 @@
+import os
 import unittest
+from zipfile import ZipFile
 
-from replay import get_thermostat_attribute, get_thermostat_data
+from replay import get_thermostat_attribute, get_thermostat_data, get_file_path
 
 
 class MyTestCase(unittest.TestCase):
@@ -23,6 +25,19 @@ class MyTestCase(unittest.TestCase):
         last_element = list(iterator)[-1]
         self.assertDictEqual(last_element, {"updateTime": "2016-12-31T05:09:00.020215",
                                             "update": {"lastAlertTs": "2016-12-31T05:09:00.020215"}})
+
+    def test_get_file_path_unzipped(self):
+        self.assertEqual(get_file_path(__file__), __file__)
+
+    def test_get_file_path_zipped(self):
+        try:
+            with ZipFile("test.zip", "w") as test_zip:
+                test_zip.write(os.path.basename(__file__))
+            path = get_file_path("test.zip")
+            self.assertEqual(path, os.path.basename(__file__))
+        finally:
+            if os.path.exists("test.zip"):
+                os.unlink("test.zip")
 
 
 if __name__ == '__main__':
