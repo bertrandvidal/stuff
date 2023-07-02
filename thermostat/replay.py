@@ -1,3 +1,4 @@
+import datetime
 import json
 import zipfile
 
@@ -39,3 +40,25 @@ def get_file_path(file_path):
             return filename
     else:
         return file_path
+
+
+def get_attribute_from_file(file_path, attribute, search_timestamp):
+    """Reading from the file, return the value for the 'attribute' at the given 'timestamp'
+
+    :param file_path: path of a jsonl file containing the data
+    :param attribute: name of the thermostat attribute
+    :param search_timestamp: datetime at which we want to read the attribute
+    :return: value of the thermostat attribute at
+    the given timestamp or None if that attribute isn't present or the file does not contain data for the given
+    timestamp.
+    """
+    current_data = {}
+    for thermostat_data in get_thermostat_data(file_path):
+        update_time = datetime.datetime.fromisoformat(thermostat_data["updateTime"])
+        if current_data == {} and update_time and search_timestamp < update_time:
+            # handle a search_timestamp that's before the start of the file
+            return None
+        current_data.update(thermostat_data["update"])
+        if update_time >= search_timestamp:
+            return get_thermostat_attribute(current_data, attribute)
+    return None
