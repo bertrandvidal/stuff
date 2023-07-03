@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+
+import argparse
 import datetime
 import json
+import pathlib
+import sys
 import zipfile
 
 
@@ -61,4 +66,17 @@ def get_attribute_from_file(file_path, attribute, search_timestamp):
         current_data.update(thermostat_data["update"])
         if update_time >= search_timestamp:
             return get_thermostat_attribute(current_data, attribute)
-    return None
+    return get_thermostat_attribute(current_data, attribute)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog="replay", description="Infer the state of a field at a point in time")
+    parser.add_argument("attribute")
+    parser.add_argument("file_path", type=pathlib.Path)
+    parser.add_argument("timestamp", type=datetime.datetime.fromisoformat)
+    args = parser.parse_args(sys.argv[1:])
+    value = get_attribute_from_file(args.file_path, args.attribute, args.timestamp)
+    if value is None:
+        print(f"Could not find '{args.attribute}' in '{args.file_path}': attribute unknown or timestamp is too early")
+    else:
+        print(f"Thermostat[{args.attribute}] = {value} at {args.timestamp}")
