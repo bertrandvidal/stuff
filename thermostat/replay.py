@@ -2,8 +2,11 @@
 
 import argparse
 import datetime
+import gzip
 import json
+import os.path
 import pathlib
+import shutil
 import sys
 import zipfile
 
@@ -44,7 +47,13 @@ def get_file_path(file_path):
             zf.extractall()
             return filename
     else:
-        return file_path
+        try:
+            output_file_path, _ = os.path.splitext(file_path)
+            with gzip.open(file_path, "rb") as fd_in, open(output_file_path, "wb") as fd_out:
+                shutil.copyfileobj(fd_in, fd_out)
+            return output_file_path
+        except gzip.BadGzipFile:
+            return file_path
 
 
 def get_attribute_from_file(file_path, attribute, search_timestamp):
@@ -75,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument("file_path", type=pathlib.Path)
     parser.add_argument("timestamp", type=datetime.datetime.fromisoformat)
     args = parser.parse_args(sys.argv[1:])
-    value = get_attribute_from_file(args.file_path, args.attribute, args.timestamp)
+    value = get_attribute_from_file(get_file_path(args.file_path), args.attribute, args.timestamp)
     if value is None:
         print(f"Could not find '{args.attribute}' in '{args.file_path}': attribute unknown or timestamp is too early")
     else:
