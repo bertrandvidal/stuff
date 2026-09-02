@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Alps_Solderable")(type "KiCad")(uri "${KIPRJMOD}/../vendor/ai03-alps-solderable/Alps_Solderable.pretty")(options "")(descr "ai03 MX_V2 Alps-Solderable footprints (SKCM/SKCL/SKBM/SKBL), vendored, MIT licensed"))
+)
