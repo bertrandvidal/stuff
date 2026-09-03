@@ -29,3 +29,9 @@ for the full change set.
 
 Used solder-in (no Alps hotswap footprint exists in this or any ai03
 library) — matches the plan to hand-solder salvaged vintage SKCM switches.
+
+Placed on the board via `pcb/footprints/Alps_Solderable_MXPadOrder.pretty`, a derived
+copy whose only difference from upstream is that pad 1 and pad 2 are numbered
+the other way round, so Quanta75's Cherry-MX-era netlist lands each net on the
+hole its copper already reaches. See `pcb/footprints/NOTICE.md` for the full
+rationale; no geometry is altered.

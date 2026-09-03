@@ -307,14 +307,14 @@
 	(net 177 "QSPI_SD1")
 	(net 178 "/RP2040_D+")
 	(net 179 "/RP2040_D-")
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "04de7c19-496c-43c4-9156-19c24605e9de")
-		(at 165.1 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 162.56 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW34"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "46f3c4b1-0614-4231-a4a1-0fd7387c1524")
 			(effects
@@ -495,7 +495,7 @@
 			(uuid "322ab968-11d7-4cfa-9121-debc8d7973db")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -506,7 +506,7 @@
 			(uuid "8c11831a-b41b-41d3-98c0-c489d7f6bbca")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -1439,14 +1439,14 @@
 			)
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "159cd59e-283f-4f10-b33f-12c975354d71")
-		(at 255.5875 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 253.0475 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW68"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "6ee064e0-e6b6-4d17-85c5-1871a9276319")
 			(effects
@@ -1627,7 +1627,7 @@
 			(uuid "84f1660c-e41f-42d4-a0fe-258e883b399d")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -1638,7 +1638,7 @@
 			(uuid "977d2017-220e-42cc-b4af-756f42a4a0e2")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -1650,14 +1650,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "17bb45c8-461a-4c06-85ae-0795c84103bc")
-		(at 350.8375 212.725)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 348.2975 217.805)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW82"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "ebc456d8-aa8f-4fbd-8f0e-9b22bedd1563")
 			(effects
@@ -1838,7 +1838,7 @@
 			(uuid "66f4fa31-735a-4463-be49-2f57330b3123")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -1849,7 +1849,7 @@
 			(uuid "e232906d-7100-4f5e-8ae7-9b4597bdcae5")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -1861,14 +1861,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "184bb109-a827-4159-b591-81ff9d376c33")
-		(at 355.6 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 353.06 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW43"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "5f10cedc-b362-4a9b-87bd-77b4f33e8517")
 			(effects
@@ -2049,7 +2049,7 @@
 			(uuid "5b4f9dd8-34c0-4131-a3da-1d480b787528")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2060,7 +2060,7 @@
 			(uuid "56d4aa75-d75d-4360-b643-2f5a3b08e4a9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2072,14 +2072,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "1e851f4b-03f0-443d-a7bf-376ac88d0ee9")
-		(at 250.825 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 248.285 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW24"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "25871d67-dd17-40ad-8e34-c61485c3ae29")
 			(effects
@@ -2260,7 +2260,7 @@
 			(uuid "68f0ab5b-7b79-4de5-823b-732b857e5aca")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2271,7 +2271,7 @@
 			(uuid "e24665cc-72b2-4b32-bb7d-4d723967bd29")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2283,14 +2283,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "23971502-0cce-4bf9-b0b4-4a077c31cbd1")
-		(at 131.7625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 129.2225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW47"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "6fd94eaa-3bc1-49cf-8391-aad1e2559686")
 			(effects
@@ -2471,7 +2471,7 @@
 			(uuid "3a8da173-66b7-42b4-a711-3a6e7a6a2164")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2482,7 +2482,7 @@
 			(uuid "87e3c43b-25c0-4c57-9a71-a68075ad6030")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2494,14 +2494,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "23d16530-b8ba-408a-a856-a172c3d8c50e")
-		(at 150.8125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 148.2725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW48"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "81ad6193-49f9-422f-983e-6f06eb037337")
 			(effects
@@ -2682,7 +2682,7 @@
 			(uuid "fe58d108-03f2-4f1f-b471-66c245759e38")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2693,7 +2693,7 @@
 			(uuid "c5720c4f-4b48-4142-a656-19ed0135c5a4")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2705,14 +2705,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "2489f8c3-0c71-42bd-abbc-3abc500e8066")
-		(at 141.2875 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 138.7475 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW5"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "8b274ff1-94b5-483e-918a-8ac2f102baa8")
 			(effects
@@ -2893,7 +2893,7 @@
 			(uuid "6566d3ae-855f-4753-8a57-cd6d99439c2e")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -2904,7 +2904,7 @@
 			(uuid "a55ee9c7-5dcb-4f34-96cb-8c9564902e2a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3132,14 +3132,14 @@
 			(uuid "a336917a-7a85-469d-8efc-23f951edd3dc")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-2U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-2U"
 		(layer "F.Cu")
 		(uuid "3647edbc-57a7-4bea-8914-f64d10b362a0")
-		(at 317.5 131.7625)
-		(descr "Cherry MX keyswitch, 2.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 2.00u PCB")
+		(at 314.96 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW27"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a2346cfc-effa-4c29-8707-ecbb3e98039d")
 			(effects
@@ -3320,7 +3320,7 @@
 			(uuid "88f17138-18d7-45b8-baec-ae5a3537c539")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3331,7 +3331,7 @@
 			(uuid "8a962a6e-ceaf-495d-bcbf-392f135d438b")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3450,14 +3450,14 @@
 			(uuid "7411e058-b68c-476a-89e0-1ba9f447ebb9")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "43890739-61c9-41ca-baf1-bf4c99f8c423")
-		(at 265.1125 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 262.5725 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW11"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "37a88f5f-af41-4c11-b516-2e3572d54fb6")
 			(effects
@@ -3638,7 +3638,7 @@
 			(uuid "36acd03b-13cc-42ff-be0b-c44db01a7418")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3649,7 +3649,7 @@
 			(uuid "dc925cad-5546-4ed6-8584-5960af15499a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3661,14 +3661,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "4525270a-44d4-46ff-9a19-1919e912d6ac")
-		(at 84.1375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 81.5975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW59"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f12f91f8-181f-4b56-8139-c037f01b46a8")
 			(effects
@@ -3849,7 +3849,7 @@
 			(uuid "6c22ea4b-494a-4818-898c-dc425bba2224")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3860,7 +3860,7 @@
 			(uuid "71b07b67-016b-4ca8-8240-f8144ca63455")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -3980,14 +3980,14 @@
 			(uuid "196fceca-bd9b-4cad-89e0-fb7bdea0e4b1")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "4b31855f-5669-49a3-9402-05c0708294c1")
-		(at 288.925 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 286.385 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW26"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "efe9968e-a240-4d48-acbf-793ee511a5ad")
 			(effects
@@ -4168,7 +4168,7 @@
 			(uuid "7bf22a0f-2dac-448d-91cc-7dfc931a233b")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4179,7 +4179,7 @@
 			(uuid "d4658eda-a3ca-4564-9305-935d27b6aeef")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4191,14 +4191,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "4b709089-b437-463f-b52f-047803d471aa")
-		(at 250.825 207.9625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 248.285 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW77"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f1d447ae-d696-4940-ac16-ef9bc2a752e2")
 			(effects
@@ -4379,7 +4379,7 @@
 			(uuid "a7e5344d-4824-4f6b-a3d9-a33616c749bd")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4390,7 +4390,7 @@
 			(uuid "4a999aaf-ab51-43b1-b494-6c32e945e70b")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4402,14 +4402,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "4b9590b0-f2ea-4d53-ba97-3f741ae903f2")
-		(at 269.875 207.9625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 267.335 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW78"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "6e8d2504-0e6d-4924-bd7c-039d2b21c410")
 			(effects
@@ -4590,7 +4590,7 @@
 			(uuid "44bf8be9-a5ce-46ca-bbf1-6f5508260c3d")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4601,7 +4601,7 @@
 			(uuid "5012d4f4-d450-4f47-a721-6c1c1fa3f038")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4613,14 +4613,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "4c4d1d35-8d6c-4cfd-8aed-8e91095fc97a")
-		(at 222.25 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 219.71 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW37"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "867ff02b-e8e4-464d-a74c-221f81288386")
 			(effects
@@ -4801,7 +4801,7 @@
 			(uuid "1cf7fe45-3a65-47bd-b1fd-c631d65bcedc")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -4812,7 +4812,7 @@
 			(uuid "facbad84-2bd4-4d3c-9a12-733d08b5508f")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5322,14 +5322,14 @@
 			(uuid "e63ac24b-377b-4cf0-ad4b-1b29208a619b")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "5180879a-01f3-4b27-b58e-48f754291648")
-		(at 174.625 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 172.085 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW20"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "d788ca39-587c-4761-90c5-c395868f6e0d")
 			(effects
@@ -5510,7 +5510,7 @@
 			(uuid "d870f272-0e22-4606-930f-e05e1f03516b")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5521,7 +5521,7 @@
 			(uuid "dbc10fb3-663b-4945-9bc5-c7a4c90cc9ff")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5533,14 +5533,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "524dd127-5a38-41f5-9166-5799ae3b33ce")
-		(at 165.1 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 162.56 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW6"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "8c7f61e5-9155-4d5f-b15b-5fb7eb6c9419")
 			(effects
@@ -5721,7 +5721,7 @@
 			(uuid "50f10f0d-f120-461e-8c18-1dcb6790d443")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5732,7 +5732,7 @@
 			(uuid "9e5de3b7-a65a-4b35-bc85-7471adb69f3c")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5744,14 +5744,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "537facd7-0c0c-4524-9937-2723b80fc173")
-		(at 207.9625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 205.4225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW51"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "c18bc337-f82f-48d9-83ff-a257ed1c894c")
 			(effects
@@ -5932,7 +5932,7 @@
 			(uuid "60ce2544-d5f6-4432-96d6-dc55ac2fefe8")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -5943,7 +5943,7 @@
 			(uuid "0d6fb20d-d041-4271-a641-d7dc02f62ecf")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -6807,14 +6807,14 @@
 			(uuid "9c0ab54c-cd25-4264-b079-49286804ec3a")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "5d00fc3b-482b-47f5-acb4-9f392d05a0a2")
-		(at 122.2375 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 119.6975 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW4"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "26bff56a-8f9f-4eea-96a3-8f80d4dc7232")
 			(effects
@@ -6995,7 +6995,7 @@
 			(uuid "83a4e1f5-1abb-4982-8822-47d81daa8d75")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7006,7 +7006,7 @@
 			(uuid "8563609e-febc-445e-b8ca-1616709952d3")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7124,14 +7124,14 @@
 			(uuid "2d474186-d324-4ca5-9aad-bd756bd10610")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "60a1864b-6f7d-4250-b274-18240e90b05c")
-		(at 98.425 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 95.885 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW16"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "2a0db971-fcde-4611-9fbf-4b55ca859372")
 			(effects
@@ -7312,7 +7312,7 @@
 			(uuid "9569524f-e274-4bf7-9a8b-a9c9551ed5ba")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7323,7 +7323,7 @@
 			(uuid "c3eed99d-e197-49bd-ab71-ee9d88d8b240")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7335,14 +7335,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "624a58f7-98d0-4e62-9379-aced17ec8e08")
-		(at 274.6375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 272.0975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW69"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e5b91406-0419-4cb5-9119-3f11e6323257")
 			(effects
@@ -7523,7 +7523,7 @@
 			(uuid "c2e2a1e2-85d0-4720-8ed9-715e0ce88ae4")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7534,7 +7534,7 @@
 			(uuid "45dc6cc6-9471-4297-b406-ac93932e5f30")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7546,14 +7546,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "64cbe4f8-9430-4c8b-b9a9-6a86eaae5e1e")
-		(at 203.2 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 200.66 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW36"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "3584a0d5-bcab-4f4c-8f02-a6c8d668fde0")
 			(effects
@@ -7734,7 +7734,7 @@
 			(uuid "7a14d791-7c68-48d1-8e92-108a1514d9d8")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7745,7 +7745,7 @@
 			(uuid "ea50b8ee-2e59-440d-ad23-28692437333a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7757,14 +7757,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "65099648-56b5-4947-a69f-8fccdff94249")
-		(at 231.775 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 229.235 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW23"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "8d6e8c64-c292-45d5-86c4-c37ecdc369be")
 			(effects
@@ -7945,7 +7945,7 @@
 			(uuid "9ea6f6db-9bc1-4650-a496-59f9ec8e3cdd")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7956,7 +7956,7 @@
 			(uuid "58bd9d9c-fc8d-4c0e-82af-1663b8539398")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -7969,14 +7969,14 @@
 	)
 
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "6c6200c4-7e63-45e9-b9e8-e7e363dd317e")
-		(at 184.15 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 181.61 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW35"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "96fcf9a2-0d57-48f7-a6be-f410b53f70bc")
 			(effects
@@ -8157,7 +8157,7 @@
 			(uuid "5898b446-49eb-42af-949c-7fc4223184f7")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8168,7 +8168,7 @@
 			(uuid "89065151-e520-41b7-9efe-5c3c0aec582d")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8180,14 +8180,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "745cbab8-0d69-4f95-9db8-aee763c21927")
-		(at 222.25 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 219.71 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW9"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "3ca535c0-f283-493f-b829-3f659912904e")
 			(effects
@@ -8368,7 +8368,7 @@
 			(uuid "2c6c9533-47d9-40d7-b542-0dd354ffb728")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8379,7 +8379,7 @@
 			(uuid "6023f2bc-4e4c-4c07-8404-55ea83af23ac")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8391,14 +8391,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1.25U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.25U"
 		(layer "F.Cu")
 		(uuid "763ca0ab-236c-4cb3-b222-b57cff07baa4")
-		(at 62.70625 207.9625)
-		(descr "Cherry MX keyswitch, 1.25u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.25u PCB")
+		(at 60.16625 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW73"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "ecbda310-5fde-4f85-8817-947d848a88f2")
 			(effects
@@ -8579,7 +8579,7 @@
 			(uuid "48bb86f0-5896-4c48-b3dc-9e0bd9e81ee8")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8590,7 +8590,7 @@
 			(uuid "9f681644-cddf-4ea5-ad46-ecdcfda4a6af")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8602,14 +8602,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1.75U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.75U"
 		(layer "F.Cu")
 		(uuid "768bb35e-1496-4d42-9f8a-f05d40a46172")
-		(at 67.46875 169.8625)
-		(descr "Cherry MX keyswitch, 1.75u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.75u PCB")
+		(at 64.92875 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW44"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "745e552d-d7cc-4457-9681-918b81c12d2d")
 			(effects
@@ -8790,7 +8790,7 @@
 			(uuid "2b34b80a-c1cf-42f0-99b7-557d03427a91")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8801,7 +8801,7 @@
 			(uuid "77f7c003-f533-45a2-89b2-4cdb82beec2f")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -8813,14 +8813,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "77db9c3e-8bdc-4dbf-9a66-70d3444d47eb")
-		(at 127 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 124.46 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW32"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f52b0068-5907-427c-96d4-e348ea6a8c24")
 			(effects
@@ -9001,7 +9001,7 @@
 			(uuid "cd5eead6-0f3e-4b78-beab-145590ba0d61")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9012,7 +9012,7 @@
 			(uuid "b3fced5a-1b14-46b6-af97-c9402de50a89")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9024,14 +9024,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "7956b82a-ce5a-4612-a9c1-fa50cd7dbf76")
-		(at 107.95 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 105.41 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW31"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "7a095d61-9d7e-4401-a311-e866b15ba381")
 			(effects
@@ -9212,7 +9212,7 @@
 			(uuid "a16cfea1-f467-48fc-b76b-19d9384280d4")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9223,7 +9223,7 @@
 			(uuid "21cd7882-329a-4ac8-bdeb-119cf5a845fc")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9235,14 +9235,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "79f8e06a-2caf-47ac-985e-f311eadc6123")
-		(at 136.525 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 133.985 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW18"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "45109aed-7dc6-4ff8-b884-6a7fe3a0fbcc")
 			(effects
@@ -9423,7 +9423,7 @@
 			(uuid "663ee4e9-b4e1-485c-b2e0-ea1175ccbb23")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9434,7 +9434,7 @@
 			(uuid "fa167042-2090-4453-8e08-675b77b760e5")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9552,14 +9552,14 @@
 			(uuid "29a7146a-cae9-46d0-b4b7-7474de243d76")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1.25U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.25U"
 		(layer "F.Cu")
 		(uuid "7aafb3ef-8a10-4b24-97f7-9754b940e1e1")
-		(at 86.51875 207.9625)
-		(descr "Cherry MX keyswitch, 1.25u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.25u PCB")
+		(at 83.97875 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW74"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "fd40ddc8-c987-43e5-b61f-bc30ea9b4581")
 			(effects
@@ -9740,7 +9740,7 @@
 			(uuid "b64fd71b-903c-4ca3-b642-07db79872560")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9751,7 +9751,7 @@
 			(uuid "3726f5e8-c0e0-4189-9a18-2b249e6d2467")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9763,14 +9763,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "7adf48c5-8331-4068-92a3-bafb7b1a069d")
-		(at 355.6 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 353.06 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW57"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "4ea1919c-1711-4ea2-9e2f-9d2dde5e5261")
 			(effects
@@ -9951,7 +9951,7 @@
 			(uuid "98f33843-8da8-43fd-8515-a1bf16a68792")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9962,7 +9962,7 @@
 			(uuid "b3b327a8-ae6a-4781-b5bd-ee0ae086fbc5")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -9974,14 +9974,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "7f2d61d4-caff-45dd-972e-c3ce9a3f10ef")
-		(at 103.1875 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 100.6475 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW60"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a663b7db-5ab8-41af-9e62-d09f0c000e3c")
 			(effects
@@ -10162,7 +10162,7 @@
 			(uuid "d88b91b4-4d56-41b7-9ce4-dd1452271f36")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10173,7 +10173,7 @@
 			(uuid "c735ad9b-f737-4d51-8ae9-a13673608218")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10185,14 +10185,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1.75U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.75U"
 		(layer "F.Cu")
 		(uuid "7f7c27c5-abc1-44c2-9c9b-8830c2d1609b")
-		(at 300.83125 188.9125)
-		(descr "Cherry MX keyswitch, 1.75u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.75u PCB")
+		(at 298.29125 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW70"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "0996c176-b0db-46fb-a793-e1494d5ee0cc")
 			(effects
@@ -10373,7 +10373,7 @@
 			(uuid "c8f5fc4d-5c1f-470d-a3b0-68a1fd9d9c2b")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10384,7 +10384,7 @@
 			(uuid "26282f80-d79e-4fb8-82a0-b30732b51165")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10396,14 +10396,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "818fe5c9-4d8d-47dc-bf50-53e23f4802f3")
-		(at 269.875 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 267.335 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW25"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "cc73a650-30d4-460a-b8ff-56de93e67bfb")
 			(effects
@@ -10584,7 +10584,7 @@
 			(uuid "2aa17ef9-80d9-4dfd-8b42-748fb02df48c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10595,7 +10595,7 @@
 			(uuid "83e63fe9-17df-4a90-aae5-4d3ff668465d")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10607,14 +10607,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "850b1091-35e5-4120-ab90-81fbee33144b")
-		(at 155.575 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 153.035 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW19"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "46a0463b-a163-4d17-9062-c50322836b14")
 			(effects
@@ -10795,7 +10795,7 @@
 			(uuid "41449382-5358-4e4b-97d7-3286ad7e746c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10806,7 +10806,7 @@
 			(uuid "fec38dd0-f3dc-4e59-844f-46dbb55c9eb6")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -10818,14 +10818,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "88fba9f0-2a54-4c6f-b3ca-fceca81b9529")
-		(at 331.793651 193.64619)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 329.253651 198.72619)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW71"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "3117140e-c1b5-4ec9-905d-15c0be258244")
 			(effects
@@ -11006,7 +11006,7 @@
 			(uuid "47a43d09-b60b-4cf6-bb10-a176dea257e7")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11017,7 +11017,7 @@
 			(uuid "ef0c0534-360d-48de-a905-f3c20deef803")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11137,14 +11137,14 @@
 			(uuid "4f27435d-035c-4cdf-bd2b-51fa111b4956")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "9538d573-88ec-4342-a179-3f647c4650d2")
-		(at 288.925 207.9625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 286.385 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW79"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f946280c-29fd-4d7d-a25f-640204b7379f")
 			(effects
@@ -11325,7 +11325,7 @@
 			(uuid "3ca759be-08b5-4cc0-851e-ab83b52bc6a0")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11336,7 +11336,7 @@
 			(uuid "f151b52d-2360-4cf9-8a44-0060b4cfa84e")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11454,14 +11454,14 @@
 			(uuid "f7c9f998-ced2-42a7-a921-bddce9db4932")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "9b40c722-d982-4807-b1d5-fe1dbcbe540f")
-		(at 355.6 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 353.06 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW28"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "adea6d8d-4b48-4c68-8ca1-c83fb181d71f")
 			(effects
@@ -11642,7 +11642,7 @@
 			(uuid "7165b3e6-4c84-44c4-8bbf-0b8f79e3d7ac")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11653,7 +11653,7 @@
 			(uuid "6b4eec87-1a9c-45f0-837c-094a152720bd")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11665,14 +11665,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "9f9d63b0-9afe-4979-a975-52c2e8863aac")
-		(at 60.325 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 57.785 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW14"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "68862acc-6649-491b-84c2-9ea6128b3b17")
 			(effects
@@ -11853,7 +11853,7 @@
 			(uuid "f1859501-7d06-4925-869a-8d6e2c1575a9")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11864,7 +11864,7 @@
 			(uuid "30835b66-3bce-4905-8c17-5fe0b5c9d87a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -11876,14 +11876,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "a10a04b3-5d05-4395-955a-cb56bdbb9a2d")
-		(at 355.6 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 353.06 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW72"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "4fe8e2f7-8771-4f3a-bc9f-a33f67d0889b")
 			(effects
@@ -12064,7 +12064,7 @@
 			(uuid "4c8f06eb-870b-48d2-95e4-37b1bb9c9b0c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12075,7 +12075,7 @@
 			(uuid "78f76c39-bbf9-46ab-ac59-534925f9a501")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12087,14 +12087,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "a2c4137e-ca98-4e16-b3d8-b1fa3fd5c1ac")
-		(at 241.3 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 238.76 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW38"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "012582c3-16db-4f32-9e97-db1755719c6a")
 			(effects
@@ -12275,7 +12275,7 @@
 			(uuid "a91a0134-64b3-4662-ab5b-0ebe29b3e6cc")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12286,7 +12286,7 @@
 			(uuid "9e718ae2-6ef7-496a-878f-bfc25091826e")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12758,14 +12758,14 @@
 			(uuid "a6d659d5-e03a-47fe-9933-e7f7b2c4c0f6")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "a41b0b61-441c-401b-a4df-bd1938759df7")
-		(at 217.4875 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 214.9475 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW66"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "ab53d5b5-a7e0-46e3-83e9-a1041e18dbf1")
 			(effects
@@ -12946,7 +12946,7 @@
 			(uuid "69038b07-7cfd-47a3-bbb2-0cde6a062e2c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12957,7 +12957,7 @@
 			(uuid "6252521d-4c4e-4be3-a7e2-63c472fd32b4")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -12969,14 +12969,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "a57c3209-ca96-4a6c-92f2-b1f54a910776")
-		(at 260.35 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 257.81 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW39"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "674bc597-7f64-4a1d-bd98-33097acab800")
 			(effects
@@ -13157,7 +13157,7 @@
 			(uuid "e24e88ed-55c0-42b1-8aa9-819994cbb659")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13168,7 +13168,7 @@
 			(uuid "1cc53cdb-d0cf-4aba-a2dd-850403de7f02")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13288,14 +13288,14 @@
 			(uuid "d9994c63-d31b-4dc0-a72b-655cc7718c79")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "a777e9bc-5dee-416c-a7ad-3f44ed2c1443")
-		(at 84.1375 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 81.5975 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW2"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "85c025d4-e1a5-4b08-87a8-9baa12a8b144")
 			(effects
@@ -13476,7 +13476,7 @@
 			(uuid "f5943b53-9d6c-4915-a30d-fa5e59939133")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13487,7 +13487,7 @@
 			(uuid "3196300c-6c7e-4d97-b641-e9db2126c6a8")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13607,14 +13607,14 @@
 			(uuid "d0b08b09-f49f-468d-9f35-8a51ade4bfc4")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "aaf2af02-74ce-4ff1-9626-bee969850486")
-		(at 193.675 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 191.135 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW21"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e0bfc359-7800-43f7-a746-884b7554c9d0")
 			(effects
@@ -13795,7 +13795,7 @@
 			(uuid "6ad19fa5-6a1d-41c8-b80b-43ec7c90c5c0")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13806,7 +13806,7 @@
 			(uuid "2d4521c2-230d-4357-be75-173562a16d3a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -13818,14 +13818,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "ac12e23a-fa5d-405e-a9b0-fd5c70783cd3")
-		(at 236.5375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 233.9975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW67"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "838a2160-ca58-4c74-86f6-9f31c96b15cd")
 			(effects
@@ -14006,7 +14006,7 @@
 			(uuid "aa39c65f-e8aa-41e2-84f0-360bb7ab11ef")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14017,7 +14017,7 @@
 			(uuid "8b9fd311-7662-4e39-bd67-a9a3b649d547")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14029,14 +14029,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "ada60c8c-e6b9-4d61-af4d-3e5ef206d14f")
-		(at 203.2 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 200.66 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW8"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "accc5d6a-b7ff-400f-ae79-5cd419ab833d")
 			(effects
@@ -14217,7 +14217,7 @@
 			(uuid "88a31c1d-85bf-4c6b-9765-0c8155cb693f")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14228,7 +14228,7 @@
 			(uuid "c8510ef9-49cf-4eb3-8196-0f420291da1c")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14240,14 +14240,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "adecd7f3-c797-49fb-a5b4-cbe7170f2369")
-		(at 141.2875 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 138.7475 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW62"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a7038005-df6d-4a28-9d7b-cc1f273c6a48")
 			(effects
@@ -14428,7 +14428,7 @@
 			(uuid "5968f6b8-6b20-4d87-a150-1d0f6c97deaa")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14439,7 +14439,7 @@
 			(uuid "b144c321-041f-45f2-82f6-1dcf19ad1766")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14665,14 +14665,14 @@
 			(uuid "a3384b41-ced4-4cf5-acb9-1765820c1730")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "b0f6f723-f3a2-4de0-8e2d-9f5b6383a050")
-		(at 179.3875 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 176.8475 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW64"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "22c8a21f-a04e-4f62-81b2-7ece6b219e74")
 			(effects
@@ -14853,7 +14853,7 @@
 			(uuid "87363d91-4e71-452c-9880-56f3f352ecef")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14864,7 +14864,7 @@
 			(uuid "0cd49893-38e7-4967-aeb2-140018b3ba48")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -14876,14 +14876,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "b1dc036b-6ba9-4e10-9c73-5beff6480616")
-		(at 246.0625 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 243.5225 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW10"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f2fd231d-811b-4b9f-af4a-3c47b12d5b83")
 			(effects
@@ -15064,7 +15064,7 @@
 			(uuid "d43e1369-88e3-4a36-8456-465555b74a6b")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15075,7 +15075,7 @@
 			(uuid "0e26f38a-9c05-4fcd-9508-007d1123e30d")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15087,14 +15087,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "b34f4999-63d7-4c27-b401-856cb8148e11")
-		(at 265.1125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 262.5725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW54"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "b2ab7fc5-10af-45b7-a8fb-b7891ab084c5")
 			(effects
@@ -15275,7 +15275,7 @@
 			(uuid "913afee8-9532-4b76-918e-b6da9fe81277")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15286,7 +15286,7 @@
 			(uuid "ee979f37-87e7-4664-8ebb-180a8b8dd869")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15298,14 +15298,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "b36395f7-6da1-4490-9440-9ab85ceb4f1f")
-		(at 103.1875 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 100.6475 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW3"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a412b2fd-75f5-4f05-a22b-b8135caf8ff3")
 			(effects
@@ -15486,7 +15486,7 @@
 			(uuid "a9ebf9f5-597f-4940-8fe1-2cfea937c078")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15497,7 +15497,7 @@
 			(uuid "ac5d08c2-c0b1-451f-be81-09b3e68599d9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15615,14 +15615,14 @@
 			(uuid "64e6435d-90c4-4bbc-b1dd-ba943b768978")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "b4d08637-2297-44e7-9385-46f5cd5d8c38")
-		(at 303.2125 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 300.6725 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW13"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "478275b5-85d8-4c91-8d41-1ab9575b7794")
 			(effects
@@ -15803,7 +15803,7 @@
 			(uuid "bdfe9cf2-c2b3-433d-87ca-099255925eb4")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -15814,7 +15814,7 @@
 			(uuid "dd9639f7-16a8-475a-81c5-e6d93da5afe9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16042,14 +16042,14 @@
 			(uuid "1b12576a-741a-4fe6-90d6-1ab38bfae52e")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "c0ca9bae-8836-4ffa-b920-3796ea32f69a")
-		(at 60.325 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 57.785 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW1"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e540fadf-37db-4bcf-969d-70e4db7f998d")
 			(effects
@@ -16230,7 +16230,7 @@
 			(uuid "08af285c-5023-4e71-a291-25b66f7dc53c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16241,7 +16241,7 @@
 			(uuid "19bb27e4-21b7-4d87-817c-e01972d1067a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16253,14 +16253,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "c11f3259-6cb7-4ed8-8f78-a4939d386f42")
-		(at 303.2125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 300.6725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW56"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "423ea367-7509-45fa-acbf-8c26aa835130")
 			(effects
@@ -16441,7 +16441,7 @@
 			(uuid "e318c59c-8f9b-45a3-a802-9a543ef99362")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16452,7 +16452,7 @@
 			(uuid "f92cfbe8-d7a7-4926-8b6d-1dc1f6f4d870")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16464,14 +16464,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "c2378672-4592-42a7-8ad0-cd470a23c6ea")
-		(at 184.15 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 181.61 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW7"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "c58e094a-f008-4a9c-a49d-ff490ababa7c")
 			(effects
@@ -16652,7 +16652,7 @@
 			(uuid "2e886065-ee5a-4f54-9d40-0922de3f5918")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16663,7 +16663,7 @@
 			(uuid "fd6d2fea-f6be-4b2a-ad91-d36b6880904b")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16675,14 +16675,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "c338339e-a84d-462c-a5f0-0e6fec9c674c")
-		(at 246.0625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 243.5225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW53"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "2e28464d-d339-4b21-8e7e-3aabcd2348c6")
 			(effects
@@ -16863,7 +16863,7 @@
 			(uuid "ae43d686-0a46-4f69-bb5a-447577741d90")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -16874,7 +16874,7 @@
 			(uuid "d621dc87-91a1-4a7f-899c-595331bc42d0")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17302,14 +17302,14 @@
 			(uuid "4034ecfe-88c5-473a-b7d9-40171900bc00")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "cb90fceb-80ca-4046-8032-32ff7f3a90ff")
-		(at 112.7125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 110.1725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW46"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "b295934d-9b61-48f1-ac8e-816c7677ed16")
 			(effects
@@ -17490,7 +17490,7 @@
 			(uuid "64b72eb0-92db-4311-967b-6baf2a4a3b3c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17501,7 +17501,7 @@
 			(uuid "b49aa855-85e9-4319-a049-56c09eb21a07")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17513,14 +17513,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "cc41f9a0-e799-40cb-9bcf-f7af3ed34fad")
-		(at 146.05 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 143.51 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW33"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "2a583691-296c-40a4-8805-8a218f4cbd57")
 			(effects
@@ -17701,7 +17701,7 @@
 			(uuid "82d1ce6e-da7f-421a-ae30-81141907cf6c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17712,7 +17712,7 @@
 			(uuid "6f089dff-db19-49c8-9fb2-259d4f14a954")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17724,14 +17724,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "d453aa5c-a51c-4673-a8eb-aba0e64cbab8")
-		(at 284.1625 107.95)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 281.6225 113.03)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW12"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "cab17f80-1f00-4d40-87b4-4b2d048a2c35")
 			(effects
@@ -17912,7 +17912,7 @@
 			(uuid "48f1861b-493b-4f6e-b755-ca010a334f16")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17923,7 +17923,7 @@
 			(uuid "9ac9f9a5-f325-4d36-92c2-c565df994ea9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -17935,14 +17935,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "d5eb5bbb-cf07-41af-b099-86733f2c0d6d")
-		(at 160.3375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 157.7975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW63"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "91589739-180b-478e-9883-ae06e079fe1d")
 			(effects
@@ -18123,7 +18123,7 @@
 			(uuid "eb82753c-4020-47ba-b1a5-f992bbb2ab69")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18134,7 +18134,7 @@
 			(uuid "4f2b001b-9231-4fcf-b384-49380407b0ec")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18146,14 +18146,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "d7e7d03d-fdef-4850-a056-d02cc5cacfb7")
-		(at 284.1625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 281.6225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW55"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "cb690948-c894-4f1c-9544-d89686201617")
 			(effects
@@ -18334,7 +18334,7 @@
 			(uuid "7a7aefa6-c1da-4061-9dd1-55a11c62e8a8")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18345,7 +18345,7 @@
 			(uuid "90f0c421-3fc0-4feb-97e4-6a625015aebe")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18357,14 +18357,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "d8c891ce-7a22-4c7f-b3ad-5298d0815808")
-		(at 169.8625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 167.3225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW49"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "bcd90317-9526-483d-adb8-07333014db94")
 			(effects
@@ -18545,7 +18545,7 @@
 			(uuid "e4f6f117-2cf7-4a40-8cc2-19a5c255f2cc")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18556,7 +18556,7 @@
 			(uuid "1d80466a-110d-4ce1-a226-faba8408acf8")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18568,14 +18568,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "da3abffd-3a9a-40ae-9ba4-9f658ebd04f1")
-		(at 198.4375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 195.8975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW65"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "3252159d-45bd-4b84-9fb1-02c10f588827")
 			(effects
@@ -18756,7 +18756,7 @@
 			(uuid "66d06aa0-f734-413d-a25e-c0b1a7b89a12")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18767,7 +18767,7 @@
 			(uuid "d2022e7b-4b8a-4ab8-918c-0f2ad84e17d7")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18779,14 +18779,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "dc2b3f2e-1d4c-434c-9327-fc006fd162d2")
-		(at 79.375 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 76.835 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW15"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "8db7cf00-1ad4-4d6d-97c3-06f5221e155d")
 			(effects
@@ -18967,7 +18967,7 @@
 			(uuid "4de15204-5197-4099-9cdc-b007be79a167")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18978,7 +18978,7 @@
 			(uuid "d565c1c9-6dd7-4b61-b2b8-ce2f5f928ce6")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -18990,14 +18990,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "dc931aec-f4a9-47a2-aada-f0af6dbd71fa")
-		(at 93.6625 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 91.1225 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW45"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "eb4b0264-67a5-455c-9096-aa612d942e3f")
 			(effects
@@ -19178,7 +19178,7 @@
 			(uuid "9d3628f0-96ea-492d-a466-9c57908e61f2")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -19189,7 +19189,7 @@
 			(uuid "b5ba4026-9212-4ea9-a963-952fd13f3d04")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -19201,14 +19201,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "dcd11ee2-f10a-43c5-ad72-07a8e7dba555")
-		(at 312.7375 212.725)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 310.1975 217.805)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW80"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e28d8249-25fc-40b5-9228-8f5a24db4126")
 			(effects
@@ -19389,7 +19389,7 @@
 			(uuid "50045e38-e670-4e17-93b0-80fe5b5d7e80")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -19400,7 +19400,7 @@
 			(uuid "f81cdcc8-f007-4afa-9204-2a87715b246c")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -20462,14 +20462,14 @@
 			(uuid "4f237a05-f19e-41ce-b1a1-72b5aa192a79")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1.25U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.25U"
 		(layer "F.Cu")
 		(uuid "e3fd5469-9093-4be1-9244-83d0dea7c9be")
-		(at 110.33125 207.9625)
-		(descr "Cherry MX keyswitch, 1.25u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.25u PCB")
+		(at 107.79125 213.0425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW75"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "0282a703-211b-4c08-8b3c-c2051636229b")
 			(effects
@@ -20650,7 +20650,7 @@
 			(uuid "17fbe145-51c7-4c07-821a-d445b83cd171")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -20661,7 +20661,7 @@
 			(uuid "c4b33da8-55b6-4f4a-bb5d-d5f246ec5fe9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -20673,14 +20673,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1.25U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.25U"
 		(layer "F.Cu")
 		(uuid "e486e819-c875-4f85-8f2e-088d77585cfa")
-		(at 62.70625 188.9125)
-		(descr "Cherry MX keyswitch, 1.25u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.25u PCB")
+		(at 60.16625 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW58"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e0d37139-077a-4d42-8493-d0d787d205fc")
 			(effects
@@ -20861,7 +20861,7 @@
 			(uuid "28bededf-77f3-400b-be56-78794cbda13e")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -20872,7 +20872,7 @@
 			(uuid "fc2b32f0-2f33-4743-8b5c-eaf6ebe492b3")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -20884,14 +20884,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "e4bc5ecd-d92a-4558-884b-192d8e73f20d")
-		(at 212.725 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 210.185 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW22"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a4e242a7-f9c2-4b07-9778-3c5507cdc825")
 			(effects
@@ -21072,7 +21072,7 @@
 			(uuid "dd2bdcfb-3a26-4ef6-8c17-96e22c218752")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21083,7 +21083,7 @@
 			(uuid "4faa0fcf-7ab3-405a-b2e1-e249d1beabcd")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21095,14 +21095,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "e4eb0a31-e3d2-47dc-981a-435a450f7ec5")
-		(at 88.9 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 86.36 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW30"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "0a78bd29-2969-4eb5-b3af-4c092c8470c7")
 			(effects
@@ -21283,7 +21283,7 @@
 			(uuid "f6125bad-aa87-4609-8bbe-baeda34eb301")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21294,7 +21294,7 @@
 			(uuid "18fa593a-449c-41d4-be3a-f2b9a8bf61d4")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21773,14 +21773,14 @@
 			)
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "e7c0b177-f6ca-45d8-9cb4-9b584ad379dc")
-		(at 331.7875 212.725)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 329.2475 217.805)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW81"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "dbee2e97-ef48-4ebf-a72e-989f420e9d09")
 			(effects
@@ -21961,7 +21961,7 @@
 			(uuid "4a1b3fb7-27fd-4a55-9f9a-5369cb187d6c")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21972,7 +21972,7 @@
 			(uuid "8cec1c4e-d0f4-467a-8562-f9221d73f54c")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -21984,14 +21984,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-6.25U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-6.25U"
 		(layer "F.Cu")
 		(uuid "e83789f3-98ea-4df2-9ea1-6e7d8ef8520e")
-		(at 179.22875 213.0425)
-		(descr "Cherry MX keyswitch PCB Mount Keycap 6.25u")
-		(tags "Cherry MX Keyboard Keyswitch Switch PCB Cutout Keycap 6.25u")
+		(at 176.68875 218.1225)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW76"
-			(at 0 -8 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "79eb9fa9-6ef0-4188-a679-34b0273256f4")
 			(effects
@@ -22172,7 +22172,7 @@
 			(uuid "4a8eefc1-ecdf-4dce-aa15-e079f06555fc")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22183,7 +22183,7 @@
 			(uuid "a74933b2-c66f-4281-8e02-a0ec1af45183")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22303,14 +22303,14 @@
 			(uuid "54da7493-a18a-4215-8a24-d106948aacde")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "eefa1e0e-a99a-426e-a423-335887cce3f4")
-		(at 188.9125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 186.3725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW50"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "819db111-3f81-4316-ad97-aeca8e3cfedc")
 			(effects
@@ -22491,7 +22491,7 @@
 			(uuid "3e5781fd-52c0-4e42-ae80-dd9b99823171")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22502,7 +22502,7 @@
 			(uuid "9d27c86a-e3ac-487e-a9fe-b7b5b75368e9")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22621,14 +22621,14 @@
 			(uuid "3a607e38-c7cb-45a0-9208-b5b090322bf8")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "f2a99552-6754-4dd4-be7a-f5330820bd49")
-		(at 117.475 131.7625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 114.935 136.8425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW17"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "f1052e1c-e2fb-4ca7-b8a1-b28f4f2147ce")
 			(effects
@@ -22809,7 +22809,7 @@
 			(uuid "4effb634-b2f4-438a-8809-96eb5b83be80")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22820,7 +22820,7 @@
 			(uuid "8be71f07-2dd7-4240-95fb-67e5e17ebeba")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -22832,14 +22832,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1.5U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1.5U"
 		(layer "F.Cu")
 		(uuid "f4a761bd-5bbd-4242-b0d8-02fea2a275ba")
-		(at 65.0875 150.8125)
-		(descr "Cherry MX keyswitch, 1.50u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.50u PCB")
+		(at 62.5475 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW29"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "0d191093-affc-4bf6-a68f-b02aa1583a8a")
 			(effects
@@ -23020,7 +23020,7 @@
 			(uuid "855ec10e-13dd-4854-9f8e-35269a05efe6")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23031,7 +23031,7 @@
 			(uuid "4c1d6d84-190c-421a-91e6-7906b98ba1c4")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23151,14 +23151,14 @@
 			(uuid "1cca0281-643f-4fa6-bb65-c6cca7331d4b")
 		)
 	)
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "faa5e473-be7a-44ba-850f-0f2524c5e5a6")
-		(at 298.45 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 295.91 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW41"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "4e318cc3-df32-476c-bda7-752fb10fec8c")
 			(effects
@@ -23339,7 +23339,7 @@
 			(uuid "e2c71c0b-af3e-44c6-a429-979dab54d265")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23350,7 +23350,7 @@
 			(uuid "98789de4-d890-4372-a7d7-f730a8d817f3")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23362,14 +23362,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "fb1a31c1-ecc0-463a-b378-a4dc4ee6d3bd")
-		(at 279.4 150.8125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 276.86 155.8925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW40"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "e8414c16-45df-47fd-847b-a17d3a73d895")
 			(effects
@@ -23550,7 +23550,7 @@
 			(uuid "d580f9c1-253f-4632-9568-b109b4adecc5")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23561,7 +23561,7 @@
 			(uuid "ef040de5-61d2-428d-ac85-e1b81d1c6af0")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23573,14 +23573,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "fcd03ac8-0d98-4e0e-bc32-177fb5209e01")
-		(at 227.0125 169.8625)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 224.4725 174.9425)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW52"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "ed78767b-4bb8-4af9-b300-2412ed464dd5")
 			(effects
@@ -23761,7 +23761,7 @@
 			(uuid "0154411f-0b99-464b-bd88-4db76b2769dc")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23772,7 +23772,7 @@
 			(uuid "beb6cb95-6e82-472f-87e8-324e695b276a")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23784,14 +23784,14 @@
 		)
 	)
 
-	(footprint "Alps_Solderable:Alps-Solderable-1U"
+	(footprint "Alps_Solderable_MXPadOrder:Alps-Solderable-1U"
 		(layer "F.Cu")
 		(uuid "ffb5ca06-d362-4c99-a043-90414726e483")
-		(at 122.2375 188.9125)
-		(descr "Cherry MX keyswitch, 1.00u, PCB mount, http://cherryamericas.com/wp-content/uploads/2014/12/mx_cat.pdf")
-		(tags "Cherry MX keyswitch 1.00u PCB")
+		(at 119.6975 193.9925)
+		(descr "Alps SKCM/SKCL solderable, ai03 MX_V2, pad numbering matched to KiCad Cherry MX")
+		(tags "Alps SKCM SKCL keyswitch solderable")
 		(property "Reference" "SW61"
-			(at -2.54 -2.794 0)
+			(at 0 3.175 0)
 			(layer "F.SilkS")
 			(uuid "a5594e4f-6e1a-426d-94f0-b4568711d0e5")
 			(effects
@@ -23972,7 +23972,7 @@
 			(uuid "71313bda-1cf9-4b42-9f05-5779598a3552")
 		)
 		(pad "1" thru_hole circle
-			(at -2.5 -4.0)
+			(at 2.5 -4.5)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -23983,7 +23983,7 @@
 			(uuid "d66a320d-152f-4e94-95d4-f45ab7db09e2")
 		)
 		(pad "2" thru_hole circle
-			(at 2.5 -4.5)
+			(at -2.5 -4.0)
 			(size 2.3 2.3)
 			(drill 1.524)
 			(layers "*.Cu" "*.Mask")
@@ -103796,7 +103796,7 @@
 	(segment
 		(start 308.41183 214.672293)
 		(end 312.264357 214.672293)
-		(width 0.25)
+		(width 0.15)
 		(layer "F.Cu")
 		(net 43)
 		(uuid "1d5c2d20-0206-4fa2-84fc-4f5b2f368233")
@@ -103908,7 +103908,7 @@
 	(segment
 		(start 312.264357 214.672293)
 		(end 312.857064 215.265)
-		(width 0.25)
+		(width 0.15)
 		(layer "F.Cu")
 		(net 43)
 		(uuid "6b40ae92-7961-42fa-b2f2-cb6f82e0043d")
@@ -141518,4 +141518,693 @@
 		(uuid "f11a2576-1703-4981-ab26-aecc517c7d09")
 		(members "816503d1-a9cf-4080-b11a-5544f1fc65af")
 	)
+	(segment
+		(start 158.75 153.353)
+		(end 160.06 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "09edec65-813e-4c0c-b622-d2bfdd143d10")
+	)
+	(segment
+		(start 249.238 191.453)
+		(end 250.548 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "be0e3c74-8220-48bf-91b4-dd3e7ede1328")
+	)
+	(segment
+		(start 344.488 215.265)
+		(end 345.798 213.805)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "550f9c8a-c870-4d31-89a9-3f64c21e6fa1")
+	)
+	(segment
+		(start 349.25 153.353)
+		(end 350.56 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "925949d2-3c24-4c3c-a42b-7ca8c256abfa")
+	)
+	(segment
+		(start 244.475 134.303)
+		(end 245.785 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "105bbb54-3110-4854-80c8-f692193affde")
+	)
+	(segment
+		(start 125.412 172.403)
+		(end 126.722 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "730f19d0-f245-4d90-885d-766ffe5e3f60")
+	)
+	(segment
+		(start 144.463 172.403)
+		(end 145.773 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "7ba12d25-9c97-4947-af97-0a582001b7b9")
+	)
+	(segment
+		(start 134.938 110.49)
+		(end 136.248 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "e556d1ee-1797-4a9c-965e-184dbe42f43b")
+	)
+	(segment
+		(start 311.15 134.303)
+		(end 312.46 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "cd889119-4132-4dc8-93f2-5142a3708b80")
+	)
+	(segment
+		(start 258.762 110.49)
+		(end 260.072 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "4071954d-5e82-496b-a452-2c27b0a0acaf")
+	)
+	(segment
+		(start 77.7875 191.453)
+		(end 79.0975 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "e3ac8582-1578-41fb-87c9-2116745edb43")
+	)
+	(segment
+		(start 282.575 134.303)
+		(end 283.885 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "dce5250a-928c-428a-b760-adf9543198d5")
+	)
+	(segment
+		(start 244.475 210.502)
+		(end 245.785 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "c32cc678-4f69-4436-bc07-126bcca0d3f9")
+	)
+	(segment
+		(start 263.525 210.502)
+		(end 264.835 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "518a8537-555a-43d8-b410-1c1a5f27b3ab")
+	)
+	(segment
+		(start 215.9 153.353)
+		(end 217.21 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "f513e5e4-9264-4626-88db-e35253837538")
+	)
+	(segment
+		(start 168.275 134.303)
+		(end 169.585 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "58ddb6d3-2571-4c03-8725-08f716e12ee3")
+	)
+	(segment
+		(start 158.75 110.49)
+		(end 160.06 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "973b8737-9817-4de1-8fb9-7f88acc4b5a7")
+	)
+	(segment
+		(start 201.613 172.403)
+		(end 202.923 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "8df882a5-4d49-4e84-853b-2ac35a2a5ef2")
+	)
+	(segment
+		(start 115.888 110.49)
+		(end 117.198 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "b0ddeb2b-0217-4036-9ed4-d4863dd20d1e")
+	)
+	(segment
+		(start 92.075 134.303)
+		(end 93.385 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "b9733af6-a5ac-453a-ae64-31b6b3ff0c6f")
+	)
+	(segment
+		(start 268.288 191.453)
+		(end 269.598 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "0cdbdf24-45c6-44a8-a57e-9ba01bff6913")
+	)
+	(segment
+		(start 196.85 153.353)
+		(end 198.16 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "eacf3f2c-84eb-4b58-9899-24c9128d7706")
+	)
+	(segment
+		(start 225.425 134.303)
+		(end 226.735 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "7f76fd1e-11fc-46d1-9fc2-414146f6ed47")
+	)
+	(segment
+		(start 177.8 153.353)
+		(end 179.11 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "0febc054-6c27-4cab-beaa-6c4c18e15782")
+	)
+	(segment
+		(start 215.9 110.49)
+		(end 217.21 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "8af288a3-d90b-48a3-afae-cac46771b0d6")
+	)
+	(segment
+		(start 56.3562 210.502)
+		(end 57.6662 209.042)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 43)
+		(uuid "2c71f523-d778-4a07-962e-1d113320681a")
+	)
+	(segment
+		(start 56.3562 210.502)
+		(end 57.6662 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "48072d38-de6d-4c67-ab7a-734512a13b96")
+	)
+	(segment
+		(start 61.1187 172.403)
+		(end 62.4287 170.942)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 41)
+		(uuid "72db66e2-9b36-4f52-be2c-5f10d9fd2bfa")
+	)
+	(segment
+		(start 61.1187 172.403)
+		(end 62.4287 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "b1608e2b-9499-45ef-94dc-4d9f22c0bace")
+	)
+	(segment
+		(start 120.65 153.353)
+		(end 121.96 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "f038e8d8-2996-42fa-b4c3-fec94a5ca877")
+	)
+	(segment
+		(start 101.6 153.353)
+		(end 102.91 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "0c9a31f7-edcd-463c-b2f2-dac342f946a9")
+	)
+	(segment
+		(start 130.175 134.303)
+		(end 131.485 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "967bca98-cd2a-4022-b02f-20c16e2cfcde")
+	)
+	(segment
+		(start 80.1688 210.502)
+		(end 81.4788 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "b1546bf4-7038-4974-9f3c-128663e296e2")
+	)
+	(segment
+		(start 349.25 172.403)
+		(end 350.56 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "cc371dd0-7226-4759-9318-0bc1b7aa65f9")
+	)
+	(segment
+		(start 96.8375 191.453)
+		(end 98.1475 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "bd1c3bd1-66f8-41cc-9b73-871ba9e142c6")
+	)
+	(segment
+		(start 294.481 191.453)
+		(end 295.791 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "366eb7a7-6399-4489-a8f3-2b890e5cb17a")
+	)
+	(segment
+		(start 263.525 134.303)
+		(end 264.835 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "14634b2f-cd58-452e-b63d-833c2de8490d")
+	)
+	(segment
+		(start 149.225 134.303)
+		(end 150.535 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "e3761790-59c1-477d-a8af-3dbfe7be44a7")
+	)
+	(segment
+		(start 325.444 196.186)
+		(end 326.754 194.726)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "11f98bf1-bd83-410a-bf35-ca856adf3896")
+	)
+	(segment
+		(start 282.575 210.502)
+		(end 283.885 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "5ed07609-cc8d-4fe9-b05c-3809c3149a69")
+	)
+	(segment
+		(start 349.25 134.303)
+		(end 350.56 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "05d5f975-ebff-4b08-b7c8-b2f7d27bde97")
+	)
+	(segment
+		(start 53.975 134.303)
+		(end 55.285 132.843)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 39)
+		(uuid "d04651de-40a7-4703-b742-bf38242dd727")
+	)
+	(segment
+		(start 53.975 134.303)
+		(end 55.285 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "504ed824-b6c3-4e4f-8662-eeb6759a1a28")
+	)
+	(segment
+		(start 349.25 191.453)
+		(end 350.56 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "4aedd1dd-6562-402b-a236-e80c3a7b13fa")
+	)
+	(segment
+		(start 234.95 153.353)
+		(end 236.26 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "03d7da0a-71ea-4010-844b-40eec83f1c04")
+	)
+	(segment
+		(start 211.137 191.453)
+		(end 212.447 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "c5210491-9b50-4546-9b82-596ccb2aba2c")
+	)
+	(segment
+		(start 254 153.353)
+		(end 255.31 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "46368476-4f54-4c49-be33-8607cd976c33")
+	)
+	(segment
+		(start 77.7875 110.49)
+		(end 79.0975 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "2257a175-2531-47a5-a6ab-f37258128b17")
+	)
+	(segment
+		(start 187.325 134.303)
+		(end 188.635 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "2bac26d8-3371-45fe-ba16-060884559324")
+	)
+	(segment
+		(start 230.188 191.453)
+		(end 231.498 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "699caab3-efbd-48e7-8e0f-13b80d5df9b9")
+	)
+	(segment
+		(start 196.85 110.49)
+		(end 198.16 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "8d46550f-adc6-4c6d-8131-df4481a59750")
+	)
+	(segment
+		(start 134.938 191.453)
+		(end 136.248 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "9da42e5a-a321-4bf0-806f-17b76e776e85")
+	)
+	(segment
+		(start 173.037 191.453)
+		(end 174.347 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "e39a6dbb-1d6d-4bbc-b016-4e57481b44a5")
+	)
+	(segment
+		(start 239.713 110.49)
+		(end 241.023 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "3c3c0d90-88c0-4156-bcd8-d80d80f8d5fb")
+	)
+	(segment
+		(start 258.762 172.403)
+		(end 260.072 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "6ff4b262-8ad0-42c5-bd9c-330c24172254")
+	)
+	(segment
+		(start 96.8375 110.49)
+		(end 98.1475 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "9606e0bd-ac79-4222-b891-272e5d941977")
+	)
+	(segment
+		(start 296.863 110.49)
+		(end 298.173 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "c3569b7e-b0af-4dc4-9bd9-6c73d89ad415")
+	)
+	(segment
+		(start 53.975 110.49)
+		(end 55.285 109.03)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 38)
+		(uuid "963d58b5-6b81-4390-a401-337b1e31cb62")
+	)
+	(segment
+		(start 53.975 110.49)
+		(end 55.285 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "0ba02af0-7f24-4062-a40a-86a5c239e55e")
+	)
+	(segment
+		(start 296.863 172.403)
+		(end 298.173 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "9ddecc64-a1e4-4ee9-b4a7-c36e874466c9")
+	)
+	(segment
+		(start 177.8 110.49)
+		(end 179.11 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "d797fa53-7cb8-405a-a61f-534835d69088")
+	)
+	(segment
+		(start 239.713 172.403)
+		(end 241.023 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "e035f254-24aa-4fee-9bae-640dc0ef6122")
+	)
+	(segment
+		(start 106.362 172.403)
+		(end 107.672 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "3620a70e-003f-4336-8ba1-81f27c5b5bfd")
+	)
+	(segment
+		(start 139.7 153.353)
+		(end 141.01 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "499332b7-cf8f-4b1b-b8bd-a0b2023a7520")
+	)
+	(segment
+		(start 277.812 110.49)
+		(end 279.123 109.03)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "8cd6b2ea-61b7-4330-bba9-cfc5ff8ed7cd")
+	)
+	(segment
+		(start 153.988 191.453)
+		(end 155.298 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "4e986491-eede-4050-8ba5-92234f42815b")
+	)
+	(segment
+		(start 277.812 172.403)
+		(end 279.123 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "fdf34892-769c-4f39-8a9f-bd4226e4a369")
+	)
+	(segment
+		(start 163.512 172.403)
+		(end 164.822 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "43508c8a-e0f3-4c9f-96d1-19bf07a5b690")
+	)
+	(segment
+		(start 192.088 191.453)
+		(end 193.398 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "3a73902b-1375-4d76-b034-e8ca33254872")
+	)
+	(segment
+		(start 73.025 134.303)
+		(end 74.335 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "ad76cd0b-e938-45c9-85d9-8880fbc554da")
+	)
+	(segment
+		(start 87.3125 172.403)
+		(end 88.6225 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "63bd4ffe-955d-4e48-ae7c-d6a03ef2b158")
+	)
+	(segment
+		(start 306.387 215.265)
+		(end 307.697 213.805)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "c0ff978b-7665-4fa4-9e03-2b2963eb51f3")
+	)
+	(segment
+		(start 103.981 210.502)
+		(end 105.291 209.042)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "b92709df-199a-4d7f-85c2-e52f0a3bb13c")
+	)
+	(segment
+		(start 56.3562 191.453)
+		(end 57.6662 189.993)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 42)
+		(uuid "c56fc222-a0fd-46da-a346-00c11a91fcd3")
+	)
+	(segment
+		(start 56.3562 191.453)
+		(end 57.6662 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "8f9a12e4-13e9-4d24-8c81-a4b404b099af")
+	)
+	(segment
+		(start 206.375 134.303)
+		(end 207.685 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "4d156a13-3e5b-4e77-a41d-ed591f738c64")
+	)
+	(segment
+		(start 82.55 153.353)
+		(end 83.86 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "afdc434b-7f5b-43a1-9754-ab2e379f30b0")
+	)
+	(segment
+		(start 325.438 215.265)
+		(end 326.748 213.805)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 43)
+		(uuid "87d0accf-d9cd-469a-8153-f3ca0f2bf010")
+	)
+	(segment
+		(start 182.562 172.403)
+		(end 183.873 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "43689128-5131-4573-9de9-dd51dabb7e9f")
+	)
+	(segment
+		(start 111.125 134.303)
+		(end 112.435 132.843)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 39)
+		(uuid "9e173f4c-c870-492d-bf71-1fc0b04d6e94")
+	)
+	(segment
+		(start 58.7375 153.353)
+		(end 60.0475 151.893)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 40)
+		(uuid "a77cb595-a4d3-4992-996b-47e16de69afd")
+	)
+	(segment
+		(start 58.7375 153.353)
+		(end 60.0475 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "49d95026-028a-4a20-bbfb-8b93d3be64ec")
+	)
+	(segment
+		(start 292.1 153.353)
+		(end 293.41 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "311eabef-f902-428c-9136-f5987abadc78")
+	)
+	(segment
+		(start 273.05 153.353)
+		(end 274.36 151.893)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 40)
+		(uuid "76223a57-1fae-4257-ab8a-fa092a34e3b3")
+	)
+	(segment
+		(start 220.662 172.403)
+		(end 221.972 170.942)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 41)
+		(uuid "e93b3987-cae8-49b1-b50c-0dcb3227ce5a")
+	)
+	(segment
+		(start 115.888 191.453)
+		(end 117.198 189.993)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 42)
+		(uuid "6b26877e-cb0a-4923-a060-80fe7ddb094c")
+	)
+
 )
