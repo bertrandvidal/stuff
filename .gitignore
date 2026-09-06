@@ -44,5 +44,5 @@ env/
 # IntellJ
 *.iml
 .idea/
-pcb/board/.history/
+**/pcb/board/.history/
 **/pcb/**/*.lck
