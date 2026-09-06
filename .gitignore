@@ -45,3 +45,4 @@ env/
 *.iml
 .idea/
 pcb/board/.history/
+**/pcb/**/*.lck
