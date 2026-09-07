@@ -44,5 +44,7 @@ env/
 # IntellJ
 *.iml
 .idea/
-**/pcb/board/.history/
-**/pcb/**/*.lck
+
+# KiCad files
+**/.history/
+**/*.lck
