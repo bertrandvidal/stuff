@@ -248,7 +248,26 @@
 
 (xy 2.54 -2.54) 
 
-(xy 2.54 -2.54)) (stroke (width 0) (type default)) (fill (type none))) (pin passive line (at -2.54 2.54 0) (length 0) (name "1" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27))))) (pin passive line (at 2.54 -2.54 180) (length 0) (name "2" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))) (embedded_fonts no))) (sheet_instances (path "/" (page "1"))) (embedded_fonts no) 
+(xy 2.54 -2.54)) (stroke (width 0) (type default)) (fill (type none))) (pin passive line (at -2.54 2.54 0) (length 0) (name "1" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27))))) (pin passive line (at 2.54 -2.54 180) (length 0) (name "2" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))) (embedded_fonts no))
+(symbol "Mechanical:MountingHole" (pin_names (offset 1.016)) (exclude_from_sim no) (in_bom no) (on_board yes) (in_pos_files yes) 
+
+(property "Reference" "H" (at 0 5.08 0) (show_name no) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole" (at 0 3.175 0) (show_name no) (effects (font (size 1.27 1.27)))) 
+
+(property "Footprint" "" (at 0 0 0) (show_name no) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 0 0 0) (show_name no) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Mounting Hole without connection" (at 0 0 0) (show_name no) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "ki_keywords" "mounting hole" (at 0 0 0) (show_name no) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "ki_fp_filters" "MountingHole*" (at 0 0 0) (show_name no) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(symbol "MountingHole_0_1" 
+
+(circle (center 0 0) (radius 1.27) (stroke (width 1.27) (type default)) (fill (type none)))) (embedded_fonts no))) (sheet_instances (path "/" (page "1"))) (embedded_fonts no) 
 
 (symbol (lib_id "Switch:SW_Push_45deg") (at 29.21 22.86 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "833ce922-45a0-4333-b0da-595d7408b173") 
 
@@ -5750,4 +5769,118 @@
 
 (xy 234.95 137.16) 
 
-(xy 241.3 137.16)) (stroke (width 0) (type default)) (uuid 12a335f7-61bd-4ccf-90d5-18f3a033fc65)))
+(xy 241.3 137.16)) (stroke (width 0) (type default)) (uuid 12a335f7-61bd-4ccf-90d5-18f3a033fc65))
+
+(text "Plate mounting holes - 8 x 3.2 mm NPTH for M3, positions and diameter taken from alps75-zug-keyboard-plate.jscad" (at 30.48 156.20999999999998 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "9bb2bcee-4f47-4afe-8157-65d3331f5f2d"))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 30.48 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "f44bbc95-bd09-4283-87f8-46e68d927db3") 
+
+(property "Reference" "H1" (at 30.48 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 30.48 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 30.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 30.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, top left" (at 30.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H1") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 55.879999999999995 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "e8fe4538-470c-4bda-bad1-26e2ca8f582f") 
+
+(property "Reference" "H2" (at 55.879999999999995 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 55.879999999999995 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 55.879999999999995 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 55.879999999999995 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, top left-centre" (at 55.879999999999995 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H2") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 81.28 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "63255954-f2c9-4c96-8f33-5955c212149e") 
+
+(property "Reference" "H3" (at 81.28 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 81.28 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 81.28 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 81.28 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, top right-centre" (at 81.28 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H3") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 106.67999999999999 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "7f94e231-5299-4ba8-b09f-7decf66d92ab") 
+
+(property "Reference" "H4" (at 106.67999999999999 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 106.67999999999999 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 106.67999999999999 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 106.67999999999999 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, top right" (at 106.67999999999999 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H4") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 132.07999999999998 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "c41df595-c66b-4d16-872a-75f42e3cd1c2") 
+
+(property "Reference" "H5" (at 132.07999999999998 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 132.07999999999998 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 132.07999999999998 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 132.07999999999998 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, bottom left" (at 132.07999999999998 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H5") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 157.48 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "857f5359-b0f3-4423-a73d-0f54aaf7ce3c") 
+
+(property "Reference" "H6" (at 157.48 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 157.48 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 157.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 157.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, bottom left-centre" (at 157.48 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H6") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 182.87999999999997 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "ee8d0a74-c319-41d5-a036-8911aeabea29") 
+
+(property "Reference" "H7" (at 182.87999999999997 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 182.87999999999997 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 182.87999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 182.87999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, bottom right-centre" (at 182.87999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H7") (unit 1)))))
+
+(symbol (lib_id "Mechanical:MountingHole") (at 208.27999999999997 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "8781bc3a-8798-47dc-8f3b-5fed2cf5c20e") 
+
+(property "Reference" "H8" (at 208.27999999999997 160.01999999999998 0) (effects (font (size 1.27 1.27)))) 
+
+(property "Value" "MountingHole_3.2mm_M3" (at 208.27999999999997 168.91 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 208.27999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Datasheet" "" (at 208.27999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(property "Description" "Plate mounting hole, bottom right" (at 208.27999999999997 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) 
+
+(instances (project "alps75-zug" (path "/b21b01be-ef4d-46cd-a53d-03d0591770c9" (reference "H8") (unit 1))))))
