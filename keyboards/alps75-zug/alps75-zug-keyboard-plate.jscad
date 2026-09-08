@@ -135,14 +135,19 @@ const stab_81_b = translate([178.65, -101.73, 0], stab_pad)
 const stab_81 = union(stab_81_a, stab_81_b)  // stabilizer for "5,7" (switch 81)
 
 // --- Holes ---
+// Hand-corrected after export, do not overwrite blindly with a fresh export:
+// customHole_0 came out at y 22.231 (0.5u high, so 5.83 mm outside the plate),
+// customHole_1/_2/_3 were 0.2-0.3 mm off the corner holes' Y, and customHole_3
+// came out at radius 1.5. All four custom holes now sit on the corner holes' Y
+// (12.4 / -110.335) at radius 1.6 for M3.
 const holeBottomLeft = translate([-13.75, -110.335, 0], circle({ radius: 1.6 }))
 const holeBottomRight = translate([318.55, -110.335, 0], circle({ radius: 1.6 }))
 const holeTopLeft = translate([-13.75, 12.4, 0], circle({ radius: 1.6 }))
 const holeTopRight = translate([318.55, 12.4, 0], circle({ radius: 1.6 }))
-const customHole_0 = translate([66.675, 22.231, 0], circle({ radius: 1.6 }))
-const customHole_1 = translate([219.075, 12.706, 0], circle({ radius: 1.6 }))
-const customHole_2 = translate([66.675, -110.128, 0], circle({ radius: 1.6 }))
-const customHole_3 = translate([219.075, -110.128, 0], circle({ radius: 1.5 }))
+const customHole_0 = translate([66.675, 12.4, 0], circle({ radius: 1.6 }))
+const customHole_1 = translate([219.075, 12.4, 0], circle({ radius: 1.6 }))
+const customHole_2 = translate([66.675, -110.335, 0], circle({ radius: 1.6 }))
+const customHole_3 = translate([219.075, -110.335, 0], circle({ radius: 1.6 }))
 
 // --- Assembly ---
 const allCutouts = union(
