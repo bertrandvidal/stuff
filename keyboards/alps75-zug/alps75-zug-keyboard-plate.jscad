@@ -4,7 +4,7 @@
  * Cutout type: alps-skcm
  * Stabilizer type: alps-aek
  * Plate thickness: 2 mm
- * Generated: 2026-09-07
+ * Generated: 2026-09-08
  *
  * This file uses the @jscad/modeling API (OpenJSCAD v2).
  * Open with: https://openjscad.xyz/
@@ -135,12 +135,14 @@ const stab_81_b = translate([178.65, -101.73, 0], stab_pad)
 const stab_81 = union(stab_81_a, stab_81_b)  // stabilizer for "5,7" (switch 81)
 
 // --- Holes ---
-const holeBottomLeft = translate([-13.75, -110.335, 0], circle({ radius: 1.5 }))
-const holeBottomRight = translate([318.55, -110.335, 0], circle({ radius: 1.5 }))
-const holeTopLeft = translate([-13.75, 12.4, 0], circle({ radius: 1.5 }))
-const holeTopRight = translate([318.55, 12.4, 0], circle({ radius: 1.5 }))
-const customHole_0 = translate([152.4, 12.383, 0], circle({ radius: 1.5 }))
-const customHole_1 = translate([152.4, -110.204, 0], circle({ radius: 1.5 }))
+const holeBottomLeft = translate([-13.75, -110.335, 0], circle({ radius: 1.6 }))
+const holeBottomRight = translate([318.55, -110.335, 0], circle({ radius: 1.6 }))
+const holeTopLeft = translate([-13.75, 12.4, 0], circle({ radius: 1.6 }))
+const holeTopRight = translate([318.55, 12.4, 0], circle({ radius: 1.6 }))
+const customHole_0 = translate([66.675, 22.231, 0], circle({ radius: 1.6 }))
+const customHole_1 = translate([219.075, 12.706, 0], circle({ radius: 1.6 }))
+const customHole_2 = translate([66.675, -110.128, 0], circle({ radius: 1.6 }))
+const customHole_3 = translate([219.075, -110.128, 0], circle({ radius: 1.5 }))
 
 // --- Assembly ---
 const allCutouts = union(
@@ -243,7 +245,9 @@ const allCutouts = union(
   holeTopLeft,
   holeTopRight,
   customHole_0,
-  customHole_1
+  customHole_1,
+  customHole_2,
+  customHole_3
 )
 const plate2d = subtract(outline, allCutouts)
 const plate3d = extrudeLinear({ height: THICKNESS }, plate2d)
