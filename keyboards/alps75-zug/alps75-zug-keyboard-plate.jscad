@@ -15,7 +15,7 @@ const { translate } = jscad.transforms
 const { extrudeLinear } = jscad.extrusions
 const { subtract, union } = jscad.booleans
 
-const THICKNESS = 2 // mm
+const THICKNESS = 1.8 // mm
 
 // --- Plate outline ---
 const outline = translate([152.4, -48.967, 0], roundedRectangle({ size: [340.3, 130.735], roundRadius: 4 }))
