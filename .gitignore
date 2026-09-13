@@ -48,3 +48,4 @@ env/
 # KiCad files
 **/.history/
 **/*.lck
+tasks.md
