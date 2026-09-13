@@ -54027,6 +54027,19 @@
 			)
 		)
 	)
+	(gr_text "alps75-zug - 2026 - v0.1"
+		(at 314.5 174.5 0)
+		(layer "B.SilkS")
+		(uuid "cf749e87-7396-4410-85a6-043fcc145f26")
+		(effects
+			(font
+				(size 1.5 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify bottom mirror)
+		)
+	)
 	(segment
 		(start 414.645 93.8)
 		(end 414.645 161.25)
