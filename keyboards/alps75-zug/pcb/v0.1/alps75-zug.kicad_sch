@@ -5,6 +5,9 @@
 	(uuid "b21b01be-ef4d-46cd-a53d-03d0591770c9")
 	(paper "A2")
 	(title_block
+		(title "alps75-zug")
+		(date "2026-09-17")
+		(rev "v0.1")
 		(comment 1 "https://github.com/adamws/kicad-kbplacer")
 		(comment 2 "Auto-generated with kicad-kbplacer, requires validation before production!")
 	)
