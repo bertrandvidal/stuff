@@ -1,8 +1,0 @@
-*-backups/
-fp-info-cache
-*.log
-"#auto_saved_files#"
-*.kicad_pcb-bak
-*.kicad_sch-bak
-_autosave-*
-board/*.kicad_prl
