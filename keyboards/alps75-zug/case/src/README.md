@@ -42,7 +42,8 @@ $PY src/assembly.py              # builds every part it uses
 3. Place the top frame on top and drive the screws up through the bottom case and the plate into the inserts.
    The plate is clamped between the two sets of bosses and the shells close on the seam.
 
-The Pico's BOOTSEL button can be pressed with a paperclip through the Ø3 hole in the bezel.
+The bezel has no BOOTSEL hole: flash via the firmware's bootloader keycode (e.g. QMK `QK_BOOT` or Bootmagic).
+If the Pico is ever unresponsive, open the case and press BOOTSEL through the plate's cutout.
 
 The engraving uses macOS's system Arial Black (`/System/Library/Fonts/Supplemental/Arial Black.ttf`,
 `ENGRAVE_FONT` in `lib/case_geom.py`). It is not in the repo because it can't be redistributed;

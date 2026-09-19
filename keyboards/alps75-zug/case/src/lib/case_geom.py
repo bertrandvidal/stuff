@@ -66,7 +66,6 @@ RIB_REACH = 6.0           # a hole closer than this to an inner wall gets a rib 
 # Micro-USB plug overmold ~11 x 7 mm centred ~2.3 mm above the PCB top (Pico 1 mm + receptacle).
 USB_CENTER_Z = 2.3
 USB_CUT_W, USB_CUT_H, USB_CUT_R = 13.0, 9.0, 1.5
-BOOTSEL_POKE_D = 3.0      # paperclip hole through the top panel above the plate's BOOTSEL cutout
 
 # ---- Finishing ------------------------------------------------------------------------
 TOP_EDGE_FILLET = 2.5
@@ -159,12 +158,10 @@ def make_top_frame():
     frame += bosses
     frame -= [_cyl(x, y, INSERT_HOLE_D, PLATE_TOP_Z - 1, PLATE_TOP_Z + INSERT_HOLE_DEPTH) for x, y, _ in refs.PLATE_HOLES]
 
-    bx, by = refs.PICO_BOOTSEL[0], refs.PICO_BOOTSEL[1]
-    frame -= _cyl(bx, by, BOOTSEL_POKE_D, PANEL_BOTTOM_Z - 1, CASE_TOP_Z + 1)
     frame -= _usb_cut()
 
     frame = _fillet_edges(frame, _face_at(frame, CASE_TOP_Z).outer_wire().edges(), TOP_EDGE_FILLET)
-    # the key opening is the longest hole in the top face (the other is the BOOTSEL poke hole)
+    # the key opening is the only hole in the top face (the engraving is cut after the fillets)
     opening_wire = max(_face_at(frame, CASE_TOP_Z).inner_wires(), key=lambda w: w.length)
     frame = _fillet_edges(frame, opening_wire.edges(), KEY_OPENING_FILLET)
     frame -= _engraving()
