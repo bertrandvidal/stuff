@@ -6,7 +6,7 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 | Model | Output | What it is |
 | --- | --- | --- |
 | `case_top.py` | `STEP/case_top.step`, `STL/case_top.stl` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses |
-| `case_bottom.py` | `STEP/case_bottom.step`, `STL/case_bottom.stl` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, bumper recesses |
+| `case_bottom.py` | `STEP/case_bottom.step`, `STL/case_bottom.stl` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | Reference copy of the plate (make the real one from the .jscad) |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
 | `keycaps.py` | `STEP/keycaps.step` | Reference keycap envelope (assumed height) |
@@ -35,7 +35,7 @@ $PY src/assembly.py              # builds every part it uses
 
 - 10 × M3 heat-set inserts, 4 mm long (hole Ø4.0 × 5 mm deep), pressed into the top frame bosses.
 - 10 × M3 × 12 socket-head cap screws (ISO 4762), from underneath.
-- 4 × 10 mm rubber bumpers.
+- Rubber feet of your choice (the bottom is flat, no recesses).
 
 1. Solder switches to the plate + PCB as usual.
 2. Set the plate + PCB into the bottom case: the plate rests on the 10 boss tops, the USB side to the left.

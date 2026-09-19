@@ -1,1 +1,3 @@
 tmp/
+# the repo-level .gitignore ignores "lib"; the shared model code must be tracked
+!src/lib/
