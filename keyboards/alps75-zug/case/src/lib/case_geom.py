@@ -69,7 +69,7 @@ USB_CUT_W, USB_CUT_H, USB_CUT_R = 13.0, 9.0, 1.5
 BOOTSEL_POKE_D = 3.0      # paperclip hole through the top panel above the plate's BOOTSEL cutout
 
 # ---- Finishing ------------------------------------------------------------------------
-TOP_EDGE_FILLET = 1.5
+TOP_EDGE_FILLET = 2.5
 BOTTOM_EDGE_FILLET = 1.5
 KEY_OPENING_FILLET = 0.8
 
