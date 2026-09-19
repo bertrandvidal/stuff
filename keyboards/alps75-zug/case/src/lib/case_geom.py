@@ -73,6 +73,16 @@ TOP_EDGE_FILLET = 1.5
 BOTTOM_EDGE_FILLET = 1.5
 KEY_OPENING_FILLET = 0.8
 
+# ---- Engraving -----------------------------------------------------------------------
+# "zug" in Arial Black on the back bezel. The ink spans the last two key columns, ending flush
+# with the right edge of the keys, and its bounding box is centred one third of the way from
+# the back edge of the F-row keys to the back edge of the case.
+ENGRAVE_TEXT = "zug"
+ENGRAVE_FONT = "/System/Library/Fonts/Supplemental/Arial Black.ttf"   # macOS system font (not redistributable)
+ENGRAVE_SPAN_KEYS = 2
+ENGRAVE_FRACTION = 1 / 3   # 0 = back edge of the keys, 1 = back edge of the case
+ENGRAVE_DEPTH = 0.6
+
 
 def key_area():
     """(x0, y0, x1, y1) of the keycap grid, from the plate's switch list."""
@@ -157,8 +167,21 @@ def make_top_frame():
     # the key opening is the longest hole in the top face (the other is the BOOTSEL poke hole)
     opening_wire = max(_face_at(frame, CASE_TOP_Z).inner_wires(), key=lambda w: w.length)
     frame = _fillet_edges(frame, opening_wire.edges(), KEY_OPENING_FILLET)
+    frame -= _engraving()
     frame.label = "top_frame"
     return frame
+
+
+def _engraving():
+    """Text cutter: ink scaled to ENGRAVE_SPAN_KEYS key widths, right-aligned to the keys."""
+    kx0, ky0, kx1, ky1 = key_area()
+    ref = bd.Text(ENGRAVE_TEXT, font_size=10, font_path=ENGRAVE_FONT, align=None)
+    size = 10 * ENGRAVE_SPAN_KEYS * U / ref.bounding_box().size.X
+    text = bd.Text(ENGRAVE_TEXT, font_size=size, font_path=ENGRAVE_FONT, align=None)
+    bb = text.bounding_box()
+    cy = ky1 + ENGRAVE_FRACTION * ((OUTER_Y0 + OUTER_D) - ky1)
+    text = bd.Pos(kx1 - bb.max.X, cy - (bb.min.Y + bb.max.Y) / 2, CASE_TOP_Z - ENGRAVE_DEPTH) * text
+    return bd.extrude(text, amount=ENGRAVE_DEPTH + 1)
 
 
 def make_bottom_case():

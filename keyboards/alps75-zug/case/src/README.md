@@ -5,7 +5,7 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 
 | Model | Output | What it is |
 | --- | --- | --- |
-| `case_top.py` | `STEP/case_top.step`, `STL/case_top.stl` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses |
+| `case_top.py` | `STEP/case_top.step`, `STL/case_top.stl` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 0.6 mm "zug" engraving |
 | `case_bottom.py` | `STEP/case_bottom.step`, `STL/case_bottom.stl` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | Reference copy of the plate (make the real one from the .jscad) |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
@@ -43,3 +43,7 @@ $PY src/assembly.py              # builds every part it uses
    The plate is clamped between the two sets of bosses and the shells close on the seam.
 
 The Pico's BOOTSEL button can be pressed with a paperclip through the Ø3 hole in the bezel.
+
+The engraving uses macOS's system Arial Black (`/System/Library/Fonts/Supplemental/Arial Black.ttf`,
+`ENGRAVE_FONT` in `lib/case_geom.py`). It is not in the repo because it can't be redistributed;
+point `ENGRAVE_FONT` at a local copy to build on another machine.
