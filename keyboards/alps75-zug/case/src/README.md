@@ -7,7 +7,8 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 | --- | --- | --- |
 | `case_top.py` | `STEP/case_top.step`, `STL/case_top.stl` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 0.6 mm "zug" engraving |
 | `case_bottom.py` | `STEP/case_bottom.step`, `STL/case_bottom.stl` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, flat bottom |
-| `plate.py` | `STEP/plate.step` | Reference copy of the plate (make the real one from the .jscad) |
+| `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
+| `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
 | `keycaps.py` | `STEP/keycaps.step` | Reference keycap envelope (assumed height) |
 | `assembly.py` | `STEP/assembly.step` | Everything stacked, for fit checks |
@@ -18,7 +19,13 @@ All dimensions live in `lib/case_geom.py`. `lib/refs.py` is generated from the p
 ```bash
 PY=~/.venvs/cadgen/bin/python   # cadgen==0.6.4
 $PY src/assembly.py              # builds every part it uses
+$PY src/plate_drawing.py         # the DXF the cutter gets
 ```
+
+`DXF/plate.dxf` is the file to send to the cutting service: it is the top face of `plate.py`
+laid flat, so it carries the same 88 switch cutouts, 12 stabiliser pads, 10 Ø3.2 holes, the
+BOOTSEL cutout and the USB edge notch as `plate-88keys.jscad`, in the same coordinate frame.
+Kerf is left at 0 -- cutting services apply their own compensation.
 
 ## Stack (Z = 0 at the PCB top)
 
