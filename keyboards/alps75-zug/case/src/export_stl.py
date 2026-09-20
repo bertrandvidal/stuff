@@ -1,4 +1,4 @@
-"""Write the printable STLs for the two case shells.
+"""Write the printable STLs for the two case shells and the plate.
 
 Deliberately NOT the `@stl` door: cadgen's mesher leaves a handful of open edges in
 both shells (4 in the top frame, 6 in the bottom case) at every chord/angle tolerance,
@@ -7,14 +7,17 @@ the same solids watertight, so the fab STLs come from here instead.
 
     python src/export_stl.py
 
-Geometry comes from `lib.case_geom`, the same place `case_top.py` and `case_bottom.py`
-take it from, so the STLs cannot drift from the STEP files.
+Geometry comes from `lib.case_geom`, the same place `case_top.py`, `case_bottom.py` and
+`plate.py` take it from, so the STLs cannot drift from the STEP files.
+
+The plate's STL is for 3D-printing a test plate or for previewing; the file a cutting
+service wants is `DXF/plate.dxf`.
 """
 from pathlib import Path
 
 from cadgen import build123d as bd
 
-from lib.case_geom import make_bottom_case, make_top_frame
+from lib.case_geom import make_bottom_case, make_plate, make_top_frame
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "STL"
 
@@ -23,7 +26,7 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "STL"
 TOLERANCE = 0.01
 ANGULAR_TOLERANCE = 0.2
 
-PARTS = (("case_top", make_top_frame), ("case_bottom", make_bottom_case))
+PARTS = (("case_top", make_top_frame), ("case_bottom", make_bottom_case), ("plate", make_plate))
 
 
 def main():

@@ -9,7 +9,7 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 | `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
-| `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl` | **Print files for the two shells** (watertight; see below) |
+| `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/plate.stl` | **Print files** for the two shells and the plate (watertight; see below) |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
 | `keycaps.py` | `STEP/keycaps.step` | Reference keycap envelope (assumed height) |
 | `assembly.py` | `STEP/assembly.step` | Everything stacked, for fit checks |
@@ -29,13 +29,17 @@ laid flat, so it carries the same 88 switch cutouts, 12 stabiliser pads, 10 Ø3.
 BOOTSEL cutout and the USB edge notch as `plate-88keys.jscad`, in the same coordinate frame.
 Kerf is left at 0 -- cutting services apply their own compensation.
 
-`STL/case_top.stl` and `STL/case_bottom.stl` come from `export_stl.py`, **not** from a `@stl`
-door. cadgen's mesher leaves a few open edges in both shells -- 4 in the top frame, 6 in the
-bottom case -- at every chord and angle tolerance, and print services flag that as a
-non-watertight mesh. build123d's own exporter tessellates the same solids closed, so the fab
-STLs are written from there. Both files are verified watertight, outward-facing, and within
-0.02% of the STEP solids' volume. Re-run `export_stl.py` after any change to `lib/case_geom.py`
+The STLs in `STL/` come from `export_stl.py`, **not** from a `@stl` door. cadgen's mesher leaves
+a few open edges in both shells -- 4 in the top frame, 6 in the bottom case -- at every chord and
+angle tolerance, and print services flag that as a non-watertight mesh. build123d's own exporter
+tessellates the same solids closed, so the fab STLs are written from there. All three are verified
+watertight, with outward normals, no degenerate triangles, and mesh volumes within 0.02% of the
+STEP solids'. Re-run `export_stl.py` after any change to `lib/case_geom.py`
 -- it has no freshness gate, it always rebuilds.
+
+`STL/plate.stl` is there to 3D-print a throwaway test plate (check the switches clip and the
+shells close before paying for metal) and for previewing. The file a cutting service wants is
+`DXF/plate.dxf`, not this.
 
 ## Stack (Z = 0 at the PCB top)
 
