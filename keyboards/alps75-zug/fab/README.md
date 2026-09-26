@@ -29,11 +29,30 @@ The outline is **not a plain rectangle** — the main body is 328.01 × 123 mm w
 61.8 × 24.2 mm tab on the top left carrying the Pico and the USB port. Corners are
 1 mm rounded. The profile is a single closed contour.
 
-Holes: 182 plated (176 × 1.5 mm switch pins, 6 × 0.3 mm vias) and 4 unplated
-(2 × 1.85 mm, 2 × 2.2 mm).
+Holes: 304 plated (176 × 1.5 mm switch pins, 128 × 0.3 mm vias: 6 for routing,
+122 GND stitching) and 4 unplated (2 × 1.85 mm, 2 × 2.2 mm). All vias are tented.
 
 Every gerber carries X2 `FileFunction` attributes, so JLCPCB / PCBWay / OSHPark
 detect the layers automatically and the filename convention does not matter.
+
+## GND pour
+
+Both copper layers carry a GND pour (the Pico's GND net, `Net-(U1-GND-Pad13)`):
+0.3 mm clearance, thermal reliefs on the Pico's GND pads, and no floating copper
+(island removal: always). The matrix cuts each pour into strips — columns run
+vertically on F.Cu, rows and diode links horizontally on B.Cu — so 122 stitching
+vias tie the strips on one side to those on the other, and through them to the
+Pico. They are kept off the Pico and the diodes. That leaves GND on 89% of F.Cu
+and 87% of B.Cu; the only copper dropped is 13 slivers under 0.7 mm², too small
+for a via.
+
+`ground_pour.py` added the pours and vias. It edits the board, so `export.sh`
+doesn't run it: rerun it after rerouting (it replaces its previous pours and
+vias), then rerun `export.sh`. It needs KiCad's own Python:
+
+    /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 ground_pour.py
+
+## Design rules
 
 The board is checked against JLCPCB's 2-layer limits: `../alps75-zug.kicad_dru`
 holds the ones Board Setup doesn't already cover (PTH annular ring, NPTH size,
@@ -66,8 +85,8 @@ gerber's pad attributes (every cathode on pin 1).
 
 ## Files not in the zip (review only)
 
-- `drc.json` — DRC result: 0 errors, 0 unconnected, 0 schematic-parity issues,
-  4 warnings. All four are the same cosmetic thing: the U1 (Pico) silkscreen
+- `drc.json` — DRC result, with the zones refilled first: 0 errors, 0 unconnected,
+  0 schematic-parity issues, 4 warnings. All four are the same cosmetic thing: the U1 (Pico) silkscreen
   outline sits 0.11 mm past the left board edge and gets clipped. Safe to fab.
 - `drill-report.txt` — hole count per tool size.
 - `*-drl_map.gbr` — human-readable drill maps. Deliberately kept out of the zip;
