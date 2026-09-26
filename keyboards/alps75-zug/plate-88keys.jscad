@@ -18,9 +18,9 @@ const { subtract, union } = jscad.booleans
 const THICKNESS = 1.2 // mm
 
 // --- Plate outline ---
-// Sized to the PCB (x 37.08..377.3825, y 89.29..242.0 in KiCad coords) plus a 7.5 mm border
-// so every mounting hole sits 3.5 mm outside the PCB edge.
-const outline = translate([152.4, -34.395, 0], roundedRectangle({ size: [355.303, 167.71], roundRadius: 4 }))
+// Sized to the PCB (x 43.249687..371.212813, y 91.845..239.0125 in KiCad coords) plus a 7.5 mm
+// border so every mounting hole sits 3.5 mm outside the PCB edge.
+const outline = translate([152.4, -34.179, 0], roundedRectangle({ size: [342.963, 162.168], roundRadius: 4 }))
 
 // --- Shared shapes ---
 const switch_shape = roundedRectangle({ size: [15.5, 12.8], roundRadius: 0.5 })
@@ -137,18 +137,18 @@ const stab_81_b = translate([178.65, -101.73, 0], stab_pad)
 const stab_81 = union(stab_81_a, stab_81_b)  // stabilizer for "5,7" (switch 81)
 
 // --- Holes ---
-const holeBottomLeft = translate([-21.251, -114.25, 0], circle({ radius: 1.6 }))
-const holeBottomRight = translate([326.051, -114.25, 0], circle({ radius: 1.6 }))
-const holeTopLeft = translate([-21.251, 45.46, 0], circle({ radius: 1.6 }))
-const holeTopRight = translate([326.051, 45.46, 0], circle({ radius: 1.6 }))
+const holeBottomLeft = translate([-15.082, -111.263, 0], circle({ radius: 1.6 }))
+const holeBottomRight = translate([319.882, -111.263, 0], circle({ radius: 1.6 }))
+const holeTopLeft = translate([-15.082, 42.905, 0], circle({ radius: 1.6 }))
+const holeTopRight = translate([319.882, 42.905, 0], circle({ radius: 1.6 }))
 // Custom holes: aligned with the corner holes, clockwise from top-left.
 // Top/bottom edges split into equal thirds, left/right edges split in half.
-const customHole_0 = translate([94.516, 45.46, 0], circle({ radius: 1.6 }))  // top
-const customHole_1 = translate([210.284, 45.46, 0], circle({ radius: 1.6 }))  // top
-const customHole_2 = translate([326.051, -34.395, 0], circle({ radius: 1.6 }))  // right
-const customHole_3 = translate([210.284, -114.25, 0], circle({ radius: 1.6 }))  // bottom
-const customHole_4 = translate([94.516, -114.25, 0], circle({ radius: 1.6 }))  // bottom
-const customHole_5 = translate([-21.251, -34.395, 0], circle({ radius: 1.6 }))  // left
+const customHole_0 = translate([96.573, 42.905, 0], circle({ radius: 1.6 }))  // top
+const customHole_1 = translate([208.227, 42.905, 0], circle({ radius: 1.6 }))  // top
+const customHole_2 = translate([319.882, -34.179, 0], circle({ radius: 1.6 }))  // right
+const customHole_3 = translate([208.227, -111.263, 0], circle({ radius: 1.6 }))  // bottom
+const customHole_4 = translate([96.573, -111.263, 0], circle({ radius: 1.6 }))  // bottom
+const customHole_5 = translate([-15.082, -34.179, 0], circle({ radius: 1.6 }))  // left
 
 // --- Raspberry Pi Pico (U1, SMD on PCB top, under the plate) ---
 // Plate underside is 3.3 mm above the PCB (Alps: 4.5 mm PCB-to-plate-top, 1.2 mm plate).
@@ -156,10 +156,10 @@ const customHole_5 = translate([-21.251, -34.395, 0], circle({ radius: 1.6 }))  
 // that; the rest of the Pico is <= ~2.6 mm and stays under solid plate.
 // USB notch: the plate edge is 7.5 mm left of the PCB, so the micro-USB plug overmold
 // (~11 x 7 mm, reaching ~6 mm above the PCB) passes through the plate plane. 13 mm tall,
-// from past the plate edge to the receptacle's inner end + 1.8 mm (PCB x 43.2).
-const picoUsbNotch = translate([-19.441, 22.85, 0], roundedRectangle({ size: [15.62, 13], roundRadius: 1 }))
-// BOOTSEL access: button body 4.25 x 3.2 mm centred at (-5.751, 19.35), opening 8 x 7 mm.
-const picoBootsel = translate([-5.751, 19.35, 0], roundedRectangle({ size: [8, 7], roundRadius: 1 }))
+// from past the plate edge to the receptacle's inner end + 1.8 mm (PCB x 49.37).
+const picoUsbNotch = translate([-13.271, 22.85, 0], roundedRectangle({ size: [15.62, 13], roundRadius: 1 }))
+// BOOTSEL access: button body 4.25 x 3.2 mm centred at (0.419, 19.35), opening 8 x 7 mm.
+const picoBootsel = translate([0.419, 19.35, 0], roundedRectangle({ size: [8, 7], roundRadius: 1 }))
 
 // --- Assembly ---
 const allCutouts = union(

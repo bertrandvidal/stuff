@@ -1,7 +1,7 @@
 # alps75-zug case — model catalog
 
 Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for PC or ABS
-(print service or injection moulding: each part is one piece, ~362 x 175 mm).
+(print service or injection moulding: each part is one piece, ~350 x 169 mm).
 
 | Model | Output | What it is |
 | --- | --- | --- |
