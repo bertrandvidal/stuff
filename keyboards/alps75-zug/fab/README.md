@@ -38,13 +38,20 @@ detect the layers automatically and the filename convention does not matter.
 ## GND pour
 
 Both copper layers carry a GND pour (the Pico's GND net, `Net-(U1-GND-Pad13)`):
-0.3 mm clearance, thermal reliefs on the Pico's GND pads, and no floating copper
-(island removal: always). The matrix cuts each pour into strips — columns run
-vertically on F.Cu, rows and diode links horizontally on B.Cu — so 122 stitching
-vias tie the strips on one side to those on the other, and through them to the
-Pico. They are kept off the Pico and the diodes. That leaves GND on 89% of F.Cu
-and 87% of B.Cu; the only copper dropped is 13 slivers under 0.7 mm², too small
-for a via.
+0.3 mm clearance, thermal reliefs on the Pico's GND pads, island removal: always.
+
+The F.Cu pour reaches the Pico's GND pads directly. Nothing else on B.Cu is GND,
+so the B.Cu pour is grounded only through vias. Without them it would be a
+floating copper plane, and KiCad 10 would still keep it: island removal leaves
+a pour in place when no part of it connects, and DRC only warns about it
+(isolated copper). 122 stitching vias, one per key unit where both sides have
+room, tie the two pours together. Two would be enough to ground B.Cu (the row
+traces cut it into a main sheet and a strip along the top edge); the rest keep
+every part of it within about a key unit of the front pour. They are kept off
+the Pico and the diodes.
+
+GND covers 89% of F.Cu and 87% of B.Cu; the only copper dropped is 13 slivers
+under 0.7 mm², too small for a via.
 
 `ground_pour.py` added the pours and vias. It edits the board, so `export.sh`
 doesn't run it: rerun it after rerouting (it replaces its previous pours and

@@ -6,13 +6,14 @@ and starts over. Needs KiCad's own Python, for the pcbnew module:
 
   /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python3 ground_pour.py
 
-The matrix slices each pour into strips: columns run vertically on F.Cu, rows
-and diode links horizontally on B.Cu. A strip only reaches GND (the Pico's
-pads, on F.Cu) through vias to the other layer, so the script drops a via
-roughly once per key unit, then keeps adding vias from every strip that KiCad
-still reports as floating to connected copper on the other side. Whatever it
-cannot connect is removed at fill time (island removal: always), so no
-floating copper ends up on the board.
+The Pico's GND pads are all on F.Cu, and the F.Cu pour reaches them directly.
+Nothing on B.Cu is GND, so the B.Cu pour is grounded only through vias. Without
+them it would be a floating plane that KiCad keeps anyway (island removal leaves
+a pour alone when no part of it connects) and only flags as isolated copper in
+DRC. The script drops a via roughly once per key unit where both pours have
+room, then adds a via from every piece KiCad still reports as floating to
+connected copper on the other side. What it cannot connect (slivers too small
+for a via) is removed at fill time (island removal: always).
 """
 
 import os
