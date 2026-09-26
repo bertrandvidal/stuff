@@ -5,7 +5,7 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 
 | Model | Output | What it is |
 | --- | --- | --- |
-| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 0.6 mm "zug" engraving |
+| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 1.0 mm "zug" engraving |
 | `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses, 3 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |

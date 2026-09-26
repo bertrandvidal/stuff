@@ -8,7 +8,8 @@ Three orders, all under the same JLCPCB account, independent of each other (plac
 | Case: top frame + bottom case | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl` |
 | Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) |
 
-v0.3 changes only the bottom case (3 mm of air under the PCB instead of 10). The PCB and the plate are the
+v0.3 changes only the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
+instead of 0.6 mm). The PCB and the plate are the
 v0.2 ones — the board's silkscreen says v0.2, which is correct.
 
 ## Before uploading — checked 2026-09-26
@@ -18,7 +19,8 @@ v0.2 ones — the board's silkscreen says v0.2, which is correct.
   0 unconnected, 0 schematic-parity issues, 4 cosmetic silkscreen warnings (see `fab/README.md`).
   If the board changes, rerun `fab/export.sh` first.
 - **Case:** both STLs are one watertight solid each (0 non-manifold edges):
-  top 349.96 × 169.17 × 8.20 mm, bottom 349.96 × 169.17 × 10.90 mm. After any change to
+  top 349.96 × 169.17 × 8.20 mm, bottom 349.96 × 169.17 × 10.90 mm. The "zug" engraving is 1.0 mm
+  deep, which meets JLC3DP's minimum for engraved detail (0.8 mm resin/nylon, 1.0 mm FDM). After any change to
   `case/src/lib/case_geom.py`, rebuild with `case/src/export_stl.py` (see `case/src/README.md`).
 - **Plate:** `plate.step` is one solid, 342.963 × 162.168 × 1.200 mm. Narrowest cutout: the 2.67 mm
   stabiliser slots (JLCCNC minimum: 1 mm); narrowest web: 1.88 mm, between the USB notch and the
@@ -70,9 +72,6 @@ v0.2 ones — the board's silkscreen says v0.2, which is correct.
   printed bosses. Typical prints do better than the quoted limit, but it isn't guaranteed. Cheap
   insurance: enlarge the plate holes to Ø4.0 (plate-only change); or order the case first and measure
   it before ordering the plate.
-- **"zug" engraving depth.** It's 0.6 mm deep; JLC3DP's minimum for engraved detail is 0.8 mm
-  (resin/nylon) and 1.0 mm (FDM), so it may come out shallow or filled. `ENGRAVE_DEPTH = 1.0` in
-  `case/src/lib/case_geom.py` fixes it (the panel is 3 mm thick).
 
 ## Not from JLC
 

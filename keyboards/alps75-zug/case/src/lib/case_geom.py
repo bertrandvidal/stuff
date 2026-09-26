@@ -83,7 +83,7 @@ ENGRAVE_TEXT = "zug"
 ENGRAVE_FONT = "/System/Library/Fonts/Supplemental/Arial Black.ttf"   # macOS system font (not redistributable)
 ENGRAVE_SPAN_KEYS = 2
 ENGRAVE_FRACTION = 1 / 3   # 0 = back edge of the keys, 1 = back edge of the case
-ENGRAVE_DEPTH = 0.6
+ENGRAVE_DEPTH = 1.0   # JLC3DP's minimum engraved detail: 0.8 mm resin/nylon, 1.0 mm FDM
 
 
 def key_area():
