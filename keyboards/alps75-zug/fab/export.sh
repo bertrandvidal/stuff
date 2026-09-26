@@ -28,7 +28,8 @@ kicad-cli pcb export drill \
   --generate-report --report-path drill-report.txt \
   "$PCB"
 
-kicad-cli pcb drc --severity-error --severity-warning \
+# --schematic-parity: the JLC BOM comes from the schematic, so the board must match it.
+kicad-cli pcb drc --severity-error --severity-warning --schematic-parity \
   --format json --output drc.json "$PCB"
 
 # Drill maps are for humans, not for the fab: keep them out of the zip.
@@ -40,3 +41,7 @@ mv "$OUT"/*-drl_map.gbr .
 echo
 echo "Wrote $ZIP:"
 unzip -l "$ZIP"
+
+# JLCPCB assembly files (BOM + CPL), uploaded separately at the PCBA step, not in the zip.
+echo
+python3 jlc_assembly.py
