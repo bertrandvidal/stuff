@@ -1,5 +1,5 @@
 Drill report for alps75-zug.kicad_pcb
-Created on 2026-09-26T15:09:48
+Created on 2026-09-26T15:48:02
 
 Copper Layer Stackup:
     =============================================================
@@ -10,10 +10,10 @@ Copper Layer Stackup:
 Drill file 'alps75-zug-PTH.drl' contains
     plated through holes:
     =============================================================
-    T1  0.300mm  0.0118"  (6 holes))
+    T1  0.300mm  0.0118"  (128 holes))
     T2  1.500mm  0.0591"  (176 holes))
 
-    Total plated holes count 182
+    Total plated holes count 304
 
 
 Drill file 'alps75-zug-NPTH.drl' contains
