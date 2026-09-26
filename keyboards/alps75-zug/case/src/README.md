@@ -6,7 +6,7 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 | Model | Output | What it is |
 | --- | --- | --- |
 | `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 0.6 mm "zug" engraving |
-| `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses, 10 mm air gap under the PCB, flat bottom |
+| `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses, 2.5 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
 | `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/plate.stl` | **Print files** for the two shells and the plate (watertight; see below) |
@@ -49,8 +49,8 @@ shells close before paying for metal) and for previewing. The file a cutting ser
 | 8.5 – 11.5 | top panel (3 mm), 4 mm above the plate |
 | 3.3 – 4.5 | plate (1.2 mm); the seam between the two shells is at 3.3 |
 | -1.6 – 0 | PCB |
-| -11.6 | floor top: 10 mm of air under the PCB |
-| -14.6 | bottom of the case (26.1 mm total height) |
+| -4.1 | floor top: 2.5 mm of air under the PCB (switch pins ~2 mm, diodes ~1.1 mm) |
+| -7.1 | bottom of the case (18.6 mm total height) |
 
 ## Hardware and assembly
 

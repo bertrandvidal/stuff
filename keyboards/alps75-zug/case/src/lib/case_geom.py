@@ -26,10 +26,13 @@ PLATE_BOTTOM_Z = 3.3                                      # Alps: plate top 4.5 
 PLATE_TOP_Z = PLATE_BOTTOM_Z + refs.PLATE_THICKNESS       # 4.5
 SPLIT_Z = PLATE_BOTTOM_Z                                  # seam between top frame and bottom case
 
-AIR_BELOW_PCB = 10.0      # "roomy": open cavity between PCB underside and floor
+# PCB underside to floor. The tallest things under the PCB are the Alps switch pins (~1.7-2 mm
+# through a 1.6 mm board, plus the solder cone) and the SOD-123F diodes (~1.1 mm): 2.5 mm leaves
+# ~0.5 mm over untrimmed pins. Raise it to 3.0 if a soldered pin measures more than 2 mm.
+AIR_BELOW_PCB = 2.5
 FLOOR_T = 3.0
-FLOOR_TOP_Z = PCB_BOTTOM_Z - AIR_BELOW_PCB                # -11.6
-CASE_BOTTOM_Z = FLOOR_TOP_Z - FLOOR_T                     # -14.6
+FLOOR_TOP_Z = PCB_BOTTOM_Z - AIR_BELOW_PCB                # -4.1
+CASE_BOTTOM_Z = FLOOR_TOP_Z - FLOOR_T                     # -7.1
 
 FRAME_ABOVE_PLATE = 7.0   # top surface height above the plate top (keycap skirts sit about here)
 TOP_PANEL_T = 3.0
