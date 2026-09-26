@@ -7225,7 +7225,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 134.62 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -7282,6 +7282,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 133.35 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 133.35 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7407,7 +7418,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 83.82 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -7464,6 +7475,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 82.55 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 82.55 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7589,7 +7611,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 172.72 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -7646,6 +7668,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 171.45 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 171.45 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7771,7 +7804,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 109.22 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -7828,6 +7861,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 107.95 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 107.95 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8190,7 +8234,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -8247,6 +8291,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 234.95 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 234.95 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8530,7 +8585,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -8596,6 +8651,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 222.25 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "061904ab-9c3c-4cd4-acd6-68cf93f35e26")
 		)
@@ -8633,7 +8699,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -8699,6 +8765,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 120.65 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ee758b80-7ff6-4553-a122-80aabb7b208e")
 		)
@@ -8736,7 +8813,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -8793,6 +8870,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 222.25 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 222.25 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8918,7 +9006,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 109.22 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -8984,6 +9072,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 107.95 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d62e8ef5-750a-4f51-82ba-06dbf58b2b43")
 		)
@@ -9021,7 +9120,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 134.62 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -9078,6 +9177,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 133.35 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 133.35 92.71 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9440,7 +9550,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 58.42 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -9497,6 +9607,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 57.15 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 57.15 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9701,7 +9822,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -9758,6 +9879,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 158.75 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 158.75 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9883,7 +10015,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 172.72 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -9940,6 +10072,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 171.45 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 171.45 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10065,7 +10208,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 134.62 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -10122,6 +10265,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 133.35 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 133.35 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10405,7 +10559,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 83.82 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -10462,6 +10616,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 82.55 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 82.55 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10587,7 +10752,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -10644,6 +10809,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 234.95 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 234.95 92.71 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10769,7 +10945,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -10835,6 +11011,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 196.85 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "3abe6ecb-e9bb-4d82-87fd-d97bd5e89a9e")
 		)
@@ -10872,7 +11059,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 58.42 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -10929,6 +11116,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 57.15 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 57.15 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11054,7 +11252,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -11120,6 +11318,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 234.95 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "50f47511-be09-4620-8ceb-4dcbe5d7cd44")
 		)
@@ -11157,7 +11366,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -11214,6 +11423,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 196.85 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 196.85 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11339,7 +11559,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 185.42 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -11405,6 +11625,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 184.15 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "1da1f1ca-d399-4cbf-b296-51a42e0aee6c")
 		)
@@ -11442,7 +11673,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -11508,6 +11739,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 120.65 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7ea1ee99-24af-40c7-a694-21be96e6ace9")
 		)
@@ -11545,7 +11787,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 109.22 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -11602,6 +11844,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 107.95 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 107.95 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11727,7 +11980,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -11793,6 +12046,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 31.75 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "13496b5b-8314-4835-a65c-1e6a8455ac6a")
 		)
@@ -11830,7 +12094,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 96.52 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -11896,6 +12160,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 95.25 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c970e39d-7e55-4a85-8eea-275664fecd5e")
 		)
@@ -11933,7 +12208,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -11999,6 +12274,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 196.85 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "11dcd7d3-2c36-4a6c-a975-f6229fc1797d")
 		)
@@ -12036,7 +12322,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 109.22 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -12093,6 +12379,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 107.95 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 107.95 92.71 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12297,7 +12594,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 172.72 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -12363,6 +12660,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 171.45 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e34ed7e4-995b-4d1a-b8e6-c5daf8558f52")
 		)
@@ -12400,7 +12708,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -12466,6 +12774,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 234.95 133.35 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "91459aa7-48c3-4ede-9a1b-0ba4e13c2a43")
 		)
@@ -12503,7 +12822,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 96.52 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -12569,6 +12888,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 95.25 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "dbbbd1de-b25e-484c-953e-74fed6adc90f")
 		)
@@ -12606,7 +12936,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 147.32 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -12663,6 +12993,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 146.05 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 146.05 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12788,7 +13129,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -12845,6 +13186,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 222.25 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 222.25 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12970,7 +13322,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 210.82 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -13036,6 +13388,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 209.55 133.35 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "72649240-2ba6-4487-9fca-c54ff7096181")
 		)
@@ -13073,7 +13436,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 147.32 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -13139,6 +13502,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 146.05 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7478be7b-79f1-4335-b5a8-fcdb75b5c3e8")
 		)
@@ -13176,7 +13550,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 96.52 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -13242,6 +13616,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 95.25 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "471330cf-8acf-4a52-a843-eb45b9a7db27")
 		)
@@ -13279,7 +13664,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 134.62 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -13345,6 +13730,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 133.35 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "25b2f9a1-7ecf-4f05-b898-4ede6a405b76")
 		)
@@ -13382,7 +13778,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -13439,6 +13835,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 196.85 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 196.85 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13564,7 +13971,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -13630,6 +14037,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 31.75 113.03 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6ac1bb3c-8618-4ed3-8def-f171bfafcc84")
 		)
@@ -13667,7 +14085,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -13724,6 +14142,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 120.65 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 120.65 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13849,7 +14278,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 185.42 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -13906,6 +14335,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 184.15 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 184.15 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14031,7 +14471,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 58.42 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -14097,6 +14537,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 57.15 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c002896e-3245-4dec-a304-f0bc62b48137")
 		)
@@ -14134,7 +14585,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -14191,6 +14642,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 31.75 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 31.75 92.71 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14758,7 +15220,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -14824,6 +15286,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 222.25 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b6f85aef-3f78-436b-9538-45bab80dfbad")
 		)
@@ -14861,7 +15334,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -14918,6 +15391,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 222.25 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 222.25 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15043,7 +15527,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -15109,6 +15593,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 120.65 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ef44ddef-4eff-4511-b3ae-9be1b088c5c3")
 		)
@@ -15146,7 +15641,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 223.52 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -15212,6 +15707,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 222.25 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "dcb6ab0f-7112-4ddc-b4b3-d416b1dd0d8e")
 		)
@@ -15249,7 +15755,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -15315,6 +15821,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 158.75 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "00944b7d-be08-4e1d-b368-f137cd974eff")
 		)
@@ -15352,7 +15869,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 185.42 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -15418,6 +15935,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 184.15 133.35 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "cc719299-3090-436f-ba43-af75dfb498de")
 		)
@@ -15455,7 +15983,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 172.72 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -15521,6 +16049,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 171.45 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d45a4b0a-f344-4338-84b9-99db8a45ae1a")
 		)
@@ -15558,7 +16097,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 147.32 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -15624,6 +16163,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 146.05 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b100d729-83b0-40ab-8d7a-5005ef7c9dfe")
 		)
@@ -15661,7 +16211,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -15718,6 +16268,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 158.75 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 158.75 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16001,7 +16562,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 147.32 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -16067,6 +16628,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 146.05 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "53ce6185-28fc-4e26-8ad7-988fd6f17eb5")
 		)
@@ -16104,7 +16676,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 58.42 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -16170,6 +16742,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 57.15 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f102ee6a-ec40-4295-b79e-2fe496917f0e")
 		)
@@ -16207,7 +16790,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 83.82 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -16273,6 +16856,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 82.55 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f8a80b16-78a1-43d5-be8e-0f10f1cf16fc")
 		)
@@ -16310,7 +16904,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 134.62 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -16367,6 +16961,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 133.35 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 133.35 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16650,7 +17255,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -16716,6 +17321,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 69.85 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8c2ee1d8-98be-4214-806b-da40584bb54f")
 		)
@@ -16753,7 +17369,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 45.72 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -16810,6 +17426,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 44.45 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 44.45 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17330,7 +17957,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 109.22 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -17387,6 +18014,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 107.95 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 107.95 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17828,7 +18466,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 210.82 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -17894,6 +18532,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 209.55 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "15c1cb0b-4609-4405-a348-afb32e7e854c")
 		)
@@ -17931,7 +18580,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 45.72 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -17988,6 +18637,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 44.45 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 44.45 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18113,7 +18773,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 45.72 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -18170,6 +18830,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 44.45 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 44.45 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18374,7 +19045,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -18431,6 +19102,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 120.65 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 120.65 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18556,7 +19238,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -18613,6 +19295,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 196.85 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 196.85 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18738,7 +19431,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 45.72 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -18804,6 +19497,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 44.45 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b470be96-5ab1-4f48-9523-91f8a7f139be")
 		)
@@ -18841,7 +19545,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -18907,6 +19611,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 31.75 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c57baa03-07db-4ca5-a297-2e87f14d6da6")
 		)
@@ -18944,7 +19659,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -19010,6 +19725,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 31.75 133.35 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "587f8aaa-d956-4887-be79-5b87cfcaa3bf")
 		)
@@ -19047,7 +19773,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 172.72 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -19113,6 +19839,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 171.45 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "95b97707-b3eb-4598-a61f-a9ed0cacb7f0")
 		)
@@ -19150,7 +19887,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -19216,6 +19953,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 234.95 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f14ad18c-3aa6-4936-b87b-d8b884c0ea98")
 		)
@@ -19253,7 +20001,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -19310,6 +20058,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 69.85 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 69.85 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19435,7 +20194,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 147.32 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -19492,6 +20251,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 146.05 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 146.05 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19696,7 +20466,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -19762,6 +20532,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 69.85 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "78d44f70-8b0e-4828-bfe7-3004a0203e8c")
 		)
@@ -19799,7 +20580,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -19856,6 +20637,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 69.85 133.35 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 69.85 133.35 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20060,7 +20852,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 83.82 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -20117,6 +20909,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 82.55 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 82.55 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20321,7 +21124,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -20378,6 +21181,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 158.75 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 158.75 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20503,7 +21317,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -20569,6 +21383,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 158.75 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7dda0b87-9cbf-4c1f-a558-7287769b1dcc")
 		)
@@ -20606,7 +21431,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 236.22 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -20663,6 +21488,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 234.95 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 234.95 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21104,7 +21940,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 83.82 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -21161,6 +21997,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 82.55 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 82.55 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21365,7 +22212,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 121.92 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -21431,6 +22278,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 120.65 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a9ae2749-d9e3-4e02-9e76-a06f4ab43ec1")
 		)
@@ -21468,7 +22326,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 33.02 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -21534,6 +22392,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 31.75 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2564fa45-86c6-4d89-aefb-ff9abb371fe2")
 		)
@@ -21571,7 +22440,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 185.42 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -21628,6 +22497,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 184.15 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 184.15 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21832,7 +22712,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 73.66 90)
 			(hide yes)
 			(show_name no)
@@ -21889,6 +22769,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 69.85 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 69.85 72.39 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22330,7 +23221,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 71.12 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -22387,6 +23278,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 69.85 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 69.85 113.03 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22512,7 +23414,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 45.72 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -22578,6 +23480,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 44.45 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c940fa17-2396-49b5-836c-dda075844a6c")
 		)
@@ -22615,7 +23528,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 96.52 53.34 90)
 			(hide yes)
 			(show_name no)
@@ -22681,6 +23594,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 95.25 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "bdba7b30-c172-43d2-8558-905f89b4ab68")
 		)
@@ -22718,7 +23642,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 96.52 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -22775,6 +23699,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 95.25 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 95.25 31.75 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22979,7 +23914,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 58.42 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -23045,6 +23980,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 57.15 92.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "1d08b3dc-a3ef-42dd-a821-f8f559143c6b")
 		)
@@ -23082,7 +24028,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 198.12 33.02 90)
 			(hide yes)
 			(show_name no)
@@ -23148,6 +24094,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C108804"
+			(at 196.85 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5adca3ef-f74a-4c04-a425-34c35b1c0296")
 		)
@@ -23185,7 +24142,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "D"
+		(property "Value" "1N4148WL"
 			(at 160.02 93.98 90)
 			(hide yes)
 			(show_name no)
@@ -23242,6 +24199,17 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 158.75 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108804"
+			(at 158.75 92.71 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
