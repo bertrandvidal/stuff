@@ -29,7 +29,8 @@ kicad-cli pcb export drill \
   "$PCB"
 
 # --schematic-parity: the JLC BOM comes from the schematic, so the board must match it.
-kicad-cli pcb drc --severity-error --severity-warning --schematic-parity \
+# --refill-zones: check the same GND pour the gerbers were plotted with (--check-zones).
+kicad-cli pcb drc --severity-error --severity-warning --schematic-parity --refill-zones \
   --format json --output drc.json "$PCB"
 
 # Drill maps are for humans, not for the fab: keep them out of the zip.
