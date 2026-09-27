@@ -8,15 +8,16 @@ Three orders, all under the same JLCPCB account, independent of each other (plac
 | Case: top frame + bottom case | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl` |
 | Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) |
 
-v0.3 changes only the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
-instead of 0.6 mm). The PCB and the plate are the
-v0.2 ones — the board's silkscreen says v0.2, which is correct.
+v0.3 changes the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
+instead of 0.6 mm) and, on the PCB, only the F.Silk legend, which now reads "alps75-zug - v0.3 - 2026".
+The PCB's copper, outline and drills, and the plate, are unchanged from v0.2.
 
 ## Before uploading — checked 2026-09-26
 
-- **PCB:** `fab/export.sh` rerun on a copy of the board reproduces every committed gerber (only the
-  creation-date lines differ), and the drill files, BOM and CPL byte for byte. DRC: 0 errors,
-  0 unconnected, 0 schematic-parity issues, 4 cosmetic silkscreen warnings (see `fab/README.md`).
+- **PCB (re-exported 2026-09-27 for the v0.3 legend):** `fab/export.sh` rerun on a copy of the board
+  reproduces every committed gerber and drill file (only the creation-date lines differ), and the BOM
+  and CPL byte for byte. DRC: 0 errors, 0 unconnected, 0 schematic-parity issues, 4 cosmetic
+  silkscreen warnings (see `fab/README.md`).
   If the board changes, rerun `fab/export.sh` first.
 - **Case:** both STLs are one watertight solid each (0 non-manifold edges):
   top 349.96 × 169.17 × 8.20 mm, bottom 349.96 × 169.17 × 10.90 mm. The "zug" engraving is 1.0 mm

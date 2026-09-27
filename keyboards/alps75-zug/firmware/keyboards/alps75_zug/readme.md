@@ -5,7 +5,7 @@ rebuilt from an Apple Extended Keyboard II: AEK switches, AEK caps and AEK
 plate-mount stabilisers on a new PCB, plate and 3D-printed case.
 
 * Keyboard Maintainer: [bertrandvidal](https://github.com/bertrandvidal)
-* Hardware Supported: alps75-zug PCB rev 0.1, Raspberry Pi Pico (RP2040), micro-USB
+* Hardware Supported: alps75-zug PCB rev 0.1–0.3, Raspberry Pi Pico (RP2040), micro-USB
 * Hardware Availability: self-built, see the project repository
 
 88 keys on a 6 × 17 matrix. Columns `GP0`–`GP16`, rows `GP17`–`GP22`, `COL2ROW`.
