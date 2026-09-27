@@ -5,6 +5,7 @@
 	(uuid "52ee5249-2c64-4583-bfc6-5b6d91f4f70c")
 	(paper "A3")
 	(title_block
+		(rev "0.3")
 		(comment 1 "https://github.com/adamws/kicad-kbplacer")
 		(comment 2 "Auto-generated with kicad-kbplacer, requires validation before production!")
 	)
