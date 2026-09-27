@@ -1,6 +1,6 @@
 # alps75-zug — fab outputs
 
-Generated from `alps75-zug.kicad_pcb` (v0.2) with KiCad 10.0.6 (`kicad-cli`).
+Generated from `alps75-zug.kicad_pcb` (v0.3) with KiCad 10.0.6 (`kicad-cli`).
 Regenerate with `./export.sh`.
 
 Ordered from **JLCPCB**, which also assembles the 88 diodes on the back. The Pico

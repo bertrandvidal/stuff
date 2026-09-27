@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "10.0.6"
     },
-    "CreationDate": "2026-09-26T15:48:02-04:00"
+    "CreationDate": "2026-09-27T09:25:03-04:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "alps75-zug",
       "GUID": "616c7073-3735-42d7-9a75-672e6b696361",
-      "Revision": "rev?"
+      "Revision": "0.3"
     },
     "Size": {
       "X": 328.0131,
