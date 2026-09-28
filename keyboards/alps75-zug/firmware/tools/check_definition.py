@@ -4,7 +4,8 @@
 `extract_matrix.py` re-derives the matrix from `alps75-zug.kicad_sch` and the
 KLE layout; this compares that against the committed `keyboard.json`, the VIA
 definition and the keymaps. Run it after touching the schematic, the layout or
-the definition -- it is the regression test for task 1.4.
+the definition -- it is the regression test for generating the definition from
+the schematic's GPIO map.
 
 Usage:  python3 firmware/tools/check_definition.py
 Exit:   0 if everything agrees, 1 with a report of the differences otherwise.

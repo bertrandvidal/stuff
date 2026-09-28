@@ -14,7 +14,7 @@ and the switches are soldered by hand.
    **`alps75-zug-cpl-jlc.csv`** (CPL / pick-and-place). Both are written by
    `jlc_assembly.py`, which `export.sh` runs.
 
-## Order parameters (task 2.1)
+## PCB order parameters
 
 | | |
 |---|---|
@@ -65,7 +65,7 @@ The board is checked against JLCPCB's 2-layer limits: `../alps75-zug.kicad_dru`
 holds the ones Board Setup doesn't already cover (PTH annular ring, NPTH size,
 hole-to-hole, silkscreen text), and KiCad applies it in every DRC.
 
-## PCB Assembly (task 3.1)
+## PCB Assembly (the 88 diodes)
 
 | | |
 |---|---|
