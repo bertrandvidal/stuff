@@ -131,7 +131,6 @@ $PY src/export_stl.py      # STL/case_top.stl, case_bottom.stl, plate.stl
 - The VIA keymap is named `zug`, not `via`, because `qmk lint` rejects a keymap named `via`/`vial`.
   `VIA_ENABLE = yes` in `keymaps/zug/rules.mk` is what turns VIA on.
 - The monorepo's root `.gitignore` ignores `lib`, and `case/.gitignore` re-includes `src/lib/`. A new `lib/` dir anywhere else needs the same treatment.
-- Task numbers in the READMEs (1.4, 2.1, 3.1, 3.3) refer to a `tasks.md` that isn't in the repo.
 
 ## Keeping docs and versions in sync
 

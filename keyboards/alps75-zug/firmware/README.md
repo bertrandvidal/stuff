@@ -116,5 +116,5 @@ rotation of its own.
 ## Not yet verified
 
 `qmk lint --strict` passes and both keymaps compile, but none of this has run on
-hardware. Task 3.3 in `../tasks.md` is the first point where the pin mapping is
-tested against a real board.
+hardware. The pin mapping is first tested against a real board once the Pico is
+soldered: check continuity and flash test firmware before the switches go in.
