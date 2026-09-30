@@ -25,7 +25,7 @@ $PY src/export_stl.py            # the STLs the print service gets
 ```
 
 `DXF/plate.dxf` is the file to send to the cutting service: it is the top face of `plate.py`
-laid flat, so it carries the same 88 switch cutouts, 12 stabiliser pads, 10 Ø3.2 holes, the
+laid flat, so it carries the same 88 switch cutouts, 12 stabiliser pads, 10 Ø3.8 holes, the
 BOOTSEL cutout and the USB edge notch as `plate-88keys.jscad`, in the same coordinate frame.
 Kerf is left at 0 -- cutting services apply their own compensation.
 

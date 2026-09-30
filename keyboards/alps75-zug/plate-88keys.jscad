@@ -137,18 +137,20 @@ const stab_81_b = translate([178.65, -101.73, 0], stab_pad)
 const stab_81 = union(stab_81_a, stab_81_b)  // stabilizer for "5,7" (switch 81)
 
 // --- Holes ---
-const holeBottomLeft = translate([-15.082, -111.263, 0], circle({ radius: 1.6 }))
-const holeBottomRight = translate([319.882, -111.263, 0], circle({ radius: 1.6 }))
-const holeTopLeft = translate([-15.082, 42.905, 0], circle({ radius: 1.6 }))
-const holeTopRight = translate([319.882, 42.905, 0], circle({ radius: 1.6 }))
+// Ø3.8 for M3 screws: 0.4 mm of play per side absorbs ~0.8 mm (0.24 %) of print error in the
+// case's boss spacing across the 335 mm between the end holes.
+const holeBottomLeft = translate([-15.082, -111.263, 0], circle({ radius: 1.9 }))
+const holeBottomRight = translate([319.882, -111.263, 0], circle({ radius: 1.9 }))
+const holeTopLeft = translate([-15.082, 42.905, 0], circle({ radius: 1.9 }))
+const holeTopRight = translate([319.882, 42.905, 0], circle({ radius: 1.9 }))
 // Custom holes: aligned with the corner holes, clockwise from top-left.
 // Top/bottom edges split into equal thirds, left/right edges split in half.
-const customHole_0 = translate([96.573, 42.905, 0], circle({ radius: 1.6 }))  // top
-const customHole_1 = translate([208.227, 42.905, 0], circle({ radius: 1.6 }))  // top
-const customHole_2 = translate([319.882, -34.179, 0], circle({ radius: 1.6 }))  // right
-const customHole_3 = translate([208.227, -111.263, 0], circle({ radius: 1.6 }))  // bottom
-const customHole_4 = translate([96.573, -111.263, 0], circle({ radius: 1.6 }))  // bottom
-const customHole_5 = translate([-15.082, -34.179, 0], circle({ radius: 1.6 }))  // left
+const customHole_0 = translate([96.573, 42.905, 0], circle({ radius: 1.9 }))  // top
+const customHole_1 = translate([208.227, 42.905, 0], circle({ radius: 1.9 }))  // top
+const customHole_2 = translate([319.882, -34.179, 0], circle({ radius: 1.9 }))  // right
+const customHole_3 = translate([208.227, -111.263, 0], circle({ radius: 1.9 }))  // bottom
+const customHole_4 = translate([96.573, -111.263, 0], circle({ radius: 1.9 }))  // bottom
+const customHole_5 = translate([-15.082, -34.179, 0], circle({ radius: 1.9 }))  // left
 
 // --- Raspberry Pi Pico (U1, SMD on PCB top, under the plate) ---
 // Plate underside is 3.3 mm above the PCB (Alps: 4.5 mm PCB-to-plate-top, 1.2 mm plate).

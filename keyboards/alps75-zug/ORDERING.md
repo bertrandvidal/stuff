@@ -9,10 +9,11 @@ Three orders, all under the same JLCPCB account, independent of each other (plac
 | Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) |
 
 v0.3 changes the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
-instead of 0.6 mm) and, on the PCB, only the F.Silk legend, which now reads "alps75-zug - v0.3 - 2026".
-The PCB's copper, outline and drills, and the plate, are unchanged from v0.2.
+instead of 0.6 mm), the plate's 10 M3 holes (Ø3.8 instead of Ø3.2, to absorb print error in the case)
+and, on the PCB, only the F.Silk legend, which now reads "alps75-zug - v0.3 - 2026".
+The PCB's copper, outline and drills, and the rest of the plate, are unchanged from v0.2.
 
-## Before uploading — checked 2026-09-26
+## Before uploading — checked 2026-09-30
 
 - **PCB (re-exported 2026-09-27 for the v0.3 legend):** `fab/export.sh` rerun on a copy of the board
   reproduces every committed gerber and drill file (only the creation-date lines differ), and the BOM
@@ -23,9 +24,10 @@ The PCB's copper, outline and drills, and the plate, are unchanged from v0.2.
   top 349.96 × 169.17 × 8.20 mm, bottom 349.96 × 169.17 × 10.90 mm. The "zug" engraving is 1.0 mm
   deep, which meets JLC3DP's minimum for engraved detail (0.8 mm resin/nylon, 1.0 mm FDM). After any change to
   `case/src/lib/case_geom.py`, rebuild with `case/src/export_stl.py` (see `case/src/README.md`).
-- **Plate:** `plate.step` is one solid, 342.963 × 162.168 × 1.200 mm. Narrowest cutout: the 2.67 mm
-  stabiliser slots (JLCCNC minimum: 1 mm); narrowest web: 1.88 mm, between the USB notch and the
-  BOOTSEL cutout.
+- **Plate:** `plate.step` is one solid, 342.963 × 162.168 × 1.200 mm, and `plate.dxf` has the same
+  111 cutouts: 88 switches, 12 stabiliser slots, 10 Ø3.8 M3 holes and the BOOTSEL opening. Narrowest
+  cutout: the 2.67 mm stabiliser slots (JLCCNC minimum: 1 mm); narrowest web: 1.88 mm, between the USB
+  notch and the BOOTSEL cutout (the M3 holes keep 2.1 mm to the plate edge).
 
 ## 1. PCB + assembly — jlcpcb.com
 
@@ -68,11 +70,14 @@ The PCB's copper, outline and drills, and the plate, are unchanged from v0.2.
 ## Risks to decide on before paying
 
 - **Printed-case tolerance vs the metal plate.** JLC3DP quotes ± 0.4 % above 100 mm for nylon/FDM
-  (± 0.3 % for resin): up to ± 1.4 mm over the case's 344 mm inner width. The plate has only 0.5 mm of
-  clearance to the wall on each side, and its Ø3.2 holes (M3 screw, 335 mm apart) must line up with the
-  printed bosses. Typical prints do better than the quoted limit, but it isn't guaranteed. Cheap
-  insurance: enlarge the plate holes to Ø4.0 (plate-only change); or order the case first and measure
-  it before ordering the plate.
+  (± 0.3 % for resin): up to ± 1.4 mm over the case's 344 mm inner width. Typical prints do better than
+  the quoted limit, but it isn't guaranteed.
+  - **Screw holes.** The plate's Ø3.8 holes leave 0.4 mm of play per side around an M3 screw, so they
+    absorb about 0.8 mm (0.24 %) of error in the boss spacing across the 335 mm between the end holes.
+    If a screw doesn't drop in, don't force it (that strains the nylon bosses and the inserts): open the
+    hole up with a step drill and cutting oil, or file it into a short slot along X.
+  - **Side clearance.** The plate has only 0.5 mm to the wall on each side. That is `PLATE_GAP` in
+    `case/src/lib/case_geom.py`, a case-only setting, so it can still be widened before ordering the case.
 
 ## Not from JLC
 
