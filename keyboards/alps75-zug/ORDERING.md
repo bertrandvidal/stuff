@@ -1,12 +1,15 @@
 # alps75-zug v0.3 — ordering from JLC
 
-Three orders, all under the same JLCPCB account, independent of each other (place them in parallel):
+Three orders, all under the same JLCPCB account, independent of each other:
 
-| What | Where | Upload |
-| --- | --- | --- |
-| PCB + 88 diodes assembled | [jlcpcb.com](https://jlcpcb.com) | `fab/alps75-zug-gerbers.zip`, then `fab/alps75-zug-bom-jlc.csv` + `fab/alps75-zug-cpl-jlc.csv` |
-| Case: top frame + bottom case | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl` |
-| Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) |
+| What | Where | Upload | Status (2026-10-03) |
+| --- | --- | --- | --- |
+| PCB + 88 diodes assembled | [jlcpcb.com](https://jlcpcb.com) | `fab/alps75-zug-gerbers.zip`, then `fab/alps75-zug-bom-jlc.csv` + `fab/alps75-zug-cpl-jlc.csv` | **Ordered:** 5 PCBs with assembly |
+| Case: top frame + bottom case | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl` | Not ordered yet |
+| Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) | **Ordered:** 1 plate |
+
+The PCB and plate orders fix the v0.3 board and plate files. Only the case can still change before it's
+ordered (see the risks below).
 
 v0.3 changes the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
 instead of 0.6 mm), the plate's 10 M3 holes (Ø3.8 instead of Ø3.2, to absorb print error in the case)
