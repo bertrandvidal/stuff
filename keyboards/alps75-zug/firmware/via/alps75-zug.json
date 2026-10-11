@@ -1,7 +1,7 @@
 {
   "name": "alps75-zug",
-  "vendorId": "0xFEED",
-  "productId": "0x5A47",
+  "vendorId": "0xBE27",
+  "productId": "0x5A75",
   "matrix": {
     "rows": 6,
     "cols": 17

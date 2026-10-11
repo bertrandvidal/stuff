@@ -26,7 +26,7 @@ firmware/
 | Columns | `GP0`–`GP16` |
 | Rows | `GP17`–`GP22` |
 | Diodes | `COL2ROW` — column → switch → diode anode, cathode → row |
-| USB | VID `0xFEED`, PID `0x5A47` |
+| USB | VID `0xBE27`, PID `0x5A75` |
 
 The VID/PID pair is self-assigned. There is no registry for hobby boards; it
 only has to be unique among the boards you own, and VIA uses it to match this

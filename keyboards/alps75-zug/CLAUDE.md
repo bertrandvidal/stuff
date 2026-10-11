@@ -52,7 +52,7 @@ Cross-cutting facts:
 - **`extract_refs.py` parses the `.jscad` with regexes.** If you edit the plate, keep the existing
   line shapes (`const switch_N = … // "r,c" Wu`, `const hole…`/`customHole_N = translate([x, y, 0], circle(…))`,
   `const stab_N_a/b`), or update the parser. Never regenerate the plate from KLE-NG: the hand edits would be lost.
-- **Matrix:** 6 rows × 17 cols; columns `GP0`–`GP16`, rows `GP17`–`GP22`; `COL2ROW`; USB VID `0xFEED`, PID `0x5A47`.
+- **Matrix:** 6 rows × 17 cols; columns `GP0`–`GP16`, rows `GP17`–`GP22`; `COL2ROW`; USB VID `0xBE27`, PID `0x5A75`.
   The 17 F-row switches are rotated 90° (plate cutouts and footprints); the firmware layout is not rotated.
 - **The GND net is unnamed** in the schematic: `Net-(U1-GND-Pad13)`.
 - **JLC assembly:** only symbols with an `LCSC` field go into the BOM/CPL. Today that is the 88 diodes on B.Cu

@@ -4,8 +4,8 @@
     "maintainer": "bertrandvidal",
     "url": "https://github.com/bertrandvidal/stuff/tree/main/keyboards/alps75-zug",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x5A47",
+        "vid": "0xBE27",
+        "pid": "0x5A75",
         "device_version": "0.0.1"
     },
     "processor": "RP2040",
