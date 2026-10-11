@@ -59,6 +59,22 @@ turns VIA on is `VIA_ENABLE = yes` in `keymaps/zug/rules.mk`.
 
 ## Flash
 
+### First flash
+
+The Pico has no QMK on it yet, so the key combos below don't work. Use the
+BOOTSEL button:
+
+1. Unplug the Pico.
+2. Hold **BOOTSEL**, plug the Pico into the computer, release BOOTSEL.
+   A drive named `RPI-RP2` appears. (A brand-new Pico often does this by itself.)
+3. Build: `qmk compile -kb alps75_zug -km zug`.
+4. Copy `$QMK_HOME/alps75_zug_zug.uf2` onto the `RPI-RP2` drive.
+5. Wait. The Pico reboots by itself and the drive disappears. Don't press anything.
+
+`qmk flash -kb alps75_zug -km zug` does steps 3 and 4: run it, then do step 2.
+
+### Later flashes
+
 The case has **no BOOTSEL hole**, so there are two ways into the bootloader:
 
 - **Fn + Esc** — `QK_BOOT` on layer 1. `Fn` is the 1u key right of the right
