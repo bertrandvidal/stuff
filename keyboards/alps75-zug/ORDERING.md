@@ -91,6 +91,21 @@ The PCB's copper, outline and drills, and the rest of the plate, are unchanged f
 Raspberry Pi Pico, 88 Alps SKCM / Matias switches, Alps AEK stabilisers, keycaps, 10 × M3 heat-set
 inserts, 10 × M3 × 12 socket-head screws (ISO 4762), rubber feet, a micro-USB cable.
 
+Fastener picks (listings checked 2026-10-18):
+
+- **Inserts: ruthex M3 SHORT, RX-M3Sx4.0.** 4.0 mm long, OD 4.6 mm, for a Ø4.0 mm hole, min wall 1.6 mm
+  (the top-frame bosses have 2 mm). About €9 for 100 from
+  [ruthex](https://www.ruthex.de/en/products/ruthex-gewindeeinsatz-m3s-100stuck-rx-m3x4-0-short-messing-gewindebuchsen-fur-3d-druck),
+  [3DJake](https://www.3djake.com/ruthex/threaded-insert-m3s-100-pieces) (ships to CH) or
+  [Amazon.de](https://www.amazon.de/dp/B09ZHSGHXD). The OD and hole size come from 3DJake's table, not
+  ruthex's own page: check them on arrival. Not the common M3 × 5.7 inserts (too long for the 5 mm deep
+  holes) or the "Voron" M3 × 5 × 4 (needs a 4.4 mm hole).
+- **Screws: M3 × 12, DIN 912 / ISO 4762, A2 stainless** (head Ø5.5 × 3 mm, fits the Ø6.5 counterbore):
+  [Schraubenking.ch P003067](https://www.schraubenking.ch/M3-x-12mm-Zylinderschrauben-DIN912-Edelstahl-A2-P003067),
+  CHF 2.63 for 100. In black 12.9 steel:
+  [Schraubenhandel24 912-S2-3x12/100](https://www.schraubenhandel24.de/schrauben/gewindeschrauben/zylinderschrauben/din-912/din-912-zylinderschrauben-isk-stahl-12-9/din-912-zylinderschrauben-stahl-12-9-m3x12-100st)
+  (its listing doesn't say "black oxide"). US: [McMaster-Carr 91292A114](https://www.mcmaster.com/91292A114/).
+
 ## Sources
 
 [JLCPCB PCBA capabilities](https://jlcpcb.com/capabilities/pcb-assembly-capabilities) ·
