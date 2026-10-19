@@ -7,9 +7,10 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 | --- | --- | --- |
 | `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 1.0 mm "zug" engraving; its walls run past the plate, which sits in its pocket |
 | `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses rising above its rim to the plate, 3 mm air gap under the PCB, flat bottom |
+| `insert_coupon.py` | `STEP/insert_coupon.step` | Practice piece for the heat-set inserts, printed with the case: an 80 mm strip of the top frame's edge with 5 copies of its insert boss (same boss, rib, Ø4.0 × 5 mm hole and 3 mm recess below the rim) |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
-| `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/plate.stl` | **Print files** for the two shells and the plate (watertight; see below) |
+| `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/insert_coupon.stl`, `STL/plate.stl` | **Print files** for the two shells, the insert coupon and the plate (watertight; see below) |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
 | `keycaps.py` | `STEP/keycaps.step` | Reference keycap envelope (assumed height) |
 | `assembly.py` | `STEP/assembly.step` | Everything stacked, for fit checks |
@@ -56,6 +57,7 @@ shells close before paying for metal) and for previewing. The file a cutting ser
 ## Hardware and assembly
 
 - 10 × M3 heat-set inserts, 4 mm long (hole Ø4.0 × 5 mm deep), pressed into the top frame bosses.
+  Practise on `insert_coupon` first: its 5 bosses are copies of the top frame's.
 - 10 × M3 × 12 socket-head cap screws (ISO 4762), from underneath.
 - Rubber feet of your choice (the bottom is flat, no recesses).
 

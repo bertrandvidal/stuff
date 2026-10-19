@@ -208,6 +208,33 @@ def make_bottom_case():
     return case
 
 
+# ---- Insert practice coupon ------------------------------------------------------------
+# A straight strip of the top frame's edge carrying COUPON_BOSSES copies of its insert boss: the
+# same panel, wall, boss, rib and hole, the same distance from the wall and the same Z, so it prints
+# in the top frame's orientation and the iron meets the same 3 mm recess below the rim. Printed with
+# the case to practise pressing inserts in. It sits at the origin and is not part of the assembly.
+COUPON_BOSSES = 5
+COUPON_PITCH = 16.0
+COUPON_DEPTH = 15.0       # wall's outer face to the panel's free edge
+HOLE_TO_WALL = min(x - INNER_X0 for x, _, _ in refs.PLATE_HOLES)   # 4.5, as in the case
+
+
+def make_insert_coupon():
+    length = COUPON_BOSSES * COUPON_PITCH
+    wall_y = COUPON_DEPTH - WALL_T                           # inner face of the wall
+    coupon = _box(0, 0, length, COUPON_DEPTH, SPLIT_Z, CASE_TOP_Z)
+    coupon -= _box(-1, -1, length + 1, wall_y, SPLIT_Z - 1, PANEL_BOTTOM_Z)
+
+    y = wall_y - HOLE_TO_WALL
+    xs = [COUPON_PITCH / 2 + i * COUPON_PITCH for i in range(COUPON_BOSSES)]
+    h = TOP_BOSS_D / 2
+    coupon += [_cyl(x, y, TOP_BOSS_D, PLATE_TOP_Z, PANEL_BOTTOM_Z + 0.5) for x in xs]
+    coupon += [_box(x - h, y, x + h, wall_y + 1, PLATE_TOP_Z, PANEL_BOTTOM_Z + 0.5) for x in xs]
+    coupon -= [_cyl(x, y, INSERT_HOLE_D, PLATE_TOP_Z - 1, PLATE_TOP_Z + INSERT_HOLE_DEPTH) for x in xs]
+    coupon.label = "insert_coupon"
+    return coupon
+
+
 # ---- Reference parts (not manufactured here; for fit checks and snapshots) ------------
 
 def make_plate():

@@ -1,4 +1,4 @@
-"""Write the printable STLs for the two case shells and the plate.
+"""Write the printable STLs for the two case shells, the insert practice coupon and the plate.
 
 Deliberately NOT the `@stl` door: cadgen's mesher leaves a handful of open edges in
 both shells (4 in the top frame, 6 in the bottom case) at every chord/angle tolerance,
@@ -17,7 +17,7 @@ from pathlib import Path
 
 from cadgen import build123d as bd
 
-from lib.case_geom import make_bottom_case, make_plate, make_top_frame
+from lib.case_geom import make_bottom_case, make_insert_coupon, make_plate, make_top_frame
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "STL"
 
@@ -26,7 +26,8 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "STL"
 TOLERANCE = 0.01
 ANGULAR_TOLERANCE = 0.2
 
-PARTS = (("case_top", make_top_frame), ("case_bottom", make_bottom_case), ("plate", make_plate))
+PARTS = (("case_top", make_top_frame), ("case_bottom", make_bottom_case),
+         ("insert_coupon", make_insert_coupon), ("plate", make_plate))
 
 
 def main():

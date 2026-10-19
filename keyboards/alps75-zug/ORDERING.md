@@ -5,7 +5,7 @@ Three orders, all under the same JLCPCB account, independent of each other:
 | What | Where | Upload | Status (2026-10-03) |
 | --- | --- | --- | --- |
 | PCB + 88 diodes assembled | [jlcpcb.com](https://jlcpcb.com) | `fab/alps75-zug-gerbers.zip`, then `fab/alps75-zug-bom-jlc.csv` + `fab/alps75-zug-cpl-jlc.csv` | **Ordered:** 5 PCBs with assembly |
-| Case: top frame + bottom case | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl` | Not ordered yet |
+| Case: top frame + bottom case (+ insert practice coupon) | [jlc3dp.com](https://jlc3dp.com) | `case/STL/case_top.stl`, `case/STL/case_bottom.stl`, `case/STL/insert_coupon.stl` | Not ordered yet |
 | Plate (1.2 mm sheet metal) | [jlccnc.com](https://jlccnc.com) — Sheet Metal | `case/STEP/plate.step` (+ `case/DXF/plate.dxf` as the 2D reference) | **Ordered:** 1 plate |
 
 The PCB and plate orders fix the v0.3 board and plate files. Only the case can still change before it's
@@ -26,7 +26,7 @@ The PCB's copper, outline and drills, and the rest of the plate, are unchanged f
   If the board changes, rerun `fab/export.sh` first.
 - **Case (re-checked 2026-10-18, after lowering the seam):** both STLs are one watertight solid each (0 non-manifold edges):
   top 349.96 × 169.17 × 10.00 mm, bottom 349.96 × 169.17 × 10.90 mm (to the boss tops; its rim is 9.10 mm
-  tall). The "zug" engraving is 1.0 mm
+  tall), insert coupon 80.00 × 15.00 × 10.00 mm. The "zug" engraving is 1.0 mm
   deep, which meets JLC3DP's minimum for engraved detail (0.8 mm resin/nylon, 1.0 mm FDM). After any change to
   `case/src/lib/case_geom.py`, rebuild with `case/src/export_stl.py` (see `case/src/README.md`).
 - **Plate:** `plate.step` is one solid, 342.963 × 162.168 × 1.200 mm, and `plate.dxf` has the same
@@ -51,7 +51,9 @@ The PCB's copper, outline and drills, and the rest of the plate, are unchanged f
 
 ## 2. Case — jlc3dp.com
 
-1. **3D Printing → Upload** `case/STL/case_top.stl` and `case/STL/case_bottom.stl` (one part per file, mm).
+1. **3D Printing → Upload** `case/STL/case_top.stl`, `case/STL/case_bottom.stl` and `case/STL/insert_coupon.stl`
+   (one part per file, mm). The coupon is a small strip with 5 copies of the top frame's insert bosses, to
+   practise pressing inserts in before doing the real ones. Print it in the same process and material as the case.
 2. **Process / material — recommended: MJF, PA12-HP nylon** (black if the dye option is offered).
    | Process | Fits 350 × 169 mm? | Heat-set inserts | Surface |
    | --- | --- | --- | --- |

@@ -26,7 +26,7 @@ Git root is `~/github/stuff`, a monorepo; this project is `keyboards/alps75-zug/
 | `fab/` | PCB fab outputs (gerbers, zip, drill files, DRC report, JLC BOM/CPL) and the scripts that make them. `fab/README.md` documents the board |
 | `case/src/` | cadgen/build123d case models. `lib/case_geom.py` holds every dimension; `lib/refs.py` is **generated** |
 | `case/tools/` | `extract_refs.py`: regenerates `lib/refs.py` |
-| `case/{STEP,STL,DXF}/` | Committed case outputs. The files uploaded for fab are `STL/case_*.stl` and `STEP/plate.step` + `DXF/plate.dxf` |
+| `case/{STEP,STL,DXF}/` | Committed case outputs. The files uploaded for fab are `STL/case_*.stl`, `STL/insert_coupon.stl` and `STEP/plate.step` + `DXF/plate.dxf` |
 | `case/tmp/` | Gitignored scratch (cadgen render-job JSONs, cutaway scripts) |
 | `firmware/` | QMK keyboard definition, VIA JSON, and tools. `firmware/README.md` covers setup, build and flashing |
 | `pics/` | Renders and screenshots; names are tagged with the version (`case-dims-v0.2-*.png`) |
