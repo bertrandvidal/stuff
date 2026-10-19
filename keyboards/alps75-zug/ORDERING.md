@@ -11,8 +11,9 @@ Three orders, all under the same JLCPCB account, independent of each other:
 The PCB and plate orders fix the v0.3 board and plate files. Only the case can still change before it's
 ordered (see the risks below).
 
-v0.3 changes the case (3 mm of air under the PCB instead of 10, and a 1.0 mm deep "zug" engraving
-instead of 0.6 mm), the plate's 10 M3 holes (Ø3.8 instead of Ø3.2, to absorb print error in the case)
+v0.3 changes the case (3 mm of air under the PCB instead of 10, a 1.0 mm deep "zug" engraving
+instead of 0.6 mm, and the seam between the shells moved 1.8 mm below the plate so the plate sits hidden
+in a pocket of the top frame), the plate's 10 M3 holes (Ø3.8 instead of Ø3.2, to absorb print error in the case)
 and, on the PCB, only the F.Silk legend, which now reads "alps75-zug - v0.3 - 2026".
 The PCB's copper, outline and drills, and the rest of the plate, are unchanged from v0.2.
 
@@ -23,8 +24,9 @@ The PCB's copper, outline and drills, and the rest of the plate, are unchanged f
   and CPL byte for byte. DRC: 0 errors, 0 unconnected, 0 schematic-parity issues, 4 cosmetic
   silkscreen warnings (see `fab/README.md`).
   If the board changes, rerun `fab/export.sh` first.
-- **Case:** both STLs are one watertight solid each (0 non-manifold edges):
-  top 349.96 × 169.17 × 8.20 mm, bottom 349.96 × 169.17 × 10.90 mm. The "zug" engraving is 1.0 mm
+- **Case (re-checked 2026-10-18, after lowering the seam):** both STLs are one watertight solid each (0 non-manifold edges):
+  top 349.96 × 169.17 × 10.00 mm, bottom 349.96 × 169.17 × 10.90 mm (to the boss tops; its rim is 9.10 mm
+  tall). The "zug" engraving is 1.0 mm
   deep, which meets JLC3DP's minimum for engraved detail (0.8 mm resin/nylon, 1.0 mm FDM). After any change to
   `case/src/lib/case_geom.py`, rebuild with `case/src/export_stl.py` (see `case/src/README.md`).
 - **Plate:** `plate.step` is one solid, 342.963 × 162.168 × 1.200 mm, and `plate.dxf` has the same

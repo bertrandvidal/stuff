@@ -5,8 +5,8 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 
 | Model | Output | What it is |
 | --- | --- | --- |
-| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 1.0 mm "zug" engraving |
-| `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses, 3 mm air gap under the PCB, flat bottom |
+| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 1.0 mm "zug" engraving; its walls run past the plate, which sits in its pocket |
+| `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses rising above its rim to the plate, 3 mm air gap under the PCB, flat bottom |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
 | `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/plate.stl` | **Print files** for the two shells and the plate (watertight; see below) |
@@ -47,7 +47,8 @@ shells close before paying for metal) and for previewing. The file a cutting ser
 | --- | --- |
 | 11.5 | top of the frame |
 | 8.5 – 11.5 | top panel (3 mm), 4 mm above the plate |
-| 3.3 – 4.5 | plate (1.2 mm); the seam between the two shells is at 3.3 |
+| 3.3 – 4.5 | plate (1.2 mm), in a pocket of the top frame; the bottom case's bosses reach up to 3.3 |
+| 1.5 | seam between the two shells, 1.8 mm below the plate (`SEAM_BELOW_PLATE`), so a gap there never shows the plate |
 | -1.6 – 0 | PCB |
 | -4.6 | floor top: 3 mm of air under the PCB (switch pins ~2 mm, diodes ~1.1 mm) |
 | -7.6 | bottom of the case (19.1 mm total height) |
@@ -59,9 +60,10 @@ shells close before paying for metal) and for previewing. The file a cutting ser
 - Rubber feet of your choice (the bottom is flat, no recesses).
 
 1. Solder switches to the plate + PCB as usual.
-2. Set the plate + PCB into the bottom case: the plate rests on the 10 boss tops, the USB side to the left.
-3. Place the top frame on top and drive the screws up through the bottom case and the plate into the inserts.
-   The plate is clamped between the two sets of bosses and the shells close on the seam.
+2. Lay the top frame face-down on a towel, keycaps off, and drop the plate + PCB into it switches-first, with
+   the Pico's USB connector at the frame's USB opening. The plate sits in the frame's pocket on the 10 boss faces.
+3. Lower the bottom case onto it and drive the screws through the bottom case and the plate into the inserts.
+   The plate is clamped between the two sets of bosses and the shells close on the seam below it.
 
 The bezel has no BOOTSEL hole: flash via the firmware's bootloader keycode (e.g. QMK `QK_BOOT` or Bootmagic).
 If the Pico is ever unresponsive, open the case and press BOOTSEL through the plate's cutout.

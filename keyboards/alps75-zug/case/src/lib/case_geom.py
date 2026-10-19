@@ -7,10 +7,11 @@ Frame (shared by every part, so the assembly needs no transforms):
 Mounting (top mount, sandwich style): the plate is clamped between the top
 frame's bosses (above) and the bottom case's bosses (below) at its 10 M3 holes.
 M3x12 socket-head screws go up from underneath through the bottom case and the
-plate into M3 heat-set inserts in the top frame. The two shells meet at the
-plate's underside (SPLIT_Z), so tightening the screws closes the seam and
-clamps the 1.2 mm plate at the same time. The PCB hangs from the plate by its
-soldered switches and touches nothing else.
+plate into M3 heat-set inserts in the top frame. The two shells meet below the
+plate (SPLIT_Z): the plate sits in a pocket of the top frame, hidden behind its
+wall, and the bottom case's bosses rise above their rim to reach it. Tightening
+the screws closes the seam and clamps the 1.2 mm plate at the same time. The PCB
+hangs from the plate by its soldered switches and touches nothing else.
 """
 from __future__ import annotations
 
@@ -24,7 +25,8 @@ PCB_TOP_Z = 0.0
 PCB_BOTTOM_Z = PCB_TOP_Z - refs.PCB_THICKNESS            # -1.6
 PLATE_BOTTOM_Z = 3.3                                      # Alps: plate top 4.5 above PCB, 1.2 plate
 PLATE_TOP_Z = PLATE_BOTTOM_Z + refs.PLATE_THICKNESS       # 4.5
-SPLIT_Z = PLATE_BOTTOM_Z                                  # seam between top frame and bottom case
+SEAM_BELOW_PLATE = 1.8    # top frame wall runs this far past the plate's underside, so no seam gap shows the plate
+SPLIT_Z = PLATE_BOTTOM_Z - SEAM_BELOW_PLATE               # 1.5, seam between top frame and bottom case
 
 # PCB underside to floor. The tallest things under the PCB are the Alps switch pins (~1.7-2 mm
 # through a 1.6 mm board, plus the solder cone) and the SOD-123F diodes (~1.1 mm): 3.0 mm leaves
@@ -191,10 +193,11 @@ def make_bottom_case():
     bosses = []
     for x, y, _ in refs.PLATE_HOLES:
         bosses.append(_cyl(x, y, BOTTOM_BOSS_LOWER_D, FLOOR_TOP_Z - 0.5, BOTTOM_BOSS_STEP_Z))
-        bosses.append(_cyl(x, y, BOTTOM_BOSS_UPPER_D, BOTTOM_BOSS_STEP_Z - 0.5, SPLIT_Z))
+        bosses.append(_cyl(x, y, BOTTOM_BOSS_UPPER_D, BOTTOM_BOSS_STEP_Z - 0.5, PLATE_BOTTOM_Z))
+        # ribs stop at the seam: above it the top frame's wall comes down past the boss
         bosses += _ribs(x, y, BOTTOM_BOSS_UPPER_D, FLOOR_TOP_Z - 0.5, SPLIT_Z)
     case += bosses
-    case -= [_cyl(x, y, M3_CLEAR_D, CASE_BOTTOM_Z - 1, SPLIT_Z + 1) for x, y, _ in refs.PLATE_HOLES]
+    case -= [_cyl(x, y, M3_CLEAR_D, CASE_BOTTOM_Z - 1, PLATE_BOTTOM_Z + 1) for x, y, _ in refs.PLATE_HOLES]
     case -= [_cyl(x, y, M3_HEAD_CBORE_D, CASE_BOTTOM_Z - 1, CBORE_TOP_Z) for x, y, _ in refs.PLATE_HOLES]
     case -= _usb_cut()
 
