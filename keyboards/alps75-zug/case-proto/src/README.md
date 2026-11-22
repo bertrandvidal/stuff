@@ -6,7 +6,7 @@ cutout, the left wall, and 5 of the 10 screw points.
 
 | Model | Output | What it is |
 | --- | --- | --- |
-| `case_top_left.py` | `STEP/case_top_left.step` | Top frame, x <= 104.07 (126.7 x 169.2 x 8.2 mm) |
+| `case_top_left.py` | `STEP/case_top_left.step` | Top frame, x <= 104.07 (126.7 x 169.2 x 17.5 mm: 11.0 mm at the front, 17.5 mm at the back plateau) |
 | `case_bottom_left.py` | `STEP/case_bottom_left.step` | Bottom case, x <= 104.07 (126.7 x 169.2 x 10.9 mm) |
 | `export_stl.py` | `STL/case_top_left.stl`, `STL/case_bottom_left.stl` | **Print files** for both (watertight, same exporter as the case's) |
 
@@ -32,8 +32,10 @@ cut end. That checks the hole spacing in both X and Y against a real plate.
 
 ## Printing
 
-- **Top frame upside down** (top face on the bed), like the real one: printed face-up, the
-  whole top panel would need support. **Bottom case floor down.**
+- **Top frame upright** (wall rim on the bed), with tree supports inside the pocket. Its top is no
+  longer flat (front bezel, ramp, back plateau), so upside down it would rest on the plateau only and
+  need supports on the visible ramp and front bezel; upright, the supports stay on hidden faces (under
+  the panel and the boss ends). **Bottom case floor down.**
 - Both pieces are 126.7 x 169.2 mm: they fit any bed of 180 x 180 mm or more.
 - PLA or PETG is fine for a fit test; the M3 heat-set inserts go into PLA and PETG too.
 - The slicer centres the pieces; their coordinates in the STL are the case's (x from -22.6).

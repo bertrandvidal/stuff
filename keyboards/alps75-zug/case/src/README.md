@@ -5,14 +5,14 @@ Top-mount (sandwich) case for the alps75-zug PCB and `plate-88keys.jscad`, for P
 
 | Model | Output | What it is |
 | --- | --- | --- |
-| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, solid bezel over the Pico, 10 insert bosses, 1.0 mm "zug" engraving; its walls run past the plate, which sits in its pocket |
+| `case_top.py` | `STEP/case_top.step` | Top frame: key opening, 10 insert bosses, 1.0 mm "zug" engraving; its walls run past the plate, which sits in its pocket. The top is flat at the front, ramps up beside R1 and R0 to a back plateau just under the F-row keycap skirts, and the 3 mm panel follows that profile (hollow underneath) |
 | `case_bottom.py` | `STEP/case_bottom.step` | Bottom tray: 10 counterbored screw bosses rising above its rim to the plate, 3 mm air gap under the PCB, flat bottom |
 | `insert_coupon.py` | `STEP/insert_coupon.step` | Practice piece for the heat-set inserts, printed with the case: an 80 mm strip of the top frame's edge with 5 copies of its insert boss (same boss, rib, Ø4.0 × 5 mm hole and 3 mm recess below the rim) |
 | `plate.py` | `STEP/plate.step` | The plate as a solid, built from `lib/refs.py` (extracted from the .jscad) |
 | `plate_drawing.py` | `DXF/plate.dxf` | **Cut file for the plate**: flat pattern of `plate.py`, one `CUT` layer, mm, 1:1, no kerf |
 | `export_stl.py` | `STL/case_top.stl`, `STL/case_bottom.stl`, `STL/insert_coupon.stl`, `STL/plate.stl` | **Print files** for the two shells, the insert coupon and the plate (watertight; see below) |
 | `pcb.py` | `STEP/pcb.step` | Reference PCB outline + Pico (from the .kicad_pcb) |
-| `keycaps.py` | `STEP/keycaps.step` | Reference keycap envelope (assumed height) |
+| `keycaps.py` | `STEP/keycaps.step` | Reference AEK keycaps; skirt and top heights per row measured from photos (`AEK_ROWS`, ±0.5 mm) |
 | `assembly.py` | `STEP/assembly.step` | Everything stacked, for fit checks |
 
 All dimensions live in `lib/case_geom.py`. `lib/refs.py` is generated from the plate and PCB by
@@ -46,13 +46,15 @@ shells close before paying for metal) and for previewing. The file a cutting ser
 
 | z (mm) | |
 | --- | --- |
-| 11.5 | top of the frame |
-| 8.5 – 11.5 | top panel (3 mm), 4 mm above the plate |
+| 19.0 | top of the back plateau (behind the F-row), 0.8 mm under the back edge of the F-row skirts (`PLATEAU_Z`) |
+| 12.5 → 19.0 | ramp beside R1 and R0 (Y −28.6 → +9.5), about 10° |
+| 12.5 | top of the frame at the front and beside R2–R5, 0.4 mm under their skirts (`CASE_TOP_Z`) |
+| 9.5 – 12.5 | top panel (3 mm), 5 mm above the plate at the front; it follows the ramp, so under the plateau it is at 16.0 – 19.0 |
 | 3.3 – 4.5 | plate (1.2 mm), in a pocket of the top frame; the bottom case's bosses reach up to 3.3 |
 | 1.5 | seam between the two shells, 1.8 mm below the plate (`SEAM_BELOW_PLATE`), so a gap there never shows the plate |
 | -1.6 – 0 | PCB |
 | -4.6 | floor top: 3 mm of air under the PCB (switch pins ~2 mm, diodes ~1.1 mm) |
-| -7.6 | bottom of the case (19.1 mm total height) |
+| -7.6 | bottom of the case (20.1 mm total height at the front, 26.6 mm at the back) |
 
 ## Hardware and assembly
 

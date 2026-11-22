@@ -12,8 +12,17 @@ plate (SPLIT_Z): the plate sits in a pocket of the top frame, hidden behind its
 wall, and the bottom case's bosses rise above their rim to reach it. Tightening
 the screws closes the seam and clamps the 1.2 mm plate at the same time. The PCB
 hangs from the plate by its soldered switches and touches nothing else.
+
+Top shape: the AEK's F-row and number-row keycaps sit 2-7 mm higher than the rest
+(their skirts are cut at an angle, back higher). So the top frame is flat at the
+front and beside R2-R5, ramps up beside R1 and R0 to just under the F-row skirts,
+and stays flat from there to the back wall, where "zug" is engraved. The 3 mm top
+panel follows that profile, so the raised part is hollow.
 """
 from __future__ import annotations
+
+import math
+import sys
 
 from cadgen import build123d as bd
 from cadgen import srgb
@@ -36,10 +45,27 @@ FLOOR_T = 3.0
 FLOOR_TOP_Z = PCB_BOTTOM_Z - AIR_BELOW_PCB                # -4.6
 CASE_BOTTOM_Z = FLOOR_TOP_Z - FLOOR_T                     # -7.6
 
-FRAME_ABOVE_PLATE = 7.0   # top surface height above the plate top (keycap skirts sit about here)
-TOP_PANEL_T = 3.0
-CASE_TOP_Z = PLATE_TOP_Z + FRAME_ABOVE_PLATE              # 11.5
-PANEL_BOTTOM_Z = CASE_TOP_Z - TOP_PANEL_T                 # 8.5 (4 mm air gap above the plate)
+# ---- AEK keycaps (measured) -----------------------------------------------------
+# Heights above the plate TOP, read off side photos of the caps on the real plate (2026-11-21;
+# no calipers, so +-0.5 mm). Scale checked four ways in the same photo: the plate edge (1.2 mm),
+# a cap's bottom (18.2 mm), the row pitch (19.05 mm) and the printed frame wall (8.2 mm).
+# R0 and R1 skirts are cut at an angle (back higher); the F-row caps rock a little on their
+# stems, so R0's front edge reads 12.3-13.5 depending on the photo.
+# Per layout row (0 = F-row at the back ... 5 = space-bar row at the front):
+#   (skirt bottom at the back edge, at the front edge, top rim at the back edge, at the front edge)
+AEK_ROWS = {
+    0: (15.3, 12.3, 21.9, 21.5),
+    1: (10.7, 8.3, 18.3, 18.0),
+    2: (8.9, 8.3, 17.1, 17.3),
+    3: (8.4, 8.4, 15.3, 16.1),
+    4: (8.4, 8.4, 14.4, 15.9),
+    5: (8.4, 8.4, 14.5, 17.7),
+}
+
+FRAME_ABOVE_PLATE = 8.0   # top surface at the front and beside R2-R5: 0.4 mm under their skirts (8.4)
+TOP_PANEL_T = 3.0         # the panel keeps this thickness under the ramp and the back plateau too
+CASE_TOP_Z = PLATE_TOP_Z + FRAME_ABOVE_PLATE              # 12.5
+PANEL_BOTTOM_Z = CASE_TOP_Z - TOP_PANEL_T                 # 9.5 (5 mm air gap above the plate)
 
 # ---- Plan view (XY) -------------------------------------------------------------
 WALL_T = 3.0
@@ -54,6 +80,16 @@ OUTER_X0, OUTER_Y0 = PCX - OUTER_W / 2, PCY - OUTER_D / 2
 U = 19.05                 # key pitch
 KEY_OPENING_MARGIN = 1.0  # key-area edge to frame opening (keycaps are ~0.45 mm inside the key area)
 KEY_OPENING_R = 1.0
+
+# ---- Sloped top (side profile, in Y) -----------------------------------------------
+# Flat at CASE_TOP_Z up to the R2/R1 boundary, a straight ramp beside R1 and R0 up to the back
+# edge of the F-row keys, then a plateau at PLATEAU_Z to the back wall. The plateau sits
+# PLATEAU_GAP under the back edge of the F-row skirts.
+RAMP_ROWS = 2             # the ramp runs beside the last RAMP_ROWS rows (R1 and R0)
+PLATEAU_GAP = 0.8
+PLATEAU_ABOVE_PLATE = AEK_ROWS[0][0] - PLATEAU_GAP       # 14.5
+PLATEAU_Z = PLATE_TOP_Z + PLATEAU_ABOVE_PLATE             # 19.0
+RAMP_BEND_R = 20.0        # rounds the two bends of the profile (~1.7 mm either side of each)
 
 # ---- Fasteners --------------------------------------------------------------------
 M3_CLEAR_D = 3.4
@@ -142,33 +178,83 @@ def _face_at(part, z):
 def _fillet_edges(part, edges, radius):
     try:
         return bd.fillet(edges, radius)
-    except Exception:  # keep the part valid if the kernel refuses a fillet
+    except Exception as exc:  # keep the part valid if the kernel refuses a fillet, but say so
+        print(f"warning: {radius} mm fillet on {len(edges)} edges failed ({exc}); left sharp", file=sys.stderr)
         return part
 
 
+def _ramp_ys():
+    """(y0, y1): the ramp starts at the R2/R1 boundary and ends at the back edge of the F-row keys."""
+    ky1 = key_area()[3]
+    return ky1 - RAMP_ROWS * U, ky1
+
+
+def top_z_at(y):
+    """Height of the top surface at plan position y (straight segments; the bend rounding moves it < 0.1 mm)."""
+    y0, y1 = _ramp_ys()
+    if y <= y0:
+        return CASE_TOP_Z
+    if y >= y1:
+        return PLATEAU_Z
+    return CASE_TOP_Z + (PLATEAU_Z - CASE_TOP_Z) * (y - y0) / (y1 - y0)
+
+
+def _under_top(drop):
+    """Everything below the top surface lowered by `drop`: the side profile extruded across the case in X."""
+    y0, y1 = _ramp_ys()
+    ya, yb, z_low = OUTER_Y0 - 1, OUTER_Y0 + OUTER_D + 1, SPLIT_Z - 2
+    zb, zp = CASE_TOP_Z - drop, PLATEAU_Z - drop
+    profile = bd.Polygon((ya, z_low), (yb, z_low), (yb, zp), (y1, zp), (y0, zb), (ya, zb), align=None)
+    bends = [v for v in profile.vertices()
+             if any(abs(v.X - py) < 1e-6 and abs(v.Y - pz) < 1e-6 for py, pz in ((y0, zb), (y1, zp)))]
+    profile = bd.fillet(bends, RAMP_BEND_R)
+    # Plane.YZ maps the profile's (x, y) to (Y, Z)
+    return bd.Pos(OUTER_X0 - 1, 0, 0) * bd.extrude(bd.Plane.YZ * profile, amount=OUTER_W + 2, dir=(1, 0, 0))
+
+
+def _top_edges(part):
+    """Edges where the top surface meets a wall, split into (outer edges, key-opening edges)."""
+    faces = [f for f in part.faces() if f.center().Z > PANEL_BOTTOM_Z + 0.1 and f.normal_at().Z > 0.3]
+    seen = {}
+    for f in faces:
+        for e in f.edges():
+            seen[e] = seen.get(e, 0) + 1   # an edge shared by two top faces is a bend, not a boundary
+    kx0, ky0, kx1, ky1 = key_area()
+    m = KEY_OPENING_MARGIN + 0.5
+    outer, opening = [], []
+    for e, n in seen.items():
+        if n == 1:
+            p = e.position_at(0.5)
+            inside = kx0 - m < p.X < kx1 + m and ky0 - m < p.Y < ky1 + m
+            (opening if inside else outer).append(e)
+    return outer, opening
+
+
 def make_top_frame():
-    frame = _slab(OUTER_W, OUTER_D, OUTER_R, SPLIT_Z, CASE_TOP_Z)
-    frame -= _slab(INNER_W, INNER_D, INNER_R, SPLIT_Z - 1, PANEL_BOTTOM_Z)
+    top = PLATEAU_Z + 1
+    frame = _slab(OUTER_W, OUTER_D, OUTER_R, SPLIT_Z, top) & _under_top(0)
+    frame -= _slab(INNER_W, INNER_D, INNER_R, SPLIT_Z - 1, top) & _under_top(TOP_PANEL_T)   # hollow under the panel
 
     kx0, ky0, kx1, ky1 = key_area()
     m = KEY_OPENING_MARGIN
-    opening = _slab(kx1 - kx0 + 2 * m, ky1 - ky0 + 2 * m, KEY_OPENING_R, PANEL_BOTTOM_Z - 1, CASE_TOP_Z + 1,
+    opening = _slab(kx1 - kx0 + 2 * m, ky1 - ky0 + 2 * m, KEY_OPENING_R, PANEL_BOTTOM_Z - 1, top + 1,
                     cx=(kx0 + kx1) / 2, cy=(ky0 + ky1) / 2)
     frame -= opening
 
     bosses = []
     for x, y, _ in refs.PLATE_HOLES:
-        bosses.append(_cyl(x, y, TOP_BOSS_D, PLATE_TOP_Z, PANEL_BOTTOM_Z + 0.5))
-        bosses += _ribs(x, y, TOP_BOSS_D, PLATE_TOP_Z, PANEL_BOTTOM_Z + 0.5)
+        # up into the panel at the boss's highest point (the panel rises towards the back)
+        z1 = top_z_at(y + TOP_BOSS_D / 2) - TOP_PANEL_T + 0.5
+        bosses.append(_cyl(x, y, TOP_BOSS_D, PLATE_TOP_Z, z1))
+        bosses += _ribs(x, y, TOP_BOSS_D, PLATE_TOP_Z, z1)
     frame += bosses
     frame -= [_cyl(x, y, INSERT_HOLE_D, PLATE_TOP_Z - 1, PLATE_TOP_Z + INSERT_HOLE_DEPTH) for x, y, _ in refs.PLATE_HOLES]
 
     frame -= _usb_cut()
 
-    frame = _fillet_edges(frame, _face_at(frame, CASE_TOP_Z).outer_wire().edges(), TOP_EDGE_FILLET)
-    # the key opening is the only hole in the top face (the engraving is cut after the fillets)
-    opening_wire = max(_face_at(frame, CASE_TOP_Z).inner_wires(), key=lambda w: w.length)
-    frame = _fillet_edges(frame, opening_wire.edges(), KEY_OPENING_FILLET)
+    frame = _fillet_edges(frame, _top_edges(frame)[0], TOP_EDGE_FILLET)
+    # the engraving is cut after the fillets
+    frame = _fillet_edges(frame, _top_edges(frame)[1], KEY_OPENING_FILLET)
     frame -= _engraving()
     frame.label = "top_frame"
     return frame
@@ -182,7 +268,7 @@ def _engraving():
     text = bd.Text(ENGRAVE_TEXT, font_size=size, font_path=ENGRAVE_FONT, align=None)
     bb = text.bounding_box()
     cy = ky1 + ENGRAVE_FRACTION * ((OUTER_Y0 + OUTER_D) - ky1)
-    text = bd.Pos(kx1 - bb.max.X, cy - (bb.min.Y + bb.max.Y) / 2, CASE_TOP_Z - ENGRAVE_DEPTH) * text
+    text = bd.Pos(kx1 - bb.max.X, cy - (bb.min.Y + bb.max.Y) / 2, top_z_at(cy) - ENGRAVE_DEPTH) * text   # on the plateau
     return bd.extrude(text, amount=ENGRAVE_DEPTH + 1)
 
 
@@ -268,37 +354,28 @@ def make_pcb():
 
 
 KEYCAP_GAP = 0.9          # 19.05 pitch minus ~18.15 keycap footprint
-KEYCAP_BOTTOM_Z = PLATE_TOP_Z + 6.0   # assumed resting skirt height for Alps-mount caps
-
-# APPROXIMATE Apple Extended Keyboard (AEK) sculpted profile -- NOT measured from real caps.
-# Built from published qualitative descriptions: rows sit a step lower than the standard Alps
-# profile, heights differ strongly between rows, the home row still tilts towards the typist
-# and the bottom row is nearly flat. Replace these numbers with caliper measurements to make it real.
-# Per layout row (0 = F-row at the back ... 5 = space-bar row at the front):
-#   (top-centre height above the plate top at rest, top tilt in degrees; + = top faces the typist)
-AEK_ROWS = {
-    0: (18.2, 10.0),
-    1: (18.6, 9.0),
-    2: (16.6, 4.0),
-    3: (15.4, 2.0),
-    4: (15.0, -3.0),
-    5: (15.2, -1.5),
-}
+# Row heights and tilts come from AEK_ROWS (measured, at the top of this file).
 KEYCAP_TOP_INSET_X = 5.5  # skirt-to-top taper, total across the width
-KEYCAP_TOP_DEPTH = 13.5   # top surface depth (front to back) for every row
+KEYCAP_TOP_DEPTH = 14.0   # top surface depth (front to back), every row (photos: 13.4-15.6)
 KEYCAP_DISH_DEPTH = 0.8   # cylindrical dish sag across the width (1u-2u keys)
 KEYCAP_DISH_DEPTH_WIDE = 0.5   # 2.25u-2.75u keys; the space bar (>= 6u) is left flat
 AEK_ALPHA = "#D9D3C5"     # platinum alphas
 AEK_MOD = "#A9A396"       # darker modifiers / F-row / nav column
 
 
+def _tilted_plane(x, y, back, front, depth):
+    """Plane through heights `back`/`front` (above the plate top) at y +- depth/2; tilted about X."""
+    tilt = math.degrees(math.atan2(back - front, depth))   # + = back higher
+    return bd.Plane(origin=(x, y, PLATE_TOP_Z + (back + front) / 2), x_dir=(1, 0, 0), z_dir=(0, 0, 1)).rotated((tilt, 0, 0))
+
+
 def _keycap(x, y, w, row):
-    top_h, tilt = AEK_ROWS[row]
+    skirt_back, skirt_front, top_back, top_front = AEK_ROWS[row]
     bw, bdp = w * U - KEYCAP_GAP, U - KEYCAP_GAP
     tw, tdp = bw - KEYCAP_TOP_INSET_X, KEYCAP_TOP_DEPTH
-    top_plane = bd.Plane(origin=(x, y, PLATE_TOP_Z + top_h), x_dir=(1, 0, 0), z_dir=(0, 0, 1)).rotated((tilt, 0, 0))
-    cap = bd.loft([bd.Plane.XY.offset(KEYCAP_BOTTOM_Z) * bd.Pos(x, y) * bd.Rectangle(bw, bdp),
-                   top_plane * bd.Rectangle(tw, tdp)])
+    bottom_plane = _tilted_plane(x, y, skirt_back, skirt_front, bdp)
+    top_plane = _tilted_plane(x, y, top_back, top_front, tdp)
+    cap = bd.loft([bottom_plane * bd.Rectangle(bw, bdp), top_plane * bd.Rectangle(tw, tdp)])
     depth = 0.0 if w >= 6 else (KEYCAP_DISH_DEPTH if w <= 2 else KEYCAP_DISH_DEPTH_WIDE)
     if depth:
         radius = tw ** 2 / (8 * depth) + depth / 2      # cylinder through the top's side edges
@@ -308,7 +385,7 @@ def _keycap(x, y, w, row):
 
 
 def make_keycaps():
-    """Approximate AEK-profile keycaps, one labelled solid per key (visual/clearance reference only)."""
+    """AEK-profile keycaps from the photo measurements, one labelled solid per key (visual/clearance reference)."""
     caps = []
     for i, (x, y, rot, w) in enumerate(refs.SWITCHES):
         row = round(-y / U)

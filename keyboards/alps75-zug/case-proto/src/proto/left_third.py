@@ -23,7 +23,7 @@ from lib import refs  # noqa: E402
 from lib.case_geom import (  # noqa: E402
     BOTTOM_BOSS_LOWER_D,
     CASE_BOTTOM_Z,
-    CASE_TOP_Z,
+    PLATEAU_Z,
     OUTER_D,
     OUTER_W,
     OUTER_X0,
@@ -44,7 +44,7 @@ def _left_of_cut(part):
     """`part` clipped to x <= CUT_X."""
     x0, y0, z0 = OUTER_X0 - 1, OUTER_Y0 - 1, CASE_BOTTOM_Z - 1
     keep = bd.Pos(x0, y0, z0) * bd.Box(
-        CUT_X - x0, OUTER_D + 2, CASE_TOP_Z - CASE_BOTTOM_Z + 2, align=bd.Align.MIN
+        CUT_X - x0, OUTER_D + 2, PLATEAU_Z - CASE_BOTTOM_Z + 2, align=bd.Align.MIN   # up past the back plateau
     )
     return part & keep
 
