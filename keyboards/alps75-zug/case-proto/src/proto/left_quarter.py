@@ -1,4 +1,4 @@
-"""The left-most third of the two case shells, sized for a home 3D printer, for test fitting.
+"""The left-most quarter of the two case shells, sized for a home 3D printer, for test fitting.
 
 The geometry is the real case's: `make_top_frame()` and `make_bottom_case()` from
 `case/src/lib/case_geom.py`, clipped at CUT_X. Nothing is copied, so a change to the case
@@ -12,7 +12,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-# case-proto/src/proto/left_third.py -> case/src, where the real case's `lib` package lives
+# case-proto/src/proto/left_quarter.py -> case/src, where the real case's `lib` package lives
 CASE_SRC = str(Path(__file__).resolve().parents[3] / "case" / "src")
 if CASE_SRC not in sys.path:
     sys.path.append(CASE_SRC)
@@ -32,12 +32,13 @@ from lib.case_geom import (  # noqa: E402
     make_top_frame,
 )
 
-# An exact third ends at x = OUTER_X0 + OUTER_W / 3 = 94.07, which would halve the two bosses at
-# x = 96.57 (the middle-left plate holes, back and front). Cut 2.5 mm past their widest part, the
-# Ø10 foot of the bottom boss, so the piece keeps 5 of the 10 screw points -- enough to check the
-# hole spacing in X and Y against a real plate -- plus the whole Pico / USB corner.
-MID_HOLE_X = min(x for x, _, _ in refs.PLATE_HOLES if x > 0)    # 96.573
-CUT_X = MID_HOLE_X + BOTTOM_BOSS_LOWER_D / 2 + 2.5              # 104.07: a 126.7 x 169.2 mm piece
+# An exact quarter. No boss is near the cut (the nearest plate holes are at x = -15.08 and 96.57),
+# so the piece keeps the 3 screw points along the left wall -- the hole spacing in Y against a real
+# plate -- plus the whole Pico / USB corner and the left end of the ramp and back plateau. It no
+# longer checks the hole spacing in X: that needs the middle-left holes at x = 96.57.
+CUT_X = OUTER_X0 + OUTER_W / 4                                  # 64.91: an 87.5 x 169.2 mm piece
+# half a boss can't take an insert or a screw: keep the cut 2.5 mm clear of every boss's widest part
+assert all(abs(x - CUT_X) > BOTTOM_BOSS_LOWER_D / 2 + 2.5 for x, _, _ in refs.PLATE_HOLES), "CUT_X runs through a boss"
 
 
 def _left_of_cut(part):

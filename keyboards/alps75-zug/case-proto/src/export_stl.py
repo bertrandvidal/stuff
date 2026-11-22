@@ -1,4 +1,4 @@
-"""Write the printable STLs for the left third of the two case shells.
+"""Write the printable STLs for the left quarter of the two case shells.
 
 Same approach as `case/src/export_stl.py`, for the same reason: cadgen's `@stl` mesher leaves
 open edges in these shells, and build123d's own exporter tessellates them watertight.
@@ -6,13 +6,13 @@ open edges in these shells, and build123d's own exporter tessellates them watert
     python src/export_stl.py
 
 It has no freshness gate: it always rebuilds, so re-run it after any change to
-`case/src/lib/case_geom.py` or to `proto/left_third.py`.
+`case/src/lib/case_geom.py` or to `proto/left_quarter.py`.
 """
 from pathlib import Path
 
 from cadgen import build123d as bd
 
-from proto.left_third import make_bottom_case_left, make_top_frame_left
+from proto.left_quarter import make_bottom_case_left, make_top_frame_left
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "STL"
 

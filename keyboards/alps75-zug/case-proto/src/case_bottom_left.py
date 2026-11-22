@@ -1,7 +1,7 @@
-"""Left third of the bottom case, for a test-fit print at home (print floor down)."""
+"""Left quarter of the bottom case, for a test-fit print at home (print floor down)."""
 from cadgen import srgb, step
 
-from proto.left_third import make_bottom_case_left
+from proto.left_quarter import make_bottom_case_left
 
 
 @step(out="../STEP/case_bottom_left.step")

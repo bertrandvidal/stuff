@@ -1,7 +1,7 @@
-"""Left third of the top frame, for a test-fit print at home (print upside down, top face on the bed)."""
+"""Left quarter of the top frame, for a test-fit print at home (print upright, supports inside the pocket)."""
 from cadgen import srgb, step
 
-from proto.left_third import make_top_frame_left
+from proto.left_quarter import make_top_frame_left
 
 
 @step(out="../STEP/case_top_left.step")
