@@ -95,8 +95,6 @@ cd stuff && git pull && bash chrome-bookmarks-organizer/mac-host/install.sh
 
 Then click the reload icon on the extension in `chrome://extensions`. Your folder notes and settings are kept.
 
-If you installed a build from before the rename to Chrome Bookmarks Organizer, `install.sh` moves `~/.worthy-reads-filer` to `~/.chrome-bookmarks-organizer` and removes the old registration. In `chrome://extensions`, remove the old extension and load `~/.chrome-bookmarks-organizer/extension` instead. Your bookmarks aren't affected; the extension's own settings and learned examples start fresh.
-
 ## Development
 
 From `chrome-bookmarks-organizer/`, `npm test` runs everything: Node tests for the extension against a simulated Chrome (`tests/*.test.mjs`), and Python tests for the Mac bridge against a fake `claude` binary and a fake Chrome profile (`tests/test_host.py`). No network, no real Claude calls, nothing to install beyond Node 20+ and Python 3.8+.

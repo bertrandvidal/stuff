@@ -31,17 +31,6 @@ done
 echo "Using $CLAUDE ($("$CLAUDE" --version 2>/dev/null | head -1))"
 
 say "3/5 Installing files to $APP"
-# Earlier builds were called "Worthy Reads Filer". Carry over notes, config and logs.
-OLD_APP="$HOME/.worthy-reads-filer"
-OLD_NM="$NM_DIR/com.worthyreads.filer.json"
-if [ -d "$OLD_APP" ] && [ ! -e "$APP" ]; then
-  mv "$OLD_APP" "$APP"
-  echo "Moved your earlier install from $OLD_APP (folder notes and settings kept)"
-fi
-if [ -f "$OLD_NM" ]; then
-  rm -f "$OLD_NM"
-  echo "Removed the old Chrome registration ($OLD_NM)"
-fi
 mkdir -p "$APP/workdir"
 cp "$SRC/host.py" "$APP/host.py"
 if [ -f "$APP/rules.md" ] && ! cmp -s "$SRC/rules.md" "$APP/rules.md"; then
