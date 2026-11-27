@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Worthy Reads Filer</title>
+  <style>
+    :root { --fg:#1f2328; --muted:#636c76; --line:#d8dee4; --bg:#f6f8fa; --accent:#0b5cad; --warn:#b45309; --err:#b42318; --ok:#1a7f37; }
+    * { box-sizing: border-box; }
+    body { font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--fg); margin: 0; background: #fff; }
+    main { max-width: 920px; margin: 0 auto; padding: 24px 20px 64px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 32px 0 8px; display: flex; align-items: center; gap: 8px; }
+    .sub { color: var(--muted); margin: 0 0 16px; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--bg); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .kv { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; margin-bottom: 12px; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; }
+    button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+    button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    button:disabled { opacity: .6; cursor: default; }
+    .err { color: var(--err); }
+    .warn { color: var(--warn); }
+    .ok { color: var(--ok); }
+    .muted { color: var(--muted); }
+    .pill { font-size: 12px; padding: 1px 8px; border-radius: 999px; background: #eaeef2; color: var(--muted); }
+    ul.items { list-style: none; padding: 0; margin: 0; }
+    ul.items li { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+    ul.items a { color: var(--fg); font-weight: 600; text-decoration: none; }
+    ul.items a:hover { text-decoration: underline; }
+    .reason { color: var(--muted); margin: 2px 0 8px; }
+    select { font: inherit; padding: 5px 6px; border-radius: 6px; border: 1px solid var(--line); max-width: 420px; }
+    table.log { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.log td { border-top: 1px solid var(--line); padding: 6px 4px; vertical-align: top; }
+    table.log td.when { color: var(--muted); white-space: nowrap; width: 1%; }
+    form.settings { display: grid; grid-template-columns: 220px 1fr; gap: 10px 16px; align-items: center; }
+    form.settings input[type=text], form.settings input[type=number] { font: inherit; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; width: 260px; }
+    form.settings .hint { grid-column: 2; color: var(--muted); font-size: 12px; margin-top: -6px; }
+    textarea { width: 100%; min-height: 160px; font: 12px/1.4 ui-monospace, Menlo, monospace; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .empty { color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Worthy Reads Filer</h1>
+  <p class="sub">Bookmark links into <code id="inboxPath">worthy-reads/_inbox</code> from any device. Chrome on this Mac files them with Claude Code. Unclear ones wait in <code id="reviewPath">_review</code>.</p>
+
+  <div class="card">
+    <dl class="kv">
+      <dt>Root folder</dt><dd id="rootName">…</dd>
+      <dt>Waiting in inbox</dt><dd id="inboxCount">…</dd>
+      <dt>Last run</dt><dd id="lastRun">…</dd>
+      <dt>Result</dt><dd id="lastResult">…</dd>
+      <dt>Problem</dt><dd id="lastError">…</dd>
+    </dl>
+    <div class="row">
+      <button class="primary" id="runNow">File inbox now</button>
+      <button id="test">Test Claude Code connection</button>
+      <span id="testResult"></span>
+    </div>
+  </div>
+
+  <h2>Needs review <span class="pill" id="reviewCount">0</span></h2>
+  <ul class="items" id="review"></ul>
+
+  <h2>Recent activity <button id="clearLog">Clear</button></h2>
+  <table class="log" id="log"></table>
+
+  <h2>Learned from your choices <span class="pill" id="exampleCount">0</span> <button id="clearExamples">Forget all</button></h2>
+  <p class="muted">When you move something the filer placed, or file something out of review, it becomes an example Claude follows next time.</p>
+  <ul class="items" id="examples"></ul>
+
+  <h2>Settings</h2>
+  <form class="settings" id="settings">
+    <label for="rootFolderName">Root folder name</label><input type="text" id="rootFolderName">
+    <span class="hint" data-default-for="rootFolderName">Your existing top folder. Everything is filed inside it. Matching ignores case, spaces and dashes.</span>
+    <label for="inboxName">Inbox folder name</label><input type="text" id="inboxName">
+    <span class="hint" data-default-for="inboxName">Inside the root folder. Save new links here from any device.</span>
+    <label for="reviewName">Review folder name</label><input type="text" id="reviewName">
+    <span class="hint" data-default-for="reviewName">Inside the root folder. Links Claude isn't sure about wait here. Changing either name renames the existing folder, so nothing is left behind.</span>
+    <label for="minConfidence">Auto-file when Claude is</label>
+    <select id="minConfidence"><option value="high">highly confident only</option><option value="medium">at least moderately confident</option></select>
+    <label for="model">Claude model</label>
+    <select id="model"><option value="sonnet">Sonnet (recommended)</option><option value="haiku">Haiku (faster, lighter on usage)</option><option value="opus">Opus</option></select>
+    <label for="sweepMinutes">Check inbox every (minutes)</label><input type="number" id="sweepMinutes" min="1" max="1440">
+    <span class="hint">New bookmarks also trigger a check about 30 seconds after they sync.</span>
+    <label for="maxPerSweep">Max links per run</label><input type="number" id="maxPerSweep" min="1" max="50">
+    <label for="samplesPerFolder">Example titles per folder</label><input type="number" id="samplesPerFolder" min="0" max="20">
+    <label for="useTabFallback">Open blocked pages in a hidden window</label><input type="checkbox" id="useTabFallback">
+    <span class="hint">Needed for Medium and other sites that block plain requests. The window opens minimized and closes on its own.</span>
+    <label for="cleanTitles">Clean up titles when filing</label><input type="checkbox" id="cleanTitles">
+    <span class="hint">Turns "Title | by Author | Medium" into "Title".</span>
+    <span></span><div class="row"><button class="primary" type="submit">Save settings</button><button type="button" id="resetNames">Reset folder names to defaults</button><span id="saved"></span></div>
+  </form>
+
+  <h2>Folder tree</h2>
+  <p class="muted">Copy this into the Claude categorization skill when your folders change, so categorizing in chat matches the filer.</p>
+  <textarea id="tree" readonly></textarea>
+  <div class="row"><button id="copyTree">Copy</button><span id="copied" class="ok"></span></div>
+</main>
+<script type="module" src="options.js"></script>
+</body>
+</html>

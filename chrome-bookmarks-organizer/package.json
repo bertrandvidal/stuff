@@ -1,0 +1,12 @@
+{
+  "name": "worthy-reads-filer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Auto-file Chrome bookmarks from an inbox folder using Claude Code",
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:extension && npm run test:host",
+    "test:extension": "node --test 'tests/*.test.mjs'",
+    "test:host": "python3 -m unittest discover -s tests -p 'test_*.py'"
+  }
+}
