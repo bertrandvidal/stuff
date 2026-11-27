@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Worthy Reads Filer: Chrome native messaging host that asks Claude Code
+"""Chrome Bookmarks Organizer: Chrome native messaging host that asks Claude Code
 where a bookmark belongs.
 
 Chrome starts this process when the extension connects. Messages are JSON
@@ -7,11 +7,11 @@ with a 4-byte length prefix on stdin and stdout. Each "categorize" message
 runs `claude -p` once, headless, using your Claude subscription.
 
 Terminal commands, for setup and debugging:
-  ~/.worthy-reads-filer/run-host.sh --ping                 Claude Code found and signed in?
-  ~/.worthy-reads-filer/run-host.sh --tree                 print your bookmark root folder's tree
-  ~/.worthy-reads-filer/run-host.sh --selftest             categorize a sample link against your real folders
-  ~/.worthy-reads-filer/run-host.sh --categorize job.json  categorize a saved job
-  ~/.worthy-reads-filer/run-host.sh --prompt job.json      show the prompt Claude would get
+  ~/.chrome-bookmarks-organizer/run-host.sh --ping                 Claude Code found and signed in?
+  ~/.chrome-bookmarks-organizer/run-host.sh --tree                 print your bookmark root folder's tree
+  ~/.chrome-bookmarks-organizer/run-host.sh --selftest             categorize a sample link against your real folders
+  ~/.chrome-bookmarks-organizer/run-host.sh --categorize job.json  categorize a saved job
+  ~/.chrome-bookmarks-organizer/run-host.sh --prompt job.json      show the prompt Claude would get
 
 Works with the Python 3.9 that ships with Apple's command line tools.
 """
@@ -27,7 +27,7 @@ import traceback
 
 VERSION = "1.0.0"
 HOME = os.path.expanduser("~")
-APP_DIR = os.environ.get("WRF_HOME", os.path.join(HOME, ".worthy-reads-filer"))
+APP_DIR = os.environ.get("CBO_HOME", os.path.join(HOME, ".chrome-bookmarks-organizer"))
 CONFIG_PATH = os.path.join(APP_DIR, "config.json")
 LOG_PATH = os.path.join(APP_DIR, "host.log")
 RULES_PATH = os.path.join(APP_DIR, "rules.md")

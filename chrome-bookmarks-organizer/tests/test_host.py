@@ -27,8 +27,8 @@ def url(name, u, t):
 
 class HostTestCase(unittest.TestCase):
     def setUp(self):
-        self.home = tempfile.mkdtemp(prefix="wrf-home-")
-        self.app = os.path.join(self.home, ".worthy-reads-filer")
+        self.home = tempfile.mkdtemp(prefix="cbo-home-")
+        self.app = os.path.join(self.home, ".chrome-bookmarks-organizer")
         os.makedirs(os.path.join(self.app, "workdir"))
         for f in ("host.py", "rules.md", "folder-notes.md"):
             shutil.copy(os.path.join(HOST_SRC, f), self.app)

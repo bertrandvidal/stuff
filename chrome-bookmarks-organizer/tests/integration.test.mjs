@@ -72,7 +72,7 @@ test('first sweep files, parks and retries the right items', async () => {
 });
 
 test('your manual corrections become examples for next time', async () => {
-  await chrome.bookmarks.move('a', { parentId: 'hire' }); // Bert disagrees with the filer
+  await chrome.bookmarks.move('a', { parentId: 'hire' }); // Bert disagrees with the organizer
   await settle();
   const ov = await send({ cmd: 'overview' });
   assert.equal(ov.reviewItems.length, 3);

@@ -1,13 +1,13 @@
 #!/bin/bash
-# Installs the Worthy Reads Filer bridge between Chrome and Claude Code.
+# Installs the Chrome Bookmarks Organizer bridge between Chrome and Claude Code.
 # Usage: bash install.sh [extension-id]
 # Safe to re-run: it updates the code and keeps your folder-notes.md and config.
 set -euo pipefail
 
-HOST_NAME="com.worthyreads.filer"
+HOST_NAME="com.bertrandvidal.chrome_bookmarks_organizer"
 EXT_ID="${1:-ihiohmhmhgmfdlgneaejjdbibocdhapp}"   # fixed by the key in manifest.json
 SRC="$(cd "$(dirname "$0")" && pwd)"
-APP="$HOME/.worthy-reads-filer"
+APP="$HOME/.chrome-bookmarks-organizer"
 NM_DIR="$HOME/Library/Application Support/Google/Chrome/NativeMessagingHosts"
 
 say() { printf '\n\033[1m%s\033[0m\n' "$*"; }
@@ -31,6 +31,17 @@ done
 echo "Using $CLAUDE ($("$CLAUDE" --version 2>/dev/null | head -1))"
 
 say "3/5 Installing files to $APP"
+# Earlier builds were called "Worthy Reads Filer". Carry over notes, config and logs.
+OLD_APP="$HOME/.worthy-reads-filer"
+OLD_NM="$NM_DIR/com.worthyreads.filer.json"
+if [ -d "$OLD_APP" ] && [ ! -e "$APP" ]; then
+  mv "$OLD_APP" "$APP"
+  echo "Moved your earlier install from $OLD_APP (folder notes and settings kept)"
+fi
+if [ -f "$OLD_NM" ]; then
+  rm -f "$OLD_NM"
+  echo "Removed the old Chrome registration ($OLD_NM)"
+fi
 mkdir -p "$APP/workdir"
 cp "$SRC/host.py" "$APP/host.py"
 if [ -f "$APP/rules.md" ] && ! cmp -s "$SRC/rules.md" "$APP/rules.md"; then
@@ -72,7 +83,7 @@ mkdir -p "$NM_DIR"
 cat > "$NM_DIR/$HOST_NAME.json" <<EOF
 {
   "name": "$HOST_NAME",
-  "description": "Worthy Reads Filer: asks Claude Code where a bookmark belongs",
+  "description": "Chrome Bookmarks Organizer: asks Claude Code where a bookmark belongs",
   "path": "$APP/run-host.sh",
   "type": "stdio",
   "allowed_origins": ["chrome-extension://$EXT_ID/"]

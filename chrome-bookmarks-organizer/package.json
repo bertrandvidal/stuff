@@ -1,5 +1,5 @@
 {
-  "name": "worthy-reads-filer",
+  "name": "chrome-bookmarks-organizer",
   "version": "1.0.0",
   "private": true,
   "description": "Auto-file Chrome bookmarks from an inbox folder using Claude Code",

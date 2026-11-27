@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Worthy Reads Filer</title>
+  <title>Chrome Bookmarks Organizer</title>
   <style>
     :root { --fg:#1f2328; --muted:#636c76; --line:#d8dee4; --bg:#f6f8fa; --accent:#0b5cad; --warn:#b45309; --err:#b42318; --ok:#1a7f37; }
     * { box-sizing: border-box; }
@@ -42,7 +42,7 @@
 </head>
 <body>
 <main>
-  <h1>Worthy Reads Filer</h1>
+  <h1>Chrome Bookmarks Organizer</h1>
   <p class="sub">Bookmark links into <code id="inboxPath">worthy-reads/_inbox</code> from any device. Chrome on this Mac files them with Claude Code. Unclear ones wait in <code id="reviewPath">_review</code>.</p>
 
   <div class="card">
@@ -67,7 +67,7 @@
   <table class="log" id="log"></table>
 
   <h2>Learned from your choices <span class="pill" id="exampleCount">0</span> <button id="clearExamples">Forget all</button></h2>
-  <p class="muted">When you move something the filer placed, or file something out of review, it becomes an example Claude follows next time.</p>
+  <p class="muted">When you move something the organizer placed, or file something out of review, it becomes an example Claude follows next time.</p>
   <ul class="items" id="examples"></ul>
 
   <h2>Settings</h2>
@@ -94,7 +94,7 @@
   </form>
 
   <h2>Folder tree</h2>
-  <p class="muted">Copy this into the Claude categorization skill when your folders change, so categorizing in chat matches the filer.</p>
+  <p class="muted">Copy this into the Claude categorization skill when your folders change, so categorizing in chat matches the organizer.</p>
   <textarea id="tree" readonly></textarea>
   <div class="row"><button id="copyTree">Copy</button><span id="copied" class="ok"></span></div>
 </main>

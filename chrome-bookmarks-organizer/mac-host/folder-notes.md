@@ -1,5 +1,5 @@
 <!--
-These notes are yours to edit (~/.worthy-reads-filer/folder-notes.md). Claude reads them on every link.
+These notes are yours to edit (~/.chrome-bookmarks-organizer/folder-notes.md). Claude reads them on every link.
 Use them to explain what a folder is for, and where the line is between two folders that overlap.
 Changes apply to the next link; nothing to restart. Text inside these comment markers is not sent to Claude.
 -->

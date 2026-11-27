@@ -1,4 +1,4 @@
-# Worthy Reads Filer
+# Chrome Bookmarks Organizer
 
 Bookmark a link into `worthy-reads/_inbox` from your phone. Chrome on your Mac picks it up through Chrome Sync, works out what the page is about, asks Claude Code which folder it belongs in, and moves it there. Links Claude isn't sure about wait in `worthy-reads/_review`. All three folder names are settings; these are the defaults.
 
@@ -25,10 +25,10 @@ You need Chrome signed in with bookmark sync on, Claude Code installed and signe
    git clone https://github.com/bertrandvidal/stuff.git
    bash stuff/chrome-bookmarks-organizer/mac-host/install.sh
    ```
-   It copies everything to `~/.worthy-reads-filer`, registers the bridge with Chrome, and checks Claude Code is signed in.
-2. In Chrome open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked**, and choose `~/.worthy-reads-filer/extension` (press Cmd+Shift+. in the picker to show hidden folders).
+   It copies everything to `~/.chrome-bookmarks-organizer`, registers the bridge with Chrome, and checks Claude Code is signed in.
+2. In Chrome open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked**, and choose `~/.chrome-bookmarks-organizer/extension` (press Cmd+Shift+. in the picker to show hidden folders).
 3. Click the extension's toolbar icon, then **Test Claude Code connection**.
-4. Optional: `~/.worthy-reads-filer/run-host.sh --selftest` files a sample link against your real folders and prints Claude's answer.
+4. Optional: `~/.chrome-bookmarks-organizer/run-host.sh --selftest` files a sample link against your real folders and prints Claude's answer.
 
 The extension creates `_inbox` and `_review` inside `worthy-reads` on its first run. They sync to your phone within a minute or so. If you want different names, set them before step 3 (see Folder names below).
 
@@ -53,16 +53,16 @@ Filing happens the next time Chrome is open on your Mac: about 30 seconds after 
 ## Reviewing and teaching it
 
 - The toolbar icon shows how many links are waiting in `_review`. Click it to see each one with Claude's suggestion and reason, then **File here** (pick another folder first if you disagree) or **Retry**.
-- You can also move bookmarks yourself, on any device. If you move something the filer placed, or file something out of `_review`, that choice is saved as an example and Claude follows it next time. The last 30 are kept; you can see and clear them on the same page.
-- For recurring mistakes, add a line to `~/.worthy-reads-filer/folder-notes.md` explaining where a folder's boundary is. It applies to the next link.
+- You can also move bookmarks yourself, on any device. If you move something the organizer placed, or file something out of `_review`, that choice is saved as an example and Claude follows it next time. The last 30 are kept; you can see and clear them on the same page.
+- For recurring mistakes, add a line to `~/.chrome-bookmarks-organizer/folder-notes.md` explaining where a folder's boundary is. It applies to the next link.
 - Settings on the same page: confidence needed to auto-file, model (Sonnet by default, Haiku is lighter on usage), check interval, title cleanup.
 
 ## How Chrome runs the Mac bridge
 
 The bridge is a Chrome native messaging host, not a server or a background service.
 
-1. `install.sh` writes `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.worthyreads.filer.json`. It names the program to run (`~/.worthy-reads-filer/run-host.sh`) and the one extension ID allowed to start it.
-2. When a filing run starts, the extension calls `chrome.runtime.connectNative("com.worthyreads.filer")`. Chrome finds that file, checks the extension's ID is allowed, and starts `run-host.sh` as a child process, as your macOS user.
+1. `install.sh` writes `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.bertrandvidal.chrome_bookmarks_organizer.json`. It names the program to run (`~/.chrome-bookmarks-organizer/run-host.sh`) and the one extension ID allowed to start it.
+2. When a filing run starts, the extension calls `chrome.runtime.connectNative("com.bertrandvidal.chrome_bookmarks_organizer")`. Chrome finds that file, checks the extension's ID is allowed, and starts `run-host.sh` as a child process, as your macOS user.
 3. `run-host.sh` just runs `host.py` with the Python found at install time. Chrome and `host.py` exchange JSON over the process's stdin and stdout. No port is opened.
 4. For each link, `host.py` runs `claude -p ...` as its own child process, which reads your Claude login from the Keychain like it does in Terminal.
 5. When the run ends, the extension disconnects, Chrome closes the pipe, and `host.py` exits. Nothing runs between runs, and nothing runs while Chrome is quit.
@@ -83,9 +83,9 @@ Paywalled articles still categorize fine: the title, description and opening par
 |---|---|
 | "Native host not installed" | Run `install.sh` again, then reload the extension on `chrome://extensions`. |
 | "Native host refused this extension" | The extension ID differs from the default. Copy the ID from `chrome://extensions` and run `install.sh <that-id>`. |
-| "Claude Code isn't signed in" | Run `claude auth login` in Terminal. If Terminal works but Chrome doesn't, run `claude setup-token` and put the token in `~/.worthy-reads-filer/config.json` as `"env": {"CLAUDE_CODE_OAUTH_TOKEN": "..."}`. |
+| "Claude Code isn't signed in" | Run `claude auth login` in Terminal. If Terminal works but Chrome doesn't, run `claude setup-token` and put the token in `~/.chrome-bookmarks-organizer/config.json` as `"env": {"CLAUDE_CODE_OAUTH_TOKEN": "..."}`. |
 | "Couldn't find a bookmark folder named ..." | Set your root folder's name in the extension settings. |
-| Nothing happens | Check the bookmark reached the Mac's `_inbox` (sync), then click **File inbox now**. Details are in `~/.worthy-reads-filer/host.log`. |
+| Nothing happens | Check the bookmark reached the Mac's `_inbox` (sync), then click **File inbox now**. Details are in `~/.chrome-bookmarks-organizer/host.log`. |
 
 ## Updating
 
@@ -94,6 +94,8 @@ cd stuff && git pull && bash chrome-bookmarks-organizer/mac-host/install.sh
 ```
 
 Then click the reload icon on the extension in `chrome://extensions`. Your folder notes and settings are kept.
+
+If you installed a build from before the rename to Chrome Bookmarks Organizer, `install.sh` moves `~/.worthy-reads-filer` to `~/.chrome-bookmarks-organizer` and removes the old registration. In `chrome://extensions`, remove the old extension and load `~/.chrome-bookmarks-organizer/extension` instead. Your bookmarks aren't affected; the extension's own settings and learned examples start fresh.
 
 ## Development
 

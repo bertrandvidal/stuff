@@ -1,4 +1,4 @@
-// Worthy Reads Filer: background service worker.
+// Chrome Bookmarks Organizer: background service worker.
 //
 // Flow: a bookmark lands in the inbox folder (default worthy-reads/_inbox),
 // usually via Chrome Sync from the phone -> we extract what the page is about
@@ -154,7 +154,7 @@ class HostClient {
       } else if (/forbidden/i.test(raw)) {
         this.dead = `Native host refused this extension (${raw}) Re-run install.sh with the ID shown on chrome://extensions.`;
       } else if (/exited/i.test(raw)) {
-        this.dead = `Native host crashed (${raw}) Check ~/.worthy-reads-filer/host.log.`;
+        this.dead = `Native host crashed (${raw}) Check ~/.chrome-bookmarks-organizer/host.log.`;
       } else {
         this.dead = raw;
       }
@@ -421,7 +421,7 @@ async function trackUserMove(id, info, ctx) {
   delete filed[id];
   delete review[id];
   await setStore({ filed, review });
-  if (!dest) return; // moved back to inbox or out of worthy-reads
+  if (!dest) return; // moved back to inbox or out of the root folder
 
   const [node] = await chrome.bookmarks.get(id);
   const prior = fromFiled ? fromFiled.path : fromReview.suggestedPath;

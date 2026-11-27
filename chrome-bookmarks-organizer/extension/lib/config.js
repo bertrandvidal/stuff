@@ -1,6 +1,6 @@
 // Settings shared by the background worker and the options page.
 
-export const HOST_NAME = 'com.worthyreads.filer';
+export const HOST_NAME = 'com.bertrandvidal.chrome_bookmarks_organizer';
 
 // Folder names are all configurable on the options page. Matching ignores case,
 // spaces and punctuation, so "Worthy Reads" finds "worthy-reads".
