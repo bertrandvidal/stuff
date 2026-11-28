@@ -170,6 +170,12 @@ class TestNativeProtocol(HostTestCase):
             self.assertFalse(cat["ok"], mode)
             self.assertFalse(cat.get("systemic", False), mode)
 
+    def test_half_an_emoji_in_the_job_does_not_fail_the_request(self):
+        job = dict(self.JOB)
+        job["bookmark"] = {"title": "Skip-level 1:1s \ud83d", "url": "https://medium.com/x"}
+        (cat,) = self.native([{"id": 1, "type": "categorize", "job": job}])
+        self.assertTrue(cat["ok"], cat.get("error"))
+
     def test_missing_claude_pauses_filing(self):
         os.remove(os.path.join(self.home, ".local", "bin", "claude"))
         (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}])

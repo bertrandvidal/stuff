@@ -365,3 +365,11 @@ test('a link re-saved while its first copy waits in review is a duplicate, not f
   const { review } = await chrome.storage.local.get('review');
   assert.match(review.again.reason, /Already bookmarked in _needs-review/);
 });
+
+test('half an emoji in a saved title still gets the link filed', async () => {
+  add({ id: 'emo', parentId: 'inbox', title: 'Great read \ud83d', url: 'https://emoji.example/a' });
+  calls.jobs.length = 0;
+  await sweep('emoji'); await settle();
+  assert.ok(calls.jobs[0].bookmark.title.isWellFormed(), 'well-formed when it reaches the Mac');
+  assert.equal(parentOf('emo'), 'gr');
+});

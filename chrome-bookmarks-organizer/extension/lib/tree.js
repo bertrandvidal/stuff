@@ -19,7 +19,10 @@ export function sameName(a, b) {
 
 export function truncate(s, n) {
   s = String(s || '').replace(/\s+/g, ' ').trim();
-  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+  if (s.length <= n) return s;
+  // Don't cut an emoji (a surrogate pair) in half.
+  const cut = /[\ud800-\udbff]/.test(s[n - 2]) ? n - 2 : n - 1;
+  return s.slice(0, cut) + '…';
 }
 
 // Chrome can now hold two copies of each top-level folder (synced account

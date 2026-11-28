@@ -87,7 +87,7 @@ def log(msg):
         os.makedirs(APP_DIR, exist_ok=True)
         if os.path.exists(LOG_PATH) and os.path.getsize(LOG_PATH) > 1_000_000:
             os.replace(LOG_PATH, LOG_PATH + ".1")
-        with open(LOG_PATH, "a", encoding="utf-8") as f:
+        with open(LOG_PATH, "a", encoding="utf-8", errors="replace") as f:
             f.write(time.strftime("%Y-%m-%d %H:%M:%S ") + str(msg).rstrip() + "\n")
     except Exception:
         pass
@@ -444,8 +444,12 @@ def run_claude(prompt, cfg, model):
         raise SetupError("Missing %s. Re-run install.sh." % RULES_PATH)
     while True:
         t0 = time.time()
+        # errors="replace": a lone surrogate half (half an emoji, from text cut
+        # at a fixed length) can't be encoded as UTF-8 and used to fail the
+        # whole request with UnicodeEncodeError.
         proc = subprocess.run(
             claude_cmd(cfg, model, _dropped), input=prompt, capture_output=True, text=True,
+            encoding="utf-8", errors="replace",
             cwd=WORKDIR, env=child_env(cfg), timeout=int(cfg.get("timeout_s", 240)))
         # Only stderr: stdout can carry the model's output, and through it page text.
         m = REJECTED_FLAG.search(proc.stderr or "") if proc.returncode != 0 else None

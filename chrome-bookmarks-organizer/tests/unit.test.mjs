@@ -234,3 +234,15 @@ test('folder names: every script counts, ambiguity goes to review, depth comes f
   assert.equal(findChildFolder(root, 'in-box'), null, 'no loose match for system folders');
   assert.ok(!folderNameProblems({ rootFolderName: '読書', inboxName: '_受信', reviewName: '_確認' }).length, 'non-ASCII names allowed');
 });
+
+test('odd characters: bad entities and half emoji never break a page read', async () => {
+  const { decodeEntities, wellFormed, wellFormedDeep } = await import('../extension/lib/extract.js');
+  const { truncate } = await import('../extension/lib/tree.js');
+  assert.equal(decodeEntities('a&#x110000;b&#9999999;c&#xD800;d&#0;e&#x1F4DA;'), 'a�b�c�d�e📚');
+  const m = parseHtmlMeta('<title>Hi &#x110000;</title><meta name="description" content="x &#9999999; y">');
+  assert.equal(m.title, 'Hi �', 'no RangeError: the page is still read');
+  const t = truncate('ab📚cd', 4); // the cut lands inside the emoji
+  assert.ok(t.isWellFormed(), JSON.stringify(t));
+  assert.equal(wellFormed('ok \ud83d end'), 'ok � end');
+  assert.deepEqual(wellFormedDeep({ a: ['x\udc00'], b: { c: 'fine 📚' }, n: 3 }), { a: ['x�'], b: { c: 'fine 📚' }, n: 3 });
+});

@@ -11,7 +11,7 @@ import {
   findRootFolder, findChildFolder, collectFolders, indexUrls, normalizeUrl,
   resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames, isFilingTarget, isTrimmedTitle,
 } from './lib/tree.js';
-import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, isPrivateUrl, MAX_HTML } from './lib/extract.js';
+import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, isPrivateUrl, wellFormedDeep, MAX_HTML } from './lib/extract.js';
 
 const MAX_LOG = 150;
 const MAX_EXAMPLES = 30;
@@ -422,7 +422,8 @@ async function doSweep(reason) {
           examples,
           model: s.model,
         };
-        const resp = await host.request('categorize', { job, folderNames: folderNames(s) });
+        // wellFormedDeep: no half emoji (from any cut-off text) reaches the Mac.
+        const resp = await host.request('categorize', { job: wellFormedDeep(job), folderNames: folderNames(s) });
         if (!resp.ok) {
           const err = new Error(resp.error || 'Claude Code returned an error');
           err.systemic = !!resp.systemic; // a Claude Code problem, not this link's

@@ -15,13 +15,35 @@ export function decodeEntities(s) {
   return String(s || '').replace(/&(#x[0-9a-f]{1,6}|#\d{1,7}|[a-z0-9]{1,10});/gi, (m, e) => {
     if (e[0] === '#') {
       const code = e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : m;
+      // Not a character: past U+10FFFF (String.fromCodePoint throws, and that
+      // threw away a page that had fetched fine), a lone surrogate half (the
+      // host could not encode it for Claude Code), or NUL. Use U+FFFD, the
+      // standard replacement character, as browsers do.
+      if (!(code > 0 && code <= 0x10ffff) || (code >= 0xd800 && code <= 0xdfff)) return '\ufffd';
+      return String.fromCodePoint(code);
     }
     return ENTITY[e.toLowerCase()] ?? m;
   });
 }
 
 const squash = (s) => decodeEntities(s).replace(/\s+/g, ' ').trim();
+
+// Replace unpaired surrogate halves with U+FFFD. Cutting text at a fixed
+// length can split an emoji in two, and the half left over can't be encoded
+// as UTF-8 on the Mac side, which failed the whole request.
+export function wellFormed(s) {
+  s = String(s ?? '');
+  return typeof s.toWellFormed === 'function' ? s.toWellFormed()
+    : s.replace(/[\ud800-\udbff](?![\udc00-\udfff])|(?<![\ud800-\udbff])[\udc00-\udfff]/g, '\ufffd');
+}
+
+// The same, for every string inside a job sent to the Mac.
+export function wellFormedDeep(v) {
+  if (typeof v === 'string') return wellFormed(v);
+  if (Array.isArray(v)) return v.map(wellFormedDeep);
+  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, wellFormedDeep(x)]));
+  return v;
+}
 
 // Attributes of one tag, e.g. <meta property="og:title" content="...">.
 //
