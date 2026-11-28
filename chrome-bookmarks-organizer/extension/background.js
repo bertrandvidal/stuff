@@ -11,7 +11,7 @@ import {
   findRootFolder, findChildFolder, collectFolders, indexUrls, normalizeUrl,
   resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames, isFilingTarget, isTrimmedTitle,
 } from './lib/tree.js';
-import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, MAX_HTML } from './lib/extract.js';
+import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, isPrivateUrl, MAX_HTML } from './lib/extract.js';
 
 const MAX_LOG = 150;
 const MAX_EXAMPLES = 30;
@@ -232,11 +232,20 @@ async function fetchPage(url, timeoutMs) {
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const res = await fetch(url, {
-      credentials: 'include',
+      // No cookies. With them, the request carried your logins to whatever
+      // site a redirect pointed at, even SameSite=Strict ones, which a normal
+      // page visit never sends. Logged-in and bot-walled pages are still read
+      // by the hidden window below, like a normal visit.
+      credentials: 'omit',
       redirect: 'follow',
       signal: ctrl.signal,
       headers: { Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8' },
     });
+    if (isPrivateUrl(res.url)) {
+      // Redirected to this Mac or the local network: never read it.
+      res.body?.cancel?.().catch?.(() => {});
+      return { ok: false, privateRedirect: true, error: 'redirected to a local network address; not read' };
+    }
     const ct = res.headers.get('content-type') || '';
     const download = /attachment/i.test(res.headers.get('content-disposition') || '');
     if (!/html|xml/i.test(ct) || download) {
@@ -299,6 +308,8 @@ async function extractViaTab(url, timeoutMs) {
       await sleep(5000);
       result = await runExtractor(tabId);
     }
+    // The page may have redirected to this Mac or the local network.
+    if (result && isPrivateUrl(result.finalUrl)) return { error: 'redirected to a local network address; not read' };
     return result || { error: 'no result' };
   })();
   work.catch(() => {}); // after a timeout, its later failure (window closed) is expected
@@ -312,6 +323,7 @@ async function extractViaTab(url, timeoutMs) {
 
 async function extractContent(url, s) {
   if (!/^https?:/i.test(url)) return { source: 'none', note: 'not a web page' };
+  if (isPrivateUrl(url)) return { source: 'none', note: 'local network address; not read' };
   const timeoutMs = Math.min(120, Math.max(5, Number(s.pageTimeoutSeconds) || DEFAULTS.pageTimeoutSeconds)) * 1000;
   const f = await fetchPage(url, timeoutMs);
 
@@ -324,6 +336,9 @@ async function extractContent(url, s) {
 
   const fetched = f.ok && !f.blocked ? f.content : null;
   if (fetched && isGoodEnough(fetched)) return { ...fetched, source: 'fetch' };
+  // A public page that redirects the plain read to a local address would do
+  // the same in the window: go by title and URL.
+  if (f.privateRedirect) return { source: 'unavailable', note: f.error };
 
   if (s.useTabFallback) {
     try {

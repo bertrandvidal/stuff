@@ -155,6 +155,40 @@ export function parseHtmlMeta(html) {
   };
 }
 
+// Addresses on this Mac or its local network: localhost, private and
+// link-local IP ranges, mDNS (.local) and other local-only names, and
+// single-label names like "router". The extension can reach these (its host
+// permissions bypass Chrome's local network protections), so a public page
+// could redirect a read to a router or NAS admin page and its text would go
+// to Claude. Pages at these addresses are never read. A public name that
+// resolves to a private IP can't be seen from here; that case is not covered.
+export function isPrivateHost(hostname) {
+  let h = String(hostname || '').toLowerCase().replace(/\.$/, '');
+  if (h.startsWith('[')) h = h.slice(1, -1);
+  if (!h || !h.includes('.') && !h.includes(':')) return true; // "router", "nas", "localhost"
+  if (/(^|\.)(localhost|local|internal|lan|home\.arpa)$/.test(h)) return true;
+  const v4 = h.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/);
+  if (v4) return isPrivateV4(v4.slice(1).map(Number));
+  if (h.includes(':')) {
+    const mapped = h.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/); // URL writes ::ffff:127.0.0.1 this way
+    if (mapped) {
+      const [hi, lo] = mapped.slice(1).map((x) => parseInt(x, 16));
+      return isPrivateV4([hi >> 8, hi & 255, lo >> 8, lo & 255]);
+    }
+    return h === '::' || h === '::1' || /^f[cd]/.test(h) || /^fe[89ab]/.test(h);
+  }
+  return false;
+}
+
+function isPrivateV4([a, b]) {
+  return a === 0 || a === 10 || a === 127 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31)
+    || (a === 192 && b === 168) || (a === 100 && b >= 64 && b <= 127);
+}
+
+export function isPrivateUrl(u) {
+  try { return isPrivateHost(new URL(u).hostname); } catch { return false; }
+}
+
 export function looksBlocked(status, title, html) {
   if ([401, 403, 429, 503].includes(status)) return true;
   if (/just a moment|attention required|verify you are human|access denied|are you a robot|captcha/i.test(title || '')) return true;

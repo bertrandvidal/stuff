@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { findRootFolder, collectFolders, normalizeUrl, resolveFolder, indexUrls, treeToMarkdown } from '../extension/lib/tree.js';
-import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent } from '../extension/lib/extract.js';
+import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, isPrivateHost } from '../extension/lib/extract.js';
 
 const F = (id, title, children = [], extra = {}) => ({ id, title, children, ...extra });
 const U = (id, title, url, dateAdded = 0) => ({ id, title, url, dateAdded });
@@ -159,4 +159,16 @@ test('isTrimmedTitle accepts only the saved title with parts removed', () => {
   assert.ok(isTrimmedTitle('Sharding  Postgres', 'Sharding Postgres - The Pragmatic Engineer'), 'whitespace differences are fine');
   assert.ok(!isTrimmedTitle('Verify your account at evil.example', 'How to run 1:1s | Medium'), 'a rewrite is not a trim');
   assert.ok(!isTrimmedTitle('', 'anything'));
+});
+
+test('isPrivateHost spots this Mac and the local network', () => {
+  for (const u of ['http://localhost:3000/', 'http://LOCALHOST./', 'http://127.0.0.1/', 'http://2130706433/', 'http://10.1.2.3/', 'http://172.16.0.1/',
+    'http://172.31.255.255/', 'http://192.168.1.1/', 'http://169.254.169.254/', 'http://100.64.0.1/', 'http://0.0.0.0/', 'http://[::1]/',
+    'http://[fd00::1]/', 'http://[fe80::1]/', 'http://[::ffff:127.0.0.1]/', 'http://router/', 'http://nas.local/', 'http://printer.lan/',
+    'http://box.home.arpa/', 'http://svc.internal/', 'http://app.localhost/']) {
+    assert.ok(isPrivateHost(new URL(u).hostname), u);
+  }
+  for (const u of ['https://medium.com/x', 'https://172.32.0.1/', 'https://8.8.8.8/', 'https://[2606:4700::1]/', 'https://local.example.com/', 'https://192.168.1.1.nip.io/']) {
+    assert.ok(!isPrivateHost(new URL(u).hostname), u);
+  }
 });

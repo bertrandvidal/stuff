@@ -26,8 +26,12 @@ const m = makeChrome({ decide: async (job) => {
   return { ok: true, decision: { is_career_relevant: true, clean_title: clean, reason: 'because', new_folder_suggestion: host === 'invented.example' ? 'engineering/observability' : '', ...d } };
 } });
 globalThis.chrome = m.chrome;
-globalThis.fetch = async (url) => {
+const fetched = []; // [url, credentials] of every plain fetch
+globalThis.fetch = async (url, opts = {}) => {
+  fetched.push([url, opts.credentials]);
   const h = new URL(url).hostname;
+  if (h === 'redirector.example') return { ok: true, status: 200, url: 'http://192.168.1.1/admin', headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Router admin</title>' };
+  if (h === 'tabredirect.example') return { ok: false, status: 403, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Just a moment...</title>' };
   if (h === 'medium.com') return { ok: false, status: 403, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Just a moment...</title>' };
   if (h === 'hang.example') return { ok: false, status: 403, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Just a moment...</title>' };
   if (h === 'files.example') return { ok: true, status: 200, url, headers: new Map([['content-type', 'application/pdf']]), text: async () => '%PDF-1.7' };
@@ -328,4 +332,24 @@ test("Claude's answer is only stored as a suggestion when it is a real filing fo
   await send({ cmd: 'fileFromReview', id: 'inv2', folderId: 'cg' }); await settle();
   const { examples } = await chrome.storage.local.get('examples');
   assert.deepEqual([examples[0].path, examples[0].note], ['career/growth', 'suggested nothing']);
+});
+
+test('pages are fetched without cookies, and local network pages are never read', async () => {
+  for (const [id, url] of [['lan', 'http://192.168.1.20/nas'], ['loc', 'http://localhost:3000/dev'], ['redir', 'https://redirector.example/go'], ['tabr', 'https://tabredirect.example/go']]) {
+    add({ id, parentId: 'inbox', title: `${id} title`, url });
+  }
+  fetched.length = 0;
+  calls.jobs.length = 0;
+  const windowsBefore = calls.windows;
+  await sweep('private'); await settle();
+  assert.ok(fetched.length > 0 && fetched.every(([, cred]) => cred === 'omit'), 'every plain fetch omits cookies');
+  assert.ok(!fetched.some(([u]) => /192\.168\.1\.20|localhost/.test(u)), 'local addresses are not fetched at all');
+  const job = (u) => calls.jobs.find((j) => j.bookmark.url.includes(u));
+  assert.match(job('192.168.1.20').content.note, /local network address; not read/);
+  assert.match(job('localhost').content.note, /local network address; not read/);
+  assert.equal(job('redirector').content.source, 'unavailable', 'content of a redirect to the LAN is dropped');
+  assert.doesNotMatch(JSON.stringify(job('redirector').content), /Router admin/);
+  assert.equal(calls.windows - windowsBefore, 1, 'only the bot-walled page opened a window');
+  assert.doesNotMatch(JSON.stringify(job('tabredirect').content), /Skip-levels|10\.0\.0\.1/, "a window that ended on a LAN page isn't read");
+  for (const id of ['lan', 'loc', 'redir', 'tabr']) assert.notEqual(parentOf(id), 'inbox', `${id} still filed from title and URL`);
 });
