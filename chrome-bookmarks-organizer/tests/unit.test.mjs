@@ -117,6 +117,18 @@ test('parser stays fast on malformed HTML (no freeze the timeout could not inter
   }
 });
 
+test('one hostile <meta> tag cannot freeze the parser (attribute regex stays linear)', () => {
+  // Each of these took over a minute before the lookbehind in ATTR_RE.
+  for (const ch of ['a', '-', ':', '.', '_']) {
+    const html = '<html><head><meta ' + ch.repeat(299000) + '></head><body>x</body></html>';
+    const t = Date.now();
+    parseHtmlMeta(html);
+    assert.ok(Date.now() - t < 200, `"${ch}" run took ${Date.now() - t}ms`);
+  }
+  const m = parseHtmlMeta('<meta property="og:title" content="Hello"><meta name=description content=\'Single quoted\'><meta data-x=1 name="keywords" content="a, b">');
+  assert.deepEqual([m.title, m.description, m.keywords], ['Hello', 'Single quoted', 'a, b'], 'attributes still parse');
+});
+
 test('parser falls back from article to main to body, and keeps heading order', () => {
   const m = parseHtmlMeta('<html><body><nav>skip</nav><main><h2>Second</h2><p>Main text</p></main></body></html>');
   assert.match(m.textSample, /Main text/);

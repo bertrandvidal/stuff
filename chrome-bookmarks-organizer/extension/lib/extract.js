@@ -23,9 +23,22 @@ export function decodeEntities(s) {
 
 const squash = (s) => decodeEntities(s).replace(/\s+/g, ' ').trim();
 
+// Attributes of one tag, e.g. <meta property="og:title" content="...">.
+//
+// The lookbehind (?<![a-zA-Z_:.-]) is what keeps this linear. Without it, a
+// tag holding a long run of name characters and no "=" (for example
+// `<meta aaaa…>`, 300 KB of "a") made the engine try a match from every
+// position inside the run: each try reads to the end of the run, finds no
+// "=", and gives up, so the cost grew with the square of the run's length
+// (40 KB took 1.4 s, 300 KB about 75 s). This runs synchronously in the
+// service worker, so no timeout could stop it, and the link froze every sweep.
+// With the lookbehind, a name can only start where the previous character
+// isn't a name character, so each run is scanned once.
+const ATTR_RE = /(?<![a-zA-Z_:.-])([a-zA-Z_:.-]+)\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/g;
+
 function parseAttrs(tag) {
   const attrs = {};
-  const re = /([a-zA-Z_:.-]+)\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/g;
+  const re = new RegExp(ATTR_RE); // fresh lastIndex for each tag
   let m;
   while ((m = re.exec(tag))) attrs[m[1].toLowerCase()] = m[3] ?? m[4] ?? m[5] ?? '';
   return attrs;
