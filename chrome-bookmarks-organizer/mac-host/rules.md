@@ -34,4 +34,4 @@ Set is_career_relevant to false only when the link clearly has nothing to do wit
 - is_career_relevant: true or false.
 - clean_title: the article's own title with site and author suffixes removed (for example drop " | by Jane Doe | Medium" or " - The Pragmatic Engineer"). Keep the original wording otherwise.
 - reason: one short sentence naming the topic and why this folder fits.
-- new_folder_suggestion: only when confidence is low because nothing fits, a short path for a folder Bert might create (for example "engineering/observability"). Otherwise an empty string.
+- new_folder_suggestion: only when confidence is low because nothing fits, a short path for a new leaf folder Bert might create under one of his existing top-level folders (for example "engineering/observability"). Never suggest a new top-level folder. Otherwise an empty string.

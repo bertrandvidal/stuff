@@ -66,6 +66,8 @@ test('first sweep files, parks and retries the right items', async () => {
   assert.equal(parentOf('a'), 'o3', 'blocked Medium link filed via tab extraction');
   assert.equal(calls.windows, 1, 'only the blocked page needed a hidden window');
   assert.equal(parentOf('b'), 'arch', 'medium confidence auto-files by default');
+  assert.equal(nodes.get('b').title, 'Clean blog.example', 'filed links get the clean title by default');
+  assert.equal(nodes.get('c').title, 'c title', 'links sent to review keep their title');
   assert.equal(parentOf('c'), review.id, 'low confidence parked');
   assert.equal(parentOf('d'), review.id, 'duplicate parked');
   assert.equal(parentOf('e'), review.id, 'invented folder parked');

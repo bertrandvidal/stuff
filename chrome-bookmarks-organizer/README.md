@@ -59,7 +59,7 @@ Links are only filed into **leaf folders below the top level**: folders with no 
 - The toolbar icon shows how many links are waiting in `_review`. Click it to see each one with Claude's suggestion and reason, then **File here** (pick another folder first if you disagree) or **Retry**.
 - You can also move bookmarks yourself, on any device. If you move something the organizer placed, or file something out of `_review`, that choice is saved as an example and Claude follows it next time. The last 30 are kept; you can see and clear them on the same page.
 - For recurring mistakes, add a line to `~/.chrome-bookmarks-organizer/folder-notes.md` explaining where a folder's boundary is. It applies to the next link.
-- Settings on the same page: confidence needed to auto-file, model (Sonnet by default, Haiku is lighter on usage), check interval, page read timeout, title cleanup.
+- Settings on the same page: confidence needed to auto-file, model (Sonnet by default, Haiku is lighter on usage), check interval, page read timeout, title cleanup (on by default: "Title | by Author | Medium" becomes "Title").
 
 ## How Chrome runs the Mac bridge
 
