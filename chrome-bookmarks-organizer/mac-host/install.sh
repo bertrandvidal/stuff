@@ -13,6 +13,11 @@ NM_DIR="$HOME/Library/Application Support/Google/Chrome/NativeMessagingHosts"
 say() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 die() { printf '\n\033[31mError:\033[0m %s\n' "$*" >&2; exit 1; }
 
+# The ID goes into the file that decides which extension may start the
+# bridge. Chrome extension IDs are exactly 32 letters from a to p; anything
+# else is a typo (or an attempt to widen allowed_origins), so stop here.
+[[ "$EXT_ID" =~ ^[a-p]{32}$ ]] || die "\"$EXT_ID\" isn't a Chrome extension ID (32 letters a to p). Copy it from chrome://extensions."
+
 [ "$(uname)" = "Darwin" ] || die "This installer is for macOS."
 
 say "1/5 Checking Python"
@@ -48,10 +53,9 @@ if [ -d "$SRC/../extension" ]; then
   cp -R "$SRC/../extension" "$APP/extension"
 fi
 
-cat > "$APP/run-host.sh" <<EOF
-#!/bin/bash
-exec "$PY" "$APP/host.py" "\$@"
-EOF
+# printf %q quotes the paths for bash, so a space or quote in them can't
+# break or change the launcher script.
+printf '#!/bin/bash\nexec %q %q "$@"\n' "$PY" "$APP/host.py" > "$APP/run-host.sh"
 chmod 755 "$APP/run-host.sh" "$APP/host.py"
 
 "$PY" - "$APP/config.json" "$CLAUDE" <<'PYEOF'
@@ -69,15 +73,14 @@ chmod 600 "$APP/config.json"
 
 say "4/5 Registering native messaging host for extension $EXT_ID"
 mkdir -p "$NM_DIR"
-cat > "$NM_DIR/$HOST_NAME.json" <<EOF
-{
-  "name": "$HOST_NAME",
-  "description": "Chrome Bookmarks Organizer: asks Claude Code where a bookmark belongs",
-  "path": "$APP/run-host.sh",
-  "type": "stdio",
-  "allowed_origins": ["chrome-extension://$EXT_ID/"]
-}
-EOF
+# Written with json.dump so the path is escaped properly whatever it contains.
+"$PY" - "$NM_DIR/$HOST_NAME.json" "$HOST_NAME" "$APP/run-host.sh" "$EXT_ID" <<'PYEOF'
+import json, sys
+out, name, path, ext_id = sys.argv[1:]
+with open(out, "w") as f:
+    json.dump({"name": name, "description": "Chrome Bookmarks Organizer: asks Claude Code where a bookmark belongs",
+               "path": path, "type": "stdio", "allowed_origins": ["chrome-extension://%s/" % ext_id]}, f, indent=2)
+PYEOF
 echo "Wrote $NM_DIR/$HOST_NAME.json"
 
 say "5/5 Checking Claude Code sign-in"
