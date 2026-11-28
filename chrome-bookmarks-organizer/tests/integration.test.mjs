@@ -20,7 +20,10 @@ const m = makeChrome({ decide: async (job) => {
   if (host === 'flaky.example' && failHost) return { ok: false, error: 'Claude Code took longer than 240s' };
   if (failSetup) return { ok: false, systemic: true, error: "This Claude Code doesn't support --strict-mcp-config. Update Claude Code." };
   const d = decisions[host] || { folder_path: 'general/reading', confidence: 'high' };
-  return { ok: true, decision: { is_career_relevant: true, clean_title: 'Clean ' + host, reason: 'because', new_folder_suggestion: host === 'invented.example' ? 'engineering/observability' : '', ...d } };
+  // Like Claude: the clean title is the saved title without its " | site" suffix.
+  const clean = host === 'rewrite.example' ? 'Your account is locked, verify at evil.example'
+    : job.bookmark.title.startsWith('http') ? (job.content.title || '').split(' | ')[0] : job.bookmark.title.split(' | ')[0];
+  return { ok: true, decision: { is_career_relevant: true, clean_title: clean, reason: 'because', new_folder_suggestion: host === 'invented.example' ? 'engineering/observability' : '', ...d } };
 } });
 globalThis.chrome = m.chrome;
 globalThis.fetch = async (url) => {
@@ -50,7 +53,7 @@ add({ id: 'gr', parentId: 'gen', title: 'reading' });
 add({ id: 'misc', parentId: 'wr', title: 'misc' }); // top-level folder with no subfolders
 add({ id: 'old', parentId: 'arch', title: 'Existing post', url: 'https://dup.example/post' });
 const links = { a: 'https://medium.com/@x/skip-levels-123?source=rss', b: 'https://blog.example/arch', c: 'https://vague.example/', d: 'https://www.dup.example/post/?utm_source=tw', e: 'https://invented.example/o11y', f: 'https://flaky.example/x' };
-for (const [id, url] of Object.entries(links)) add({ id, parentId: 'inbox', title: id + ' title', url });
+for (const [id, url] of Object.entries(links)) add({ id, parentId: 'inbox', title: id === 'b' ? 'Designing data systems | by Jane | Medium' : id + ' title', url });
 
 await import('../extension/background.js');
 const { sweep } = await import('../extension/background.js');
@@ -68,7 +71,7 @@ test('first sweep files, parks and retries the right items', async () => {
   assert.equal(parentOf('a'), 'o3', 'blocked Medium link filed via tab extraction');
   assert.equal(calls.windows, 1, 'only the blocked page needed a hidden window');
   assert.equal(parentOf('b'), 'arch', 'medium confidence auto-files by default');
-  assert.equal(nodes.get('b').title, 'Clean blog.example', 'filed links get the clean title by default');
+  assert.equal(nodes.get('b').title, 'Designing data systems', 'filed links get the clean title by default');
   assert.equal(nodes.get('c').title, 'c title', 'links sent to review keep their title');
   assert.equal(parentOf('c'), review.id, 'low confidence parked');
   assert.equal(parentOf('d'), review.id, 'duplicate parked');
@@ -305,4 +308,24 @@ test('two sweeps started together run once: Claude is asked once per link', asyn
   assert.equal(parentOf('dup1'), 'gr');
   assert.equal(parentOf('dup2'), 'gr');
   assert.equal((await chrome.storage.session.get('lock')).lock, undefined, 'lock released');
+});
+
+test('clean titles only trim the saved title; a rewrite is ignored', async () => {
+  add({ id: 'rw', parentId: 'inbox', title: 'Postgres tips | Some Blog', url: 'https://rewrite.example/pg' });
+  add({ id: 'urlt', parentId: 'inbox', title: 'https://blog.example/saved-as-url', url: 'https://blog.example/saved-as-url' });
+  await sweep('titles'); await settle();
+  assert.equal(parentOf('rw'), 'gr', 'still filed');
+  assert.equal(nodes.get('rw').title, 'Postgres tips | Some Blog', 'rewritten title not applied');
+  assert.equal(nodes.get('urlt').title, 'blog.example post', "saved as a URL: the page's own title, trimmed");
+});
+
+test("Claude's answer is only stored as a suggestion when it is a real filing folder", async () => {
+  add({ id: 'inv2', parentId: 'inbox', title: 'inv2 title', url: 'https://invented.example/two' });
+  await sweep('invented'); await settle();
+  const { review } = await chrome.storage.local.get('review');
+  assert.equal(review.inv2.suggestedPath, '', 'invented path not kept');
+  assert.match(review.inv2.reason, /isn't an existing folder/);
+  await send({ cmd: 'fileFromReview', id: 'inv2', folderId: 'cg' }); await settle();
+  const { examples } = await chrome.storage.local.get('examples');
+  assert.deepEqual([examples[0].path, examples[0].note], ['career/growth', 'suggested nothing']);
 });

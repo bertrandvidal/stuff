@@ -9,7 +9,7 @@
 import { HOST_NAME, CONFIDENCE_RANK, DEFAULTS, getSettings } from './lib/config.js';
 import {
   findRootFolder, findChildFolder, collectFolders, indexUrls, normalizeUrl,
-  resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames, isFilingTarget,
+  resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames, isFilingTarget, isTrimmedTitle,
 } from './lib/tree.js';
 import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, MAX_HTML } from './lib/extract.js';
 
@@ -454,7 +454,13 @@ async function applyDecision(item, d, content, ctx) {
   if (target && confident && d.is_career_relevant !== false) {
     await moveTo(item.id, target.id);
     const cleaned = (d.clean_title || '').trim();
-    if (s.cleanTitles && cleaned && cleaned !== item.title) {
+    // Only a trimmed form of the title (site name or author removed) is used.
+    // A rewrite could be text a web page talked Claude into, and the new title
+    // would sync to every device. When the phone saved the URL as the title,
+    // the page's own title is the one that may be trimmed.
+    const titles = [item.title];
+    if (/^https?:\/\//i.test(item.title || '') || item.title === item.url) titles.push(content.title, content.pageTitle);
+    if (s.cleanTitles && cleaned !== item.title && titles.some((t) => isTrimmedTitle(cleaned, t))) {
       await chrome.bookmarks.update(item.id, { title: cleaned });
     }
     const { filed = {} } = await getStore('filed');
@@ -473,7 +479,11 @@ async function applyDecision(item, d, content, ctx) {
   }
   else if (d.is_career_relevant === false) why = `May not be career-related. ${why}`;
   if (d.new_folder_suggestion) why += ` Possible new folder: ${d.new_folder_suggestion}.`;
-  await park(item, ctx, { suggestedPath: target ? target.path : d.folder_path, confidence: d.confidence, reason: why.trim(), source: content.source });
+  // Only a real filing folder is kept as the suggestion. It preselects "File
+  // here" and becomes the "suggested ..." note of a learned example, which
+  // goes back into later prompts, so Claude's raw answer (possibly steered by
+  // the page) must never be stored here.
+  await park(item, ctx, { suggestedPath: target ? target.path : '', confidence: d.confidence, reason: why.trim(), source: content.source });
   return { outcome: 'review', path: ctx.review.title };
 }
 

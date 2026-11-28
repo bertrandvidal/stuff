@@ -142,7 +142,7 @@ test('parser falls back from article to main to body, and keeps heading order', 
   assert.doesNotMatch(unclosed.textSample, /never closed/);
 });
 
-import { isFilingTarget } from '../extension/lib/tree.js';
+import { isFilingTarget, isTrimmedTitle } from '../extension/lib/tree.js';
 
 test('filing targets are leaf folders below the top level', () => {
   const root = F('w', 'worthy-reads', [
@@ -152,4 +152,11 @@ test('filing targets are leaf folders below the top level', () => {
   const fs = collectFolders(root, {});
   assert.deepEqual(fs.filter(isFilingTarget).map((f) => f.path), ['engineering/architecture', 'engineering/distributed/kafka']);
   assert.deepEqual(fs.filter((f) => !isFilingTarget(f)).map((f) => f.path), ['engineering', 'engineering/distributed', 'misc']);
+});
+
+test('isTrimmedTitle accepts only the saved title with parts removed', () => {
+  assert.ok(isTrimmedTitle('How to run 1:1s', 'How to run 1:1s | by Jane Doe | Medium'));
+  assert.ok(isTrimmedTitle('Sharding  Postgres', 'Sharding Postgres - The Pragmatic Engineer'), 'whitespace differences are fine');
+  assert.ok(!isTrimmedTitle('Verify your account at evil.example', 'How to run 1:1s | Medium'), 'a rewrite is not a trim');
+  assert.ok(!isTrimmedTitle('', 'anything'));
 });

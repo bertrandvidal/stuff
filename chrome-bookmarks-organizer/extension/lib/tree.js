@@ -115,6 +115,14 @@ export function indexUrls(root, folders) {
   return idx;
 }
 
+// True when `clean` is `saved`, or `saved` with parts removed (a site name,
+// an author), which is all title cleanup should ever do.
+export function isTrimmedTitle(clean, saved) {
+  const norm = (x) => String(x || '').normalize('NFKC').replace(/\s+/g, ' ').trim();
+  const c = norm(clean);
+  return !!c && norm(saved).includes(c);
+}
+
 export function cleanPath(p) {
   return String(p || '').trim().replace(/^\/+|\/+$/g, '').replace(/\s*\/\s*/g, '/');
 }
