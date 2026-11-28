@@ -9,7 +9,7 @@
 import { HOST_NAME, CONFIDENCE_RANK, DEFAULTS, getSettings } from './lib/config.js';
 import {
   findRootFolder, findChildFolder, collectFolders, indexUrls, normalizeUrl,
-  resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames,
+  resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames, isFilingTarget,
 } from './lib/tree.js';
 import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, MAX_HTML } from './lib/extract.js';
 
@@ -86,7 +86,11 @@ async function getContext({ create }) {
   if (create && !inbox) inbox = await chrome.bookmarks.create({ parentId: root.id, title: s.inboxName, index: 0 });
   if (create && !review) review = await chrome.bookmarks.create({ parentId: root.id, title: s.reviewName, index: 1 });
   const folders = collectFolders(root, { exclude: [s.inboxName, s.reviewName], samples: s.samplesPerFolder });
-  return { s, root, inbox, review, folders, warning };
+  // Every folder counts for duplicate checks; only leaf folders below the top level receive links.
+  const targets = folders.filter(isFilingTarget);
+  const noTargets = folders.length && !targets.length
+    ? `"${root.title}" has no subfolders to file into, so every link will go to review.` : null;
+  return { s, root, inbox, review, folders, targets, warning: warning || noTargets };
 }
 
 // Sent with every host message so the Mac side's CLI tools (--tree, --selftest)
@@ -379,24 +383,30 @@ async function doSweep(reason) {
           bookmark: { title: item.title, url: item.url },
           content,
           rootName: ctx.root.title,
-          folders: ctx.folders.map((f) => ({ path: f.path, count: f.count, samples: f.samples })),
+          folders: ctx.targets.map((f) => ({ path: f.path, count: f.count, samples: f.samples })),
           examples,
           model: s.model,
         };
         const resp = await host.request('categorize', { job, folderNames: folderNames(s) });
-        if (!resp.ok) throw new Error(resp.error || 'Claude Code returned an error');
+        if (!resp.ok) {
+          const err = new Error(resp.error || 'Claude Code returned an error');
+          err.systemic = !!resp.systemic; // a Claude Code problem, not this link's
+          throw err;
+        }
         const { outcome, path } = await applyDecision(item, resp.decision, content, ctx);
         counts[outcome]++;
         urlIndex.set(normalizeUrl(item.url), path); // a second copy later in this run is a duplicate
         delete attempts[item.id];
       } catch (e) {
+        // Problems with Claude Code or the bridge pause filing; links wait in the inbox untouched.
+        if (e.systemic || /Native host (not installed|refused|crashed)/.test(e.message)) {
+          await log({ level: 'error', msg: `Filing paused: ${e.message}` });
+          await setStatus({ lastRun: Date.now(), lastError: e.message });
+          return { error: e.message, paused: true };
+        }
         attempts[item.id] = (attempts[item.id] || 0) + 1;
         counts.failed++;
         await log({ level: 'error', msg: `Attempt ${attempts[item.id]}/${s.maxAttempts} failed: ${e.message}`, title: item.title, url: item.url });
-        if (/Native host (not installed|refused|crashed)/.test(e.message)) {
-          await setStatus({ lastRun: Date.now(), lastError: e.message });
-          return { error: e.message };
-        }
         if (attempts[item.id] >= s.maxAttempts) {
           await park(item, ctx, { suggestedPath: '', confidence: 'low', reason: `Couldn't categorize after ${s.maxAttempts} tries: ${e.message}` });
           urlIndex.set(normalizeUrl(item.url), ctx.review.title);
@@ -417,7 +427,7 @@ async function doSweep(reason) {
 
 async function applyDecision(item, d, content, ctx) {
   const { s } = ctx;
-  const target = resolveFolder(ctx.folders, d.folder_path);
+  const target = resolveFolder(ctx.targets, d.folder_path);
   const confident = CONFIDENCE_RANK[d.confidence] >= CONFIDENCE_RANK[s.minConfidence];
 
   if (target && confident && d.is_career_relevant !== false) {
@@ -434,7 +444,12 @@ async function applyDecision(item, d, content, ctx) {
   }
 
   let why = d.reason || '';
-  if (!target) why = `Suggested "${d.folder_path}", which isn't an existing folder. ${why}`;
+  if (!target) {
+    const known = resolveFolder(ctx.folders, d.folder_path);
+    why = known
+      ? `Suggested "${known.path}", which ${known.depth === 1 ? 'is a top-level folder' : 'has subfolders'}; links only go into leaf folders. ${why}`
+      : `Suggested "${d.folder_path}", which isn't an existing folder. ${why}`;
+  }
   else if (d.is_career_relevant === false) why = `May not be career-related. ${why}`;
   if (d.new_folder_suggestion) why += ` Possible new folder: ${d.new_folder_suggestion}.`;
   await park(item, ctx, { suggestedPath: target ? target.path : d.folder_path, confidence: d.confidence, reason: why.trim(), source: content.source });
@@ -470,7 +485,7 @@ async function trackUserMove(id, info, ctx) {
   delete filed[id];
   delete review[id];
   await setStore({ filed, review });
-  if (!dest) return; // moved back to inbox or out of the root folder
+  if (!dest || !isFilingTarget(dest)) return; // back to inbox, out of the root, or not a leaf folder
 
   const [node] = await chrome.bookmarks.get(id);
   const prior = fromFiled ? fromFiled.path : fromReview.suggestedPath;
@@ -549,7 +564,7 @@ async function handle(msg) {
         error: ctx.error,
         warning: ctx.warning,
         rootName: ctx.root?.title,
-        folders: (ctx.folders || []).map((f) => ({ id: f.id, path: f.path, count: f.count })),
+        folders: (ctx.targets || []).map((f) => ({ id: f.id, path: f.path, count: f.count })), // choices for "File here"
         treeMarkdown: ctx.root ? treeToMarkdown(ctx.root.title, ctx.folders) : '',
         reviewItems,
         inboxCount,
@@ -561,8 +576,8 @@ async function handle(msg) {
     case 'fileFromReview': {
       const ctx = await getContext({ create: false });
       await reviewBookmark(ctx, msg.id);
-      const dest = ctx.folders.find((f) => f.id === msg.folderId);
-      if (!dest) throw new Error('Folder not found');
+      const dest = ctx.targets.find((f) => f.id === msg.folderId);
+      if (!dest) throw new Error('Links can only be filed into a leaf folder below the top level.');
       const { review = {} } = await getStore('review');
       const rec = review[msg.id] || {};
       await moveTo(msg.id, dest.id);

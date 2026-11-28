@@ -37,7 +37,7 @@ async function render() {
   for (const it of o.reviewItems) {
     const sel = el('select');
     const suggested = o.folders.find((f) => f.path === it.suggestedPath);
-    if (!suggested) sel.append(el('option', { value: '' }, it.suggestedPath ? `(suggested "${it.suggestedPath}" doesn't exist)` : 'Choose a folder…'));
+    if (!suggested) sel.append(el('option', { value: '' }, it.suggestedPath ? `Choose a folder (Claude suggested "${it.suggestedPath}")` : 'Choose a folder…'));
     for (const f of o.folders) {
       const opt = el('option', { value: f.id }, f.path);
       if (suggested && f.id === suggested.id) opt.selected = true;
@@ -158,10 +158,11 @@ $('test').addEventListener('click', async () => {
   out.textContent = 'Testing…';
   const r = await send({ cmd: 'ping' });
   if (r?.ok) {
-    out.className = r.auth_ok ? 'ok' : 'warn';
-    out.textContent = r.auth_ok
+    out.className = r.auth_ok && r.isolation_ok !== false ? 'ok' : 'warn';
+    out.textContent = (r.auth_ok
       ? `Connected. Claude Code ${r.claude_version || ''} is signed in.`
-      : `Host works, but Claude Code isn't signed in: ${r.auth_detail || 'run "claude auth login" in Terminal'}`;
+      : `Host works, but Claude Code isn't signed in: ${r.auth_detail || 'run "claude auth login" in Terminal'}`)
+      + (r.isolation ? ` ${r.isolation}` : '');
   } else {
     out.className = 'err';
     out.textContent = r?.error || 'No response from native host';

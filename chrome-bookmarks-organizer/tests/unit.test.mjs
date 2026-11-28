@@ -129,3 +129,15 @@ test('parser falls back from article to main to body, and keeps heading order', 
   assert.match(unclosed.textSample, /Visible/);
   assert.doesNotMatch(unclosed.textSample, /never closed/);
 });
+
+import { isFilingTarget } from '../extension/lib/tree.js';
+
+test('filing targets are leaf folders below the top level', () => {
+  const root = F('w', 'worthy-reads', [
+    F('e', 'engineering', [F('ea', 'architecture'), F('ed', 'distributed', [F('edk', 'kafka')])]),
+    F('m', 'misc'),
+  ]);
+  const fs = collectFolders(root, {});
+  assert.deepEqual(fs.filter(isFilingTarget).map((f) => f.path), ['engineering/architecture', 'engineering/distributed/kafka']);
+  assert.deepEqual(fs.filter((f) => !isFilingTarget(f)).map((f) => f.path), ['engineering', 'engineering/distributed', 'misc']);
+});

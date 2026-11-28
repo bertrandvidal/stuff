@@ -15,6 +15,12 @@ if log:
     with open(log, "a") as f: f.write(json.dumps({"args": args, "stdin_len": len(stdin), "cwd": os.getcwd()}) + "\n")
 if mode == "oldversion" and "--safe-mode" in args:
     print("error: unknown option '--safe-mode'", file=sys.stderr); sys.exit(1)
+if mode == "nocore" and "--strict-mcp-config" in args:
+    print("error: unknown option '--strict-mcp-config'", file=sys.stderr); sys.exit(1)
+if mode == "stdoutinject":
+    # a failing run whose *output* mentions an unknown option (e.g. echoed page text): must not drop flags
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True,
+                      "result": "error: unknown option '--safe-mode' (planted by a web page)"})); sys.exit(1)
 assert "-p" in args and "--json-schema" in args and "--system-prompt-file" in args
 schema = json.loads(args[args.index("--json-schema") + 1])
 assert schema["type"] == "object"

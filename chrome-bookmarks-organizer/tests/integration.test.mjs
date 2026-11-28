@@ -5,14 +5,19 @@ import { makeChrome } from './mockchrome.mjs';
 const decisions = {
   'medium.com': { folder_path: 'management/one-on-ones', confidence: 'high' },
   'blog.example': { folder_path: 'engineering/architecture', confidence: 'medium' },
-  'vague.example': { folder_path: 'general', confidence: 'low' },
+  'vague.example': { folder_path: 'general/reading', confidence: 'low' },
+  'parent.example': { folder_path: 'management', confidence: 'high' },
+  'toplevel.example': { folder_path: 'misc', confidence: 'high' },
+  'nested.example': { folder_path: 'engineering/data', confidence: 'high' },
   'invented.example': { folder_path: 'engineering/observability', confidence: 'high' },
 };
 let failHost = true;
+let failSetup = false;
 const m = makeChrome({ decide: async (job) => {
   const host = new URL(job.bookmark.url).hostname;
   if (host === 'flaky.example' && failHost) return { ok: false, error: 'Claude Code took longer than 240s' };
-  const d = decisions[host] || { folder_path: 'general', confidence: 'high' };
+  if (failSetup) return { ok: false, systemic: true, error: "This Claude Code doesn't support --strict-mcp-config. Update Claude Code." };
+  const d = decisions[host] || { folder_path: 'general/reading', confidence: 'high' };
   return { ok: true, decision: { is_career_relevant: true, clean_title: 'Clean ' + host, reason: 'because', new_folder_suggestion: host === 'invented.example' ? 'engineering/observability' : '', ...d } };
 } });
 globalThis.chrome = m.chrome;
@@ -38,6 +43,9 @@ for (const [id, t] of [['eng', 'engineering'], ['mgmt', 'management'], ['car', '
 add({ id: 'arch', parentId: 'eng', title: 'architecture' });
 add({ id: 'o3', parentId: 'mgmt', title: 'one-on-ones' });
 add({ id: 'hire', parentId: 'mgmt', title: 'hiring' });
+add({ id: 'cg', parentId: 'car', title: 'growth' });
+add({ id: 'gr', parentId: 'gen', title: 'reading' });
+add({ id: 'misc', parentId: 'wr', title: 'misc' }); // top-level folder with no subfolders
 add({ id: 'old', parentId: 'arch', title: 'Existing post', url: 'https://dup.example/post' });
 const links = { a: 'https://medium.com/@x/skip-levels-123?source=rss', b: 'https://blog.example/arch', c: 'https://vague.example/', d: 'https://www.dup.example/post/?utm_source=tw', e: 'https://invented.example/o11y', f: 'https://flaky.example/x' };
 for (const [id, url] of Object.entries(links)) add({ id, parentId: 'inbox', title: id + ' title', url });
@@ -79,11 +87,12 @@ test('your manual corrections become examples for next time', async () => {
   await settle();
   const ov = await send({ cmd: 'overview' });
   assert.equal(ov.reviewItems.length, 3);
-  await send({ cmd: 'fileFromReview', id: 'c', folderId: 'car' });
+  assert.match((await send({ cmd: 'fileFromReview', id: 'c', folderId: 'car' })).error, /leaf folder/);
+  await send({ cmd: 'fileFromReview', id: 'c', folderId: 'cg' });
   await settle();
   const { examples } = await chrome.storage.local.get('examples');
   assert.deepEqual(examples.map((e) => [e.path, e.note]), [
-    ['career', 'suggested general'],
+    ['career/growth', 'suggested general/reading'],
     ['management/hiring', 'corrected from management/one-on-ones'],
   ]);
 });
@@ -104,7 +113,7 @@ test('retry moves an item back to the inbox and it gets filed', async () => {
   assert.equal(parentOf('f'), 'inbox');
   assert.ok(calls.alarms.includes('sweep-soon'));
   await sweep('t4'); await settle();
-  assert.equal(parentOf('f'), 'gen');
+  assert.equal(parentOf('f'), 'gr');
 });
 
 test('folder names: rename existing folders, reject bad input, keep filing with custom names', async () => {
@@ -186,10 +195,10 @@ test('#14 and #16: no window for PDFs or dead links; same link twice in one run 
   assert.equal(dead.content.source, 'unavailable');
   assert.match(dead.content.note, /dead link \(HTTP 404\)/);
   assert.equal(calls.jobs.filter((j) => j.bookmark.url.includes('twice.example')).length, 1, 'Claude asked once');
-  assert.equal(parentOf('tw1'), 'gen');
+  assert.equal(parentOf('tw1'), 'gr');
   assert.equal(nodes.get(parentOf('tw2')).title, '_needs-review');
   const { review } = await chrome.storage.local.get('review');
-  assert.match(review.tw2.reason, /Already bookmarked in general/);
+  assert.match(review.tw2.reason, /Already bookmarked in general\/reading/);
 });
 
 test('#6: a page that never finishes loading is abandoned after the timeout and the window is closed', async () => {
@@ -213,4 +222,46 @@ test('folder names cannot contain a slash', async () => {
   const r = await send({ cmd: 'saveSettings', settings: { inboxName: 'reading/new' } });
   assert.match(r.error, /Inbox folder name can't contain "\/"/);
   assert.equal(nodes.get('inbox').title, '_to-file', 'nothing renamed or created');
+});
+
+test('links only go into leaf folders below the top level; anything else goes to review', async () => {
+  add({ id: 'edata', parentId: 'eng', title: 'data' });
+  add({ id: 'edb', parentId: 'edata', title: 'databases' });
+  for (const [id, url] of [['par', 'https://parent.example/x'], ['top', 'https://toplevel.example/y'], ['nest', 'https://nested.example/z']]) add({ id, parentId: 'inbox', title: `${id} title`, url });
+  calls.jobs.length = 0;
+  await sweep('leaf'); await settle();
+  const offered = calls.jobs[0].folders.map((f) => f.path).sort();
+  assert.deepEqual(offered, ['career/growth', 'engineering/architecture', 'engineering/data/databases', 'management/hiring', 'management/one-on-ones', 'general/reading'].sort(),
+    'Claude is only offered leaf folders below the top level');
+  const reviewId = nodes.get(parentOf('par')).title === '_needs-review';
+  assert.ok(reviewId, 'answer with a parent folder went to review');
+  assert.equal(nodes.get(parentOf('top')).title, '_needs-review', 'answer with a top-level folder went to review');
+  const { review } = await chrome.storage.local.get('review');
+  assert.match(review.par.reason, /"management", which is a top-level folder; links only go into leaf folders/);
+  assert.match(review.nest.reason, /"engineering\/data", which has subfolders/);
+  assert.match(review.top.reason, /"misc", which is a top-level folder/);
+  const ov = await send({ cmd: 'overview' });
+  assert.ok(!ov.folders.some((f) => ['management', 'misc', 'general', 'engineering', 'career'].includes(f.path)), '"File here" offers leaf folders only');
+});
+
+test('moving a bookmark into a non-leaf folder is not learned as an example', async () => {
+  const before = (await chrome.storage.local.get('examples')).examples.length;
+  await chrome.bookmarks.move('par', { parentId: 'mgmt' }); // Bert drags it into "management" itself
+  await settle();
+  assert.equal((await chrome.storage.local.get('examples')).examples.length, before);
+});
+
+test('#1: a Claude Code setup problem pauses filing without counting failures', async () => {
+  failSetup = true;
+  add({ id: 'setup', parentId: 'inbox', title: 'setup title', url: 'https://setup.example/z' });
+  const r = await sweep('setup'); await settle();
+  assert.equal(r.paused, true);
+  assert.equal(parentOf('setup'), 'inbox', 'link waits in the inbox');
+  const { attempts, status, log } = await chrome.storage.local.get(['attempts', 'status', 'log']);
+  assert.equal(attempts.setup, undefined, 'not counted as a failed attempt');
+  assert.match(status.lastError, /doesn't support --strict-mcp-config/);
+  assert.match(log[0].msg, /^Filing paused/);
+  failSetup = false;
+  await sweep('setup fixed'); await settle();
+  assert.equal(parentOf('setup'), 'gr', 'filed normally once Claude Code is fixed');
 });

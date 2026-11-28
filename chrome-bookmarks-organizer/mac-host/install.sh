@@ -62,7 +62,7 @@ try:
 except Exception:
     cfg = {}
 cfg["claude_path"] = claude
-cfg["compat"] = False  # re-detect on next run in case Claude Code was updated
+cfg.pop("compat", None)  # no longer used
 json.dump(cfg, open(path, "w"), indent=2)
 PYEOF
 chmod 600 "$APP/config.json"

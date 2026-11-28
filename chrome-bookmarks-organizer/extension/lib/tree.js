@@ -65,13 +65,19 @@ export function collectFolders(root, { exclude = [], samples = 6 } = {}) {
         .sort((a, b) => (b.dateAdded || 0) - (a.dateAdded || 0))
         .slice(0, samples)
         .map((x) => truncate(x.title || x.url, 100));
-      out.push({ id: c.id, path, title: c.title, count: links.length, samples: sampleTitles });
+      const leaf = !(c.children || []).some((x) => !x.url);
+      const depth = path.split('/').length;
+      out.push({ id: c.id, path, title: c.title, count: links.length, samples: sampleTitles, leaf, depth });
       walk(c, path);
     }
   };
   walk(root, '');
   return out;
 }
+
+// Links are only ever filed into a leaf folder (no subfolders) below the top
+// level, e.g. engineering/architecture, never engineering itself.
+export const isFilingTarget = (f) => f.leaf && f.depth >= 2;
 
 const TRACKING_PARAMS = /^(utm_\w+|fbclid|gclid|mc_cid|mc_eid|ref|ref_src|source|sk|s|si)$/i;
 

@@ -50,6 +50,10 @@ In Chrome, tap ⋮ then the star. In the "Bookmarked" message tap **Edit**, set 
 
 Filing happens the next time Chrome is open on your Mac: about 30 seconds after the bookmark syncs, plus a safety-net check every 15 minutes. Each link takes Claude roughly 10 to 30 seconds.
 
+## Where links go
+
+Links are only filed into **leaf folders below the top level**: folders with no subfolders of their own, such as `engineering/architecture`, never `engineering` itself. Claude is only offered those folders. If it still answers with a top-level folder, a folder that has subfolders, or one that doesn't exist, or if it isn't confident enough, the link goes to review. A top-level folder with no subfolders never receives links.
+
 ## Reviewing and teaching it
 
 - The toolbar icon shows how many links are waiting in `_review`. Click it to see each one with Claude's suggestion and reason, then **File here** (pick another folder first if you disagree) or **Retry**.
@@ -106,7 +110,8 @@ From `chrome-bookmarks-organizer/`, `npm test` runs everything: Node tests for t
 ## Files
 
 - `extension/`: the Chrome extension (Manifest V3).
-- `mac-host/host.py`: the bridge Chrome launches; runs `claude -p` with web search as its only tool, no MCP servers, no CLAUDE.md, no saved sessions.
+- `mac-host/host.py`: the bridge Chrome launches; runs `claude -p` with web search as its only tool, no MCP servers, no CLAUDE.md, no saved sessions. The bookmark's title, URL and page text go to Claude inside a block whose tag is random on every request, with angle brackets neutralized, so web text can't break out of it.
+  - Isolation: web search only, no MCP tools or servers, nothing outside pre-approved actions. These are never dropped; if Claude Code doesn't support one, filing pauses with "Update Claude Code" on the status card and links wait in the inbox. Two optional flags (`--safe-mode`, `--no-session-persistence`) are skipped for that run only if an older Claude Code rejects them. **Test Claude Code connection** shows which are active.
 - `mac-host/rules.md`: how Claude decides. Shared with the chat skill.
 - `mac-host/folder-notes.md`: your notes on what each folder means. Installed once, then yours to edit.
 - `mac-host/uninstall.sh`: removes the bridge. Bookmarks are never deleted by any part of this.
