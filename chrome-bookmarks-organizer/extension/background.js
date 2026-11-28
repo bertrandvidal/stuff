@@ -11,7 +11,7 @@ import {
   findRootFolder, findChildFolder, collectFolders, indexUrls, normalizeUrl,
   resolveFolder, treeToMarkdown, truncate, folderNameProblems, planFolderRenames,
 } from './lib/tree.js';
-import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor } from './lib/extract.js';
+import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, pageExtractor, MAX_HTML } from './lib/extract.js';
 
 const MAX_LOG = 150;
 const MAX_EXAMPLES = 30;
@@ -187,9 +187,33 @@ class HostClient {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function fetchPage(url) {
+function withTimeout(promise, ms, message) {
+  let timer;
+  const timeout = new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(message)), ms); });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+// Read at most `max` characters of the body, then stop the download.
+async function readCapped(res, max) {
+  if (!res.body?.getReader) return (await res.text()).slice(0, max);
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let out = '';
+  try {
+    while (out.length < max) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      out += decoder.decode(value, { stream: true });
+    }
+  } finally {
+    reader.cancel().catch(() => {});
+  }
+  return out.slice(0, max);
+}
+
+async function fetchPage(url, timeoutMs) {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const res = await fetch(url, {
       credentials: 'include',
@@ -198,14 +222,16 @@ async function fetchPage(url) {
       headers: { Accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8' },
     });
     const ct = res.headers.get('content-type') || '';
-    if (!/html|xml/i.test(ct)) {
-      return { ok: res.ok, status: res.status, blocked: false, content: { contentType: ct, finalUrl: res.url } };
+    const download = /attachment/i.test(res.headers.get('content-disposition') || '');
+    if (!/html|xml/i.test(ct) || download) {
+      res.body?.cancel?.().catch?.(() => {});
+      return { ok: res.ok, status: res.status, isHtml: false, content: { contentType: ct || 'unknown', finalUrl: res.url } };
     }
-    const html = (await res.text()).slice(0, 2_000_000);
+    const html = await readCapped(res, MAX_HTML);
     const content = { ...parseHtmlMeta(html), finalUrl: res.url };
-    return { ok: res.ok, status: res.status, blocked: looksBlocked(res.status, content.pageTitle, html), content };
+    return { ok: res.ok, status: res.status, isHtml: true, blocked: looksBlocked(res.status, content.pageTitle, html), content };
   } catch (e) {
-    return { ok: false, error: e.name === 'AbortError' ? 'fetch timed out' : e.message };
+    return { ok: false, error: e.name === 'AbortError' ? `no response within ${timeoutMs / 1000}s` : e.message };
   } finally {
     clearTimeout(timer);
   }
@@ -228,9 +254,17 @@ function waitForComplete(tabId, timeoutMs) {
   });
 }
 
+async function runExtractor(tabId) {
+  // injectImmediately: don't wait for the page to go idle, which a page that
+  // keeps loading forever never does.
+  const [{ result } = {}] = await chrome.scripting.executeScript({ target: { tabId }, func: pageExtractor, injectImmediately: true });
+  return result;
+}
+
 // Real Chrome, with your cookies and a real rendering engine: gets past most
-// bot walls (Medium, Substack, Cloudflare) that block a plain fetch.
-async function extractViaTab(url) {
+// bot walls (Medium, Substack, Cloudflare) that block a plain fetch. Bounded by
+// timeoutMs from start to finish; the window is always closed afterwards.
+async function extractViaTab(url, timeoutMs) {
   let win = null;
   let tabId = null;
   try {
@@ -240,16 +274,20 @@ async function extractViaTab(url) {
     const tab = await chrome.tabs.create({ url, active: false });
     tabId = tab.id;
   }
-  try {
-    await waitForComplete(tabId, 25000);
-    await sleep(2000); // let client-rendered pages settle
-    let [{ result } = {}] = await chrome.scripting.executeScript({ target: { tabId }, func: pageExtractor });
+  const work = (async () => {
+    await waitForComplete(tabId, Math.max(3000, timeoutMs - 8000));
+    await sleep(1500); // let client-rendered pages settle
+    let result = await runExtractor(tabId);
     if (result?.blocked) {
       // Cloudflare's JS challenge usually clears itself in a few seconds in a real browser.
-      await sleep(6000);
-      [{ result } = {}] = await chrome.scripting.executeScript({ target: { tabId }, func: pageExtractor });
+      await sleep(5000);
+      result = await runExtractor(tabId);
     }
     return result || { error: 'no result' };
+  })();
+  work.catch(() => {}); // after a timeout, its later failure (window closed) is expected
+  try {
+    return await withTimeout(work, timeoutMs, `page didn't finish loading within ${timeoutMs / 1000}s`);
   } finally {
     if (win) await chrome.windows.remove(win.id).catch(() => {});
     else if (tabId) await chrome.tabs.remove(tabId).catch(() => {});
@@ -258,18 +296,27 @@ async function extractViaTab(url) {
 
 async function extractContent(url, s) {
   if (!/^https?:/i.test(url)) return { source: 'none', note: 'not a web page' };
-  const f = await fetchPage(url);
+  const timeoutMs = Math.min(120, Math.max(5, Number(s.pageTimeoutSeconds) || DEFAULTS.pageTimeoutSeconds)) * 1000;
+  const f = await fetchPage(url, timeoutMs);
+
+  // A PDF, image or download: a window would only download it again, so go by the URL and type.
+  if (f.ok && f.isHtml === false) {
+    return { ...f.content, source: 'fetch', note: `not a web page (${f.content.contentType})` };
+  }
+  // A dead link: there's nothing for a window to read.
+  if (f.status === 404 || f.status === 410) return { source: 'unavailable', note: `dead link (HTTP ${f.status})` };
+
   const fetched = f.ok && !f.blocked ? f.content : null;
   if (fetched && isGoodEnough(fetched)) return { ...fetched, source: 'fetch' };
 
   if (s.useTabFallback) {
     try {
-      const t = await extractViaTab(url);
+      const t = await extractViaTab(url, timeoutMs);
       if (t && !t.error && !t.blocked) {
         return { ...mergeContent(fetched || {}, t), source: fetched ? 'fetch+tab' : 'tab' };
       }
     } catch (e) {
-      await log({ level: 'warn', msg: `Tab extraction failed: ${e.message}`, url });
+      await log({ level: 'warn', msg: `Couldn't read the page in a window (${e.message}); going by what's available`, url });
     }
   }
   if (fetched) return { ...fetched, source: 'fetch (thin)' };
@@ -338,8 +385,9 @@ async function doSweep(reason) {
         };
         const resp = await host.request('categorize', { job, folderNames: folderNames(s) });
         if (!resp.ok) throw new Error(resp.error || 'Claude Code returned an error');
-        const outcome = await applyDecision(item, resp.decision, content, ctx);
+        const { outcome, path } = await applyDecision(item, resp.decision, content, ctx);
         counts[outcome]++;
+        urlIndex.set(normalizeUrl(item.url), path); // a second copy later in this run is a duplicate
         delete attempts[item.id];
       } catch (e) {
         attempts[item.id] = (attempts[item.id] || 0) + 1;
@@ -351,6 +399,7 @@ async function doSweep(reason) {
         }
         if (attempts[item.id] >= s.maxAttempts) {
           await park(item, ctx, { suggestedPath: '', confidence: 'low', reason: `Couldn't categorize after ${s.maxAttempts} tries: ${e.message}` });
+          urlIndex.set(normalizeUrl(item.url), ctx.review.title);
           delete attempts[item.id];
         }
       }
@@ -381,7 +430,7 @@ async function applyDecision(item, d, content, ctx) {
     filed[item.id] = { path: target.path, at: Date.now() };
     await setStore({ filed: trimMap(filed, 500) });
     await log({ msg: `Filed in ${target.path} (${d.confidence})`, title: item.title, url: item.url, path: target.path, reason: d.reason, source: content.source });
-    return 'filed';
+    return { outcome: 'filed', path: target.path };
   }
 
   let why = d.reason || '';
@@ -389,7 +438,7 @@ async function applyDecision(item, d, content, ctx) {
   else if (d.is_career_relevant === false) why = `May not be career-related. ${why}`;
   if (d.new_folder_suggestion) why += ` Possible new folder: ${d.new_folder_suggestion}.`;
   await park(item, ctx, { suggestedPath: target ? target.path : d.folder_path, confidence: d.confidence, reason: why.trim(), source: content.source });
-  return 'review';
+  return { outcome: 'review', path: ctx.review.title };
 }
 
 async function park(item, ctx, info) {
@@ -453,10 +502,27 @@ async function updateBadge() {
 
 // ---------- messages from the options page ----------
 
-chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
+const OPTIONS_URL = chrome.runtime.getURL('options.html');
+
+// Only this extension's own options page may send commands.
+function fromOptionsPage(sender) {
+  return sender?.id === chrome.runtime.id && String(sender.url || '').startsWith(OPTIONS_URL);
+}
+
+chrome.runtime.onMessage.addListener((msg, sender, reply) => {
+  if (!fromOptionsPage(sender)) return false;
   handle(msg).then(reply, (e) => reply({ error: e.message }));
   return true;
 });
+
+// Review actions only apply to bookmarks that are actually in the review folder.
+async function reviewBookmark(ctx, id) {
+  const [node] = await chrome.bookmarks.get(String(id)).catch(() => []);
+  if (!node || !ctx.review || node.parentId !== ctx.review.id) {
+    throw new Error('That bookmark is no longer in the review folder.');
+  }
+  return node;
+}
 
 async function handle(msg) {
   switch (msg.cmd) {
@@ -494,6 +560,7 @@ async function handle(msg) {
     }
     case 'fileFromReview': {
       const ctx = await getContext({ create: false });
+      await reviewBookmark(ctx, msg.id);
       const dest = ctx.folders.find((f) => f.id === msg.folderId);
       if (!dest) throw new Error('Folder not found');
       const { review = {} } = await getStore('review');
@@ -512,11 +579,13 @@ async function handle(msg) {
     }
     case 'retry': {
       const ctx = await getContext({ create: true });
+      await reviewBookmark(ctx, msg.id);
       const { review = {} } = await getStore('review');
       delete review[msg.id];
       await setStore({ review });
       await moveTo(msg.id, ctx.inbox.id);
       scheduleSoon();
+      await updateBadge();
       return { ok: true };
     }
     case 'clearExamples':

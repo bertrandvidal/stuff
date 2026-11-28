@@ -42,7 +42,7 @@ Change them on the extension's page (toolbar icon), under Settings. Matching ign
 | Inbox folder | `_inbox` | Inside the root. Where you save new links. Created if missing. |
 | Review folder | `_review` | Inside the root. Where unclear links wait. Created if missing. |
 
-The leading underscore keeps the two system folders visually apart from your categories. Renaming the inbox or review folder in Settings also renames the existing folder in Chrome, so nothing is left behind and links already in them stay put. Settings refuses a name that another folder in the root already uses, a root folder that doesn't exist, or the same name for inbox and review. **Reset folder names to defaults** puts all three back. The Mac side picks up the new names the next time the extension talks to it, so `run-host.sh --tree` and `--selftest` match.
+The leading underscore keeps the two system folders visually apart from your categories. Renaming the inbox or review folder in Settings also renames the existing folder in Chrome, so nothing is left behind and links already in them stay put. Settings refuses a name that another folder in the root already uses, a root folder that doesn't exist, the same name for inbox and review, or a name containing `/` (each setting names one folder, never a path, so it can't create subfolders). **Reset folder names to defaults** puts all three back. The Mac side picks up the new names the next time the extension talks to it, so `run-host.sh --tree` and `--selftest` match.
 
 ## Saving a link on Android
 
@@ -55,7 +55,7 @@ Filing happens the next time Chrome is open on your Mac: about 30 seconds after 
 - The toolbar icon shows how many links are waiting in `_review`. Click it to see each one with Claude's suggestion and reason, then **File here** (pick another folder first if you disagree) or **Retry**.
 - You can also move bookmarks yourself, on any device. If you move something the organizer placed, or file something out of `_review`, that choice is saved as an example and Claude follows it next time. The last 30 are kept; you can see and clear them on the same page.
 - For recurring mistakes, add a line to `~/.chrome-bookmarks-organizer/folder-notes.md` explaining where a folder's boundary is. It applies to the next link.
-- Settings on the same page: confidence needed to auto-file, model (Sonnet by default, Haiku is lighter on usage), check interval, title cleanup.
+- Settings on the same page: confidence needed to auto-file, model (Sonnet by default, Haiku is lighter on usage), check interval, page read timeout, title cleanup.
 
 ## How Chrome runs the Mac bridge
 
@@ -71,9 +71,13 @@ Chrome started from the Dock doesn't read your shell profile, so its PATH is the
 
 ## How it reads pages
 
-1. Plain fetch from inside Chrome, with your cookies. Enough for most blogs.
-2. If that's blocked (Medium, Substack and Cloudflare-protected sites often block non-browser requests) or too thin, it opens the page in a minimized window for a few seconds, reads it like a normal visit, and closes it. You may briefly see it in the Dock.
+1. Plain fetch from inside Chrome, with your cookies. Enough for most blogs. Only the first 300 KB of the page is read.
+2. If that's blocked (Medium, Substack and Cloudflare-protected sites often block non-browser requests) or too thin, it opens the page in a minimized window for a few seconds, reads it like a normal visit, and closes it. You may briefly see it in the Dock. PDFs, downloads and dead links (404, 410) skip this step, since a window would only download the file again or show an error page.
 3. If both fail, Claude gets the saved title and URL (the slug usually contains the title) and may run one web search on it.
+
+Each of the first two steps gets the **page read timeout** (30 seconds by default, set on the extension's page). A page that never finishes loading is read as far as it got, its window is closed, and filing moves on.
+
+The same link saved twice, even with different tracking parameters such as `?utm_source=`, is filed once; the copy goes to review as a duplicate.
 
 Paywalled articles still categorize fine: the title, description and opening paragraphs are enough.
 

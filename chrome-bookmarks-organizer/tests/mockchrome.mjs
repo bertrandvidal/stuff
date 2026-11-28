@@ -23,11 +23,12 @@ export function makeChrome({ decide }) {
     bookmarks: bm,
     storage: { local: store(), session: store() },
     alarms: { onAlarm: ev(), async create(name, info) { calls.alarms.push(name); } },
-    runtime: { onInstalled: ev(), onStartup: ev(), onMessage: ev(), lastError: null, openOptionsPage() {}, connectNative: portFactory },
+    runtime: { id: 'testext', getURL: (p) => `chrome-extension://testext/${p}`, onInstalled: ev(), onStartup: ev(), onMessage: ev(), lastError: null, openOptionsPage() {}, connectNative: portFactory },
     action: { onClicked: ev(), async setBadgeText({ text }) { calls.badge.push(text); }, async setBadgeBackgroundColor() {} },
-    tabs: { onUpdated: ev(), async get(id) { return { id, status: 'complete' }; }, async create() { return { id: 9 }; }, async remove() {} },
-    windows: { async create({ url }) { calls.windows++; calls.lastTabUrl = url; return { id: 1, tabs: [{ id: 7 }] }; }, async remove() {} },
-    scripting: { async executeScript() { return [{ result: { title: 'How to run skip-level 1:1s', description: 'A practical guide for managers of managers to running skip-level one-on-ones well.', textSample: 'Skip-levels...', blocked: false, finalUrl: calls.lastTabUrl } }]; } },
+    tabs: { onUpdated: ev(), async get(id) { return { id, status: /hang/.test(calls.lastTabUrl) ? 'loading' : 'complete' }; }, async create() { return { id: 9 }; }, async remove() {} },
+    windows: { async create({ url }) { calls.windows++; calls.lastTabUrl = url; return { id: 1, tabs: [{ id: 7 }] }; }, async remove() { calls.windowsClosed = (calls.windowsClosed || 0) + 1; } },
+    scripting: { async executeScript() { if (/hang/.test(calls.lastTabUrl)) return new Promise(() => {}); return [{ result: { title: 'How to run skip-level 1:1s', description: 'A practical guide for managers of managers to running skip-level one-on-ones well.', textSample: 'Skip-levels...', blocked: false, finalUrl: calls.lastTabUrl } }]; } },
   };
-  return { chrome, nodes, add, calls, send: (msg) => new Promise((res) => chrome.runtime.onMessage.ls[0](msg, {}, res)) };
+  return { chrome, nodes, add, calls, OPTIONS_SENDER: { id: 'testext', url: 'chrome-extension://testext/options.html' },
+    send: (msg, sender = { id: 'testext', url: 'chrome-extension://testext/options.html' }) => new Promise((res) => chrome.runtime.onMessage.ls[0](msg, sender, res)) };
 }

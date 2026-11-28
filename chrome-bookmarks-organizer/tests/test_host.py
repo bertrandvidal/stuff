@@ -153,6 +153,13 @@ class TestFolderNames(HostTestCase):
         self.assertIn("hiding _to-file and _needs-review", after)
         self.assertIn("- one-on-ones  [1]", after)
 
+    def test_folder_names_with_slash_are_ignored(self):
+        self.native([{"id": 1, "type": "ping",
+                      "folderNames": {"root": "Worthy Reads", "inbox": "a/b", "review": "_needs-review"}}])
+        cfg = self.read_config()
+        self.assertNotIn("inbox_folder_name", {k: v for k, v in cfg.items() if v == "a/b"})
+        self.assertEqual(cfg.get("review_folder_name"), "_needs-review")
+
     def test_root_found_with_loose_matching(self):
         out = self.cli("--tree").stdout  # default "worthy-reads" matches "Worthy Reads"
         self.assertIn("# Worthy Reads", out)

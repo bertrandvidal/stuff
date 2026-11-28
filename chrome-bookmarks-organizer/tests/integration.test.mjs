@@ -19,6 +19,9 @@ globalThis.chrome = m.chrome;
 globalThis.fetch = async (url) => {
   const h = new URL(url).hostname;
   if (h === 'medium.com') return { ok: false, status: 403, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Just a moment...</title>' };
+  if (h === 'hang.example') return { ok: false, status: 403, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Just a moment...</title>' };
+  if (h === 'files.example') return { ok: true, status: 200, url, headers: new Map([['content-type', 'application/pdf']]), text: async () => '%PDF-1.7' };
+  if (h === 'gone.example') return { ok: false, status: 404, url, headers: new Map([['content-type', 'text/html']]), text: async () => '<title>Page not found</title>' };
   const html = `<title>${h} post</title><meta name="description" content="A long enough description of this ${h} article that clearly explains its topic.">`;
   return { ok: true, status: 200, url, headers: new Map([['content-type', 'text/html']]), text: async () => html };
 };
@@ -140,4 +143,74 @@ test('folder names: rename existing folders, reject bad input, keep filing with 
 
 test('host is told the current folder names', () => {
   assert.deepEqual(calls.lastFolderNames, { root: 'Worthy Reads', inbox: '_to-file', review: '_needs-review' });
+});
+
+// ---------- review fixes: permissions, extraction, duplicates, timeout, names ----------
+
+test('#13: commands are ignored unless they come from the options page', async () => {
+  const listener = chrome.runtime.onMessage.ls[0];
+  let replied = false;
+  for (const sender of [
+    { id: 'some-other-extension', url: 'chrome-extension://some-other-extension/options.html' },
+    { id: 'testext', url: 'https://evil.example/', tab: { id: 3 } }, // e.g. a content script
+    {},
+  ]) {
+    assert.equal(listener({ cmd: 'clearLog' }, sender, () => { replied = true; }), false);
+  }
+  await settle();
+  assert.equal(replied, false);
+  assert.ok((await chrome.storage.local.get('log')).log.length > 0, 'log not cleared');
+});
+
+test('#13: review actions refuse bookmarks that are not in the review folder', async () => {
+  const r = await send({ cmd: 'fileFromReview', id: 'old', folderId: 'gen' });
+  assert.match(r.error, /no longer in the review folder/);
+  assert.equal(parentOf('old'), 'arch', 'not moved');
+  assert.match((await send({ cmd: 'retry', id: 'old' })).error, /no longer in the review folder/);
+});
+
+test('#14 and #16: no window for PDFs or dead links; same link twice in one run is filed once', async () => {
+  for (const [id, url] of [
+    ['pdf', 'https://files.example/paper.pdf'],
+    ['dead', 'https://gone.example/post'],
+    ['tw1', 'https://twice.example/a'],
+    ['tw2', 'https://twice.example/a?utm_source=newsletter'],
+  ]) add({ id, parentId: 'inbox', title: `${id} title`, url });
+  const windowsBefore = calls.windows;
+  calls.jobs.length = 0;
+  await sweep('fixes'); await settle();
+  assert.equal(calls.windows, windowsBefore, 'no hidden window opened');
+  const pdf = calls.jobs.find((j) => j.bookmark.url.includes('paper.pdf'));
+  assert.match(pdf.content.note, /not a web page \(application\/pdf\)/);
+  const dead = calls.jobs.find((j) => j.bookmark.url.includes('gone.example'));
+  assert.equal(dead.content.source, 'unavailable');
+  assert.match(dead.content.note, /dead link \(HTTP 404\)/);
+  assert.equal(calls.jobs.filter((j) => j.bookmark.url.includes('twice.example')).length, 1, 'Claude asked once');
+  assert.equal(parentOf('tw1'), 'gen');
+  assert.equal(nodes.get(parentOf('tw2')).title, '_needs-review');
+  const { review } = await chrome.storage.local.get('review');
+  assert.match(review.tw2.reason, /Already bookmarked in general/);
+});
+
+test('#6: a page that never finishes loading is abandoned after the timeout and the window is closed', async () => {
+  const { settings } = await chrome.storage.local.get('settings');
+  await chrome.storage.local.set({ settings: { ...settings, pageTimeoutSeconds: 5 } });
+  add({ id: 'hang', parentId: 'inbox', title: 'A page that never loads', url: 'https://hang.example/forever' });
+  const closedBefore = calls.windowsClosed || 0;
+  calls.jobs.length = 0;
+  const t0 = Date.now();
+  const r = await sweep('timeout'); await settle();
+  const secs = (Date.now() - t0) / 1000;
+  assert.ok(secs >= 4.5 && secs < 9, `took ${secs}s`);
+  assert.equal((calls.windowsClosed || 0) - closedBefore, 1, 'window closed');
+  assert.equal(r.failed, 0, 'still filed from title and URL');
+  assert.equal(calls.jobs[0].content.source, 'unavailable');
+  const { log } = await chrome.storage.local.get('log');
+  assert.ok(log.some((e) => /didn't finish loading within 5s/.test(e.msg)));
+});
+
+test('folder names cannot contain a slash', async () => {
+  const r = await send({ cmd: 'saveSettings', settings: { inboxName: 'reading/new' } });
+  assert.match(r.error, /Inbox folder name can't contain "\/"/);
+  assert.equal(nodes.get('inbox').title, '_to-file', 'nothing renamed or created');
 });

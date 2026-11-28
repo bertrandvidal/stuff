@@ -135,6 +135,8 @@ export function folderNameProblems(s) {
   const out = [];
   for (const [k, label] of NAME_FIELDS) {
     if (!normalizeName(s[k])) out.push(`${label} name needs at least one letter or number.`);
+    // One folder, never a path: a slash would read as a subfolder in folder paths.
+    if (String(s[k] || '').includes('/')) out.push(`${label} name can't contain "/". It names a single folder, not a path.`);
   }
   const inbox = normalizeName(s.inboxName);
   if (inbox && inbox === normalizeName(s.reviewName)) out.push('Inbox and review folders need different names.');

@@ -102,3 +102,30 @@ test('renaming inbox/review renames the existing folder, refuses clashes', () =>
   // Nothing to rename yet (folders not created): fine, created on next run
   assert.deepEqual(planFolderRenames(F('w', 'worthy-reads'), prev, { inboxName: 'a', reviewName: 'b' }), { renames: [], errors: [] });
 });
+
+test('folder names reject slashes', () => {
+  const p = folderNameProblems({ rootFolderName: 'worthy/reads', inboxName: '_inbox', reviewName: 'a/b' });
+  assert.equal(p.filter((x) => /can't contain "\/"/.test(x)).length, 2);
+  assert.deepEqual(folderNameProblems({ rootFolderName: 'reads > worthy', inboxName: '_inbox', reviewName: '_review' }), [], '">" is allowed');
+});
+
+test('parser stays fast on malformed HTML (no freeze the timeout could not interrupt)', () => {
+  for (const html of ['<body>' + '<script '.repeat(40000), '<h1>' + '<h1 x'.repeat(60000), '<body>' + '<'.repeat(300000), '<meta a="b" '.repeat(25000)]) {
+    const t = Date.now();
+    parseHtmlMeta(html);
+    assert.ok(Date.now() - t < 500, `took ${Date.now() - t}ms`);
+  }
+});
+
+test('parser falls back from article to main to body, and keeps heading order', () => {
+  const m = parseHtmlMeta('<html><body><nav>skip</nav><main><h2>Second</h2><p>Main text</p></main></body></html>');
+  assert.match(m.textSample, /Main text/);
+  assert.doesNotMatch(m.textSample, /skip/);
+  const b = parseHtmlMeta('<html><body><h1>One</h1><h2>Two</h2><h1>Three</h1><p>Body text</p><script>x()</script></body></html>');
+  assert.deepEqual(b.headings, ['One', 'Two', 'Three']);
+  assert.match(b.textSample, /Body text/);
+  assert.doesNotMatch(b.textSample, /x\(\)/);
+  const unclosed = parseHtmlMeta('<html><body><p>Visible</p><script>never closed');
+  assert.match(unclosed.textSample, /Visible/);
+  assert.doesNotMatch(unclosed.textSample, /never closed/);
+});

@@ -1,11 +1,18 @@
 // Page content extraction. parseHtmlMeta runs in the service worker on fetched
-// HTML (no DOM there, so it uses regexes). pageExtractor runs inside a real tab
-// via chrome.scripting and must stay self-contained.
+// HTML (no DOM there). pageExtractor runs inside a real tab via
+// chrome.scripting and must stay self-contained.
+//
+// parseHtmlMeta must stay fast on any input: it runs synchronously, so a slow
+// parse would freeze the worker and no timeout could interrupt it. Everything
+// below is a single forward scan (indexOf, or regexes that can't backtrack
+// across '<'), so cost grows linearly with page size.
+
+export const MAX_HTML = 300_000; // plenty for the head and the opening of any article
 
 const ENTITY = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', '#39': "'" };
 
 export function decodeEntities(s) {
-  return String(s || '').replace(/&(#x[0-9a-f]+|#\d+|[a-z0-9]+);/gi, (m, e) => {
+  return String(s || '').replace(/&(#x[0-9a-f]{1,6}|#\d{1,7}|[a-z0-9]{1,10});/gi, (m, e) => {
     if (e[0] === '#') {
       const code = e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
       return Number.isFinite(code) ? String.fromCodePoint(code) : m;
@@ -24,20 +31,69 @@ function parseAttrs(tag) {
   return attrs;
 }
 
+const isTagEnd = (ch) => ch === undefined || ch === '>' || ch === '/' || /\s/.test(ch);
+
+// <tag ...>inner</tag> blocks, found by a forward scan. An unclosed tag ends
+// the scan instead of being retried at every later position.
+function blocks(html, lower, tag, limit = Infinity) {
+  const out = [];
+  const open = `<${tag}`;
+  const close = `</${tag}`;
+  let i = 0;
+  while (out.length < limit) {
+    const s = lower.indexOf(open, i);
+    if (s < 0) break;
+    if (!isTagEnd(lower[s + open.length])) { i = s + open.length; continue; }
+    const gt = lower.indexOf('>', s);
+    if (gt < 0) break;
+    const e = lower.indexOf(close, gt);
+    if (e < 0) break;
+    out.push({ at: s, open: html.slice(s, gt + 1), inner: html.slice(gt + 1, e) });
+    i = e + close.length;
+  }
+  return out;
+}
+
+const NOISE_TAGS = ['script', 'style', 'noscript', 'svg', 'nav', 'header', 'footer', 'form', 'aside'];
+
+// Drop noise blocks entirely; an unclosed one drops the rest of the page.
+function removeBlocks(html, tags) {
+  for (const tag of tags) {
+    const lower = html.toLowerCase();
+    const open = `<${tag}`;
+    const close = `</${tag}`;
+    let out = '';
+    let i = 0;
+    for (;;) {
+      const s = lower.indexOf(open, i);
+      if (s < 0) { out += html.slice(i); break; }
+      if (!isTagEnd(lower[s + open.length])) { out += html.slice(i, s + open.length); i = s + open.length; continue; }
+      out += html.slice(i, s) + ' ';
+      const e = lower.indexOf(close, s);
+      if (e < 0) break;
+      const gt = lower.indexOf('>', e);
+      if (gt < 0) break;
+      i = gt + 1;
+    }
+    html = out;
+  }
+  return html;
+}
+
 function stripToText(html) {
   return squash(
-    html
-      .replace(/<(script|style|noscript|svg|nav|header|footer|form|aside)\b[\s\S]*?<\/\1>/gi, ' ')
+    removeBlocks(html, NOISE_TAGS)
       .replace(/<br\s*\/?>|<\/(p|div|h[1-6]|li|section)>/gi, ' ')
-      .replace(/<[^>]+>/g, ' ')
+      .replace(/<[^<>]*>/g, ' ') // [^<>] stops at the next '<', so stray '<' can't cause rescans
   );
 }
 
 export function parseHtmlMeta(html) {
-  html = String(html || '');
+  html = String(html || '').slice(0, MAX_HTML);
+  const lower = html.toLowerCase();
   const metas = {};
   const tags = [];
-  for (const m of html.matchAll(/<meta\b[^>]*>/gi)) {
+  for (const m of html.matchAll(/<meta\b[^<>]*>/gi)) {
     const a = parseAttrs(m[0]);
     const key = (a.property || a.name || a.itemprop || '').toLowerCase();
     if (key && a.content !== undefined) {
@@ -45,12 +101,13 @@ export function parseHtmlMeta(html) {
       else if (!(key in metas)) metas[key] = squash(a.content);
     }
   }
-  const titleTag = squash((html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '');
+  const titleTag = squash(blocks(html, lower, 'title', 1)[0]?.inner || '');
 
   let ld = {};
-  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+  for (const b of blocks(html, lower, 'script')) {
+    if (!/application\/ld\+json/i.test(b.open)) continue;
     try {
-      const j = JSON.parse(m[1]);
+      const j = JSON.parse(b.inner);
       const arr = Array.isArray(j) ? j : j['@graph'] || [j];
       const art = arr.find((x) => x && /Article|Posting|BlogPosting|WebPage/i.test(String(x['@type'])));
       if (art) { ld = art; break; }
@@ -58,16 +115,19 @@ export function parseHtmlMeta(html) {
   }
   const ldKeywords = Array.isArray(ld.keywords) ? ld.keywords.join(', ') : ld.keywords || '';
 
-  const headings = [...html.matchAll(/<h([12])\b[^>]*>([\s\S]*?)<\/h\1>/gi)]
-    .map((m) => stripToText(m[2]))
+  const headings = [...blocks(html, lower, 'h1', 12), ...blocks(html, lower, 'h2', 12)]
+    .sort((a, b) => a.at - b.at)
+    .map((b) => stripToText(b.inner))
     .filter(Boolean)
     .slice(0, 12);
 
-  const bodyMatch =
-    html.match(/<article\b[\s\S]*?<\/article>/i) ||
-    html.match(/<main\b[\s\S]*?<\/main>/i) ||
-    html.match(/<body\b[\s\S]*<\/body>/i);
-  const textSample = stripToText(bodyMatch ? bodyMatch[0] : html).slice(0, 4000);
+  const bodyStart = lower.indexOf('<body');
+  const bodyEnd = lower.lastIndexOf('</body');
+  const body =
+    blocks(html, lower, 'article', 1)[0]?.inner ??
+    blocks(html, lower, 'main', 1)[0]?.inner ??
+    (bodyStart >= 0 ? html.slice(bodyStart, bodyEnd > bodyStart ? bodyEnd : undefined) : html);
+  const textSample = stripToText(body).slice(0, 4000);
 
   return {
     title: metas['og:title'] || metas['twitter:title'] || squash(ld.headline || '') || titleTag,

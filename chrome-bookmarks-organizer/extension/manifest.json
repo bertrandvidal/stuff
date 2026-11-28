@@ -5,9 +5,26 @@
   "description": "Files bookmarks from an inbox folder into the right folder of your bookmark tree, using Claude Code on this Mac.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqDCKXgy5Yt4SLA7YAiW40dmEfXTOXXs/rcput6vCyEkECOiNpKV42qBLo5mYGbYW45aW1o0wwV/Q9PpMDCh9Rj9aMuxWac+Cf3jljcM917L98DjYjAkOjTtk9ljUL50vunorgRYuuVpjr/jIn6dwf1q7LICNZf5O2D6wLz4NVyCGcKzx0wkC1ub4/WJLXJqNRSnKlX8FULQVkwBbYC1qwDe5HqiBexby0Xy/R6nfM5B2ERJhQKSQd/0Q4hDPtYhhKU9wHzro+TgMnX0HFpb6WVxQ8NBCHNWPY8k98QhSJqObzJ17o9qTVUMcFbE4etev3I5lq25Q9cIiCHjnFOzSJQIDAQAB",
   "minimum_chrome_version": "120",
-  "permissions": ["bookmarks", "storage", "alarms", "nativeMessaging", "tabs", "scripting"],
-  "host_permissions": ["<all_urls>"],
-  "background": { "service_worker": "background.js", "type": "module" },
-  "options_ui": { "page": "options.html", "open_in_tab": true },
-  "action": { "default_title": "Chrome Bookmarks Organizer" }
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "alarms",
+    "nativeMessaging",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_title": "Chrome Bookmarks Organizer"
+  }
 }

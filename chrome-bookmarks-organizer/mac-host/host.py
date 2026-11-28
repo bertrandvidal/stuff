@@ -371,6 +371,9 @@ def sync_folder_names(names, cfg):
     changed = []
     for short, key in FOLDER_KEYS.items():
         v = str(names.get(short) or "").strip()
+        if "/" in v:  # the extension rejects these; never accept a path as a folder name
+            log("ignored %s folder name with a slash: %r" % (short, v))
+            continue
         if v and cfg.get(key) != v:
             changed.append("%s: %r -> %r" % (short, cfg.get(key), v))
             cfg[key] = v

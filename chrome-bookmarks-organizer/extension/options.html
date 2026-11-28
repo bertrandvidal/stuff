@@ -36,6 +36,8 @@
     form.settings { display: grid; grid-template-columns: 220px 1fr; gap: 10px 16px; align-items: center; }
     form.settings input[type=text], form.settings input[type=number] { font: inherit; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; width: 260px; }
     form.settings .hint { grid-column: 2; color: var(--muted); font-size: 12px; margin-top: -6px; }
+    form.settings input[type=checkbox] { justify-self: start; width: 16px; height: 16px; margin: 0; }
+    h2 button { font-size: 13px; font-weight: normal; padding: 3px 10px; }
     textarea { width: 100%; min-height: 160px; font: 12px/1.4 ui-monospace, Menlo, monospace; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .empty { color: var(--muted); font-style: italic; }
   </style>
@@ -87,7 +89,9 @@
     <label for="maxPerSweep">Max links per run</label><input type="number" id="maxPerSweep" min="1" max="50">
     <label for="samplesPerFolder">Example titles per folder</label><input type="number" id="samplesPerFolder" min="0" max="20">
     <label for="useTabFallback">Open blocked pages in a hidden window</label><input type="checkbox" id="useTabFallback">
-    <span class="hint">Needed for Medium and other sites that block plain requests. The window opens minimized and closes on its own.</span>
+    <span class="hint">Needed for Medium and other sites that block plain requests. The window opens minimized and closes on its own. Never used for PDFs, downloads or dead links.</span>
+    <label for="pageTimeoutSeconds">Page read timeout (seconds)</label><input type="number" id="pageTimeoutSeconds" min="5" max="120">
+    <span class="hint" data-default-for="pageTimeoutSeconds">How long to wait for a page, once for the plain request and once for the hidden window. After that the link is filed from its title and URL.</span>
     <label for="cleanTitles">Clean up titles when filing</label><input type="checkbox" id="cleanTitles">
     <span class="hint">Turns "Title | by Author | Medium" into "Title".</span>
     <span></span><div class="row"><button class="primary" type="submit">Save settings</button><button type="button" id="resetNames">Reset folder names to defaults</button><span id="saved"></span></div>

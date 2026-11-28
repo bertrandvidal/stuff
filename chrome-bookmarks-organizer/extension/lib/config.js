@@ -14,6 +14,7 @@ export const DEFAULTS = {
   samplesPerFolder: 6,       // existing titles shown to Claude per folder, for consistency
   model: 'sonnet',           // Claude Code model alias: sonnet, haiku, opus
   useTabFallback: true,      // open the page in a minimized window when a plain fetch is blocked or thin
+  pageTimeoutSeconds: 30,    // per step (plain fetch, then hidden window); after that, file from title + URL
   cleanTitles: false,        // replace "Title | by X | Medium" with the clean title when filing
   maxAttempts: 3,
 };
