@@ -111,6 +111,17 @@ test('mergeContent keeps the richer field', () => {
   assert.deepEqual(m, { title: 'T', description: 'long desc', headings: ['a'] });
 });
 
+test("mergeContent prefers the window's title over a longer generic one from the plain fetch", () => {
+  const fetched = { title: 'Example Engineering Blog | Articles, News and Updates', textSample: 'short', keywords: 'a' };
+  const tab = { title: 'Sharding Postgres', textSample: 'a much longer article body', keywords: '', blocked: false, finalUrl: 'https://x/a' };
+  const m = mergeContent(fetched, tab);
+  assert.equal(m.title, 'Sharding Postgres');
+  assert.equal(m.textSample, 'a much longer article body');
+  assert.equal(m.keywords, 'a', 'longer list kept');
+  assert.equal(m.finalUrl, 'https://x/a');
+  assert.ok(!('blocked' in m));
+});
+
 import { folderNameProblems, planFolderRenames } from '../extension/lib/tree.js';
 
 test('folder name validation', () => {

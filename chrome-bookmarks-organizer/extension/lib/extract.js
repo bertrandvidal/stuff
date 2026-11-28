@@ -223,13 +223,21 @@ export function isGoodEnough(c) {
   return (c.description || '').length >= 60 || (c.textSample || '').length >= 600;
 }
 
-// Keep the richer value of each field from two extraction attempts.
+// Fields where more is better: the longer of the two reads is kept.
+const KEEP_LONGER = new Set(['textSample', 'headings', 'keywords']);
+
+// Combine the plain fetch (a) with the window read (b). The window saw the
+// page the way a visitor does, so its single values (title, description,
+// author, final URL...) win whenever it has one. Keeping the longer value
+// for every field let a long generic site title served to the plain fetch
+// beat the article's real, shorter title. `blocked` describes one read, not
+// the page, so it is never carried over.
 export function mergeContent(a = {}, b = {}) {
   const out = { ...a };
+  const len = (x) => (Array.isArray(x) ? x.length : String(x ?? '').length);
   for (const [k, v] of Object.entries(b)) {
-    const cur = out[k];
-    const len = (x) => (Array.isArray(x) ? x.length : String(x ?? '').length);
-    if (len(v) > len(cur)) out[k] = v;
+    if (k === 'blocked') continue;
+    if (KEEP_LONGER.has(k) ? len(v) > len(out[k]) : len(v) > 0) out[k] = v;
   }
   return out;
 }
