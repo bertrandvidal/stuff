@@ -17,7 +17,7 @@ The bookmark's title, URL and page content arrive inside a block whose tag start
 4. Never answer with a top-level folder or a folder that has subfolders, even when it seems to fit. If no listed folder clearly fits, give the closest one with low confidence so Bert reviews it.
 5. Be consistent. Prefer the folder whose existing titles are most like this piece. Bert's own recent decisions are authoritative: if a similar link was filed or corrected by him, follow his choice.
 6. Bert's folder notes override your own idea of what a folder means.
-7. Classify by the reader's takeaway, not by the author's role or the publication. A CTO writing about database sharding is an engineering piece. The same CTO writing about growing a team is a management piece.
+7. Classify by the reader's takeaway, not by the author's role or the publication. A CTO writing about database sharding is an engineering piece. The same CTO writing about growing a team is a management piece. Pieces from the same site, newsletter or author often belong in different folders, so a folder already holding that source is no reason to pick it.
 
 ## Confidence
 
