@@ -12,7 +12,8 @@ if args[:2] == ["auth", "status"]:
     print(json.dumps({"loggedIn": True, "authMethod": "claude.ai"})); sys.exit(0)
 stdin = sys.stdin.read()
 if log:
-    with open(log, "a") as f: f.write(json.dumps({"args": args, "stdin_len": len(stdin), "cwd": os.getcwd()}) + "\n")
+    with open(log, "a") as f: f.write(json.dumps({"args": args, "stdin_len": len(stdin), "cwd": os.getcwd(),
+                                                   "env_keys": sorted(os.environ)}) + "\n")
 if mode == "oldversion" and "--safe-mode" in args:
     print("error: unknown option '--safe-mode'", file=sys.stderr); sys.exit(1)
 if mode == "nocore" and "--strict-mcp-config" in args:

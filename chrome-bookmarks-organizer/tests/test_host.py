@@ -123,6 +123,18 @@ class TestNativeProtocol(HostTestCase):
         with open(self.calls_log) as f:
             return [json.loads(line)["args"] for line in f]
 
+    def test_only_the_subscription_login_reaches_claude(self):
+        self.write_config({"claude_path": "", "env": {"ANTHROPIC_API_KEY": "from-config", "CLAUDE_CODE_OAUTH_TOKEN": "tok"}})
+        env = dict(self.env(), ANTHROPIC_API_KEY="from-env", ANTHROPIC_AUTH_TOKEN="from-env")
+        p = subprocess.run([sys.executable, os.path.join(self.app, "host.py"), "--selftest"],
+                           capture_output=True, text=True, env=env, timeout=60)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        with open(self.calls_log) as f:
+            keys = json.loads(f.readline())["env_keys"]
+        self.assertNotIn("ANTHROPIC_API_KEY", keys)
+        self.assertNotIn("ANTHROPIC_AUTH_TOKEN", keys)
+        self.assertIn("CLAUDE_CODE_OAUTH_TOKEN", keys, "the subscription token setting still works")
+
     def test_older_claude_code_drops_only_the_optional_flag_it_rejects(self):
         (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}], mode="oldversion")
         self.assertTrue(cat["ok"])

@@ -124,12 +124,20 @@ def save_config(cfg):
         log("could not save config: %r" % e)
 
 
+# Filing runs on the Claude subscription login only. Claude Code prefers an
+# API credential from the environment when one is set, which would bill an
+# API account instead, so these never reach it, even from config.json "env".
+NO_API_CREDENTIALS = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN")
+
+
 def child_env(cfg):
     env = dict(os.environ)
     env["PATH"] = os.pathsep.join([p for p in [env.get("PATH", "")] + EXTRA_PATHS if p])
     env.setdefault("HOME", HOME)
     for k, v in (cfg.get("env") or {}).items():
         env[str(k)] = str(v)
+    for k in NO_API_CREDENTIALS:
+        env.pop(k, None)
     return env
 
 
