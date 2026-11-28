@@ -7,7 +7,7 @@ Changes apply to the next link; nothing to restart. Text inside these comment ma
 Top-level folders:
 - engineering: building software. Architecture and system design, distributed systems, languages, tooling, testing, reliability, technical practices.
 - management: leading people and teams. Hiring and interviewing candidates, 1:1s, feedback and performance, org design, team process and delivery, managing up and stakeholders.
-- career: Bert's own trajectory. Job search, being interviewed, resumes, promotions, compensation, leveling, personal growth as an engineer or leader.
+- career: the user's own trajectory. Job search, being interviewed, resumes, promotions, compensation, leveling, personal growth as an engineer or leader.
 - general: career-relevant pieces that fit none of the above, such as industry news, productivity, writing and learning.
 
 Boundary rules:

@@ -530,9 +530,9 @@ function trimMap(obj, max) {
   return Object.fromEntries(entries.slice(0, max));
 }
 
-// ---------- learning from Bert's own moves ----------
+// ---------- learning from the user's own moves ----------
 
-// When Bert moves something we filed, or files something out of _review, that
+// When the user moves something we filed, or files something out of _review, that
 // choice becomes an authoritative example in future prompts.
 async function trackUserMove(id, info, ctx) {
   if (!ctx.root) return;

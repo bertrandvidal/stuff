@@ -94,7 +94,7 @@ test('first sweep files, parks and retries the right items', async () => {
 });
 
 test('your manual corrections become examples for next time', async () => {
-  await chrome.bookmarks.move('a', { parentId: 'hire' }); // Bert disagrees with the organizer
+  await chrome.bookmarks.move('a', { parentId: 'hire' }); // the user disagrees with the organizer
   await settle();
   const ov = await send({ cmd: 'overview' });
   assert.equal(ov.reviewItems.length, 3);
@@ -257,7 +257,7 @@ test('links only go into leaf folders below the top level; anything else goes to
 
 test('moving a bookmark into a non-leaf folder is not learned as an example', async () => {
   const before = (await chrome.storage.local.get('examples')).examples.length;
-  await chrome.bookmarks.move('par', { parentId: 'mgmt' }); // Bert drags it into "management" itself
+  await chrome.bookmarks.move('par', { parentId: 'mgmt' }); // the user drags it into "management" itself
   await settle();
   assert.equal((await chrome.storage.local.get('examples')).examples.length, before);
 });
