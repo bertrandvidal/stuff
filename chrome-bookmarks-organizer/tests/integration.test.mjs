@@ -353,3 +353,15 @@ test('pages are fetched without cookies, and local network pages are never read'
   assert.doesNotMatch(JSON.stringify(job('tabredirect').content), /Skip-levels|10\.0\.0\.1/, "a window that ended on a LAN page isn't read");
   for (const id of ['lan', 'loc', 'redir', 'tabr']) assert.notEqual(parentOf(id), 'inbox', `${id} still filed from title and URL`);
 });
+
+test('a link re-saved while its first copy waits in review is a duplicate, not filed again', async () => {
+  const reviewId = [...nodes.values()].find((n) => n.parentId === 'wr' && n.title === '_needs-review').id;
+  add({ id: 'first', parentId: reviewId, title: 'first copy', url: 'https://waiting.example/post' });
+  add({ id: 'again', parentId: 'inbox', title: 'saved again', url: 'https://waiting.example/post?utm_medium=email' });
+  calls.jobs.length = 0;
+  await sweep('resaved'); await settle();
+  assert.equal(calls.jobs.length, 0, 'Claude not asked');
+  assert.equal(parentOf('again'), reviewId);
+  const { review } = await chrome.storage.local.get('review');
+  assert.match(review.again.reason, /Already bookmarked in _needs-review/);
+});

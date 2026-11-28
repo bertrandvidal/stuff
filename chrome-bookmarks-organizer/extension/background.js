@@ -396,7 +396,7 @@ async function doSweep(reason) {
     return { processed: 0 };
   }
 
-  const urlIndex = indexUrls(ctx.root, ctx.folders);
+  const urlIndex = indexUrls(ctx.root, ctx.folders, [ctx.review]);
   const store = await getStore(['attempts', 'examples']);
   const attempts = store.attempts || {};
   const examples = (store.examples || []).slice(0, MAX_EXAMPLES);

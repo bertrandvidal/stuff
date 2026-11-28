@@ -79,33 +79,57 @@ export function collectFolders(root, { exclude = [], samples = 6 } = {}) {
 // level, e.g. engineering/architecture, never engineering itself.
 export const isFilingTarget = (f) => f.leaf && f.depth >= 2;
 
-const TRACKING_PARAMS = /^(utm_\w+|fbclid|gclid|mc_cid|mc_eid|ref|ref_src|source|sk|s|si)$/i;
+// Query parameters that only track where a click came from, removed before
+// comparing URLs. Only names that mean tracking on every site are global:
+// short generic names such as `s` (WordPress search), `ref` (a git branch on
+// GitHub and GitLab) or `source` are real parameters on some sites, and
+// stripping them made different pages look like duplicates. Those are
+// stripped only on the sites where they are known to be tracking.
+const TRACKING_PARAMS = /^(utm_\w+|fbclid|gclid|dclid|gbraid|wbraid|msclkid|yclid|mc_cid|mc_eid|ref_src|igshid|_hsenc|_hsmi|mkt_tok)$/i;
+const SITE_TRACKING_PARAMS = [
+  [/(^|\.)medium\.com$/, /^(source|sk)$/i],
+  [/(^|\.)(youtube\.com|youtu\.be|spotify\.com)$/, /^si$/i],
+  [/^(x|twitter)\.com$/, /^(s|t)$/i],
+];
 
+// A comparable form of a URL, for duplicate detection: no scheme, no "www.",
+// no tracking parameters, no trailing slash. The port is kept (different
+// ports are different sites), and so is a hash that is an app route (#/ or
+// #!), since single-page apps put the page in it; other hashes only point
+// within a page.
 export function normalizeUrl(u) {
   try {
     const url = new URL(u);
-    url.hash = '';
-    url.hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+    if (!/^#[/!]/.test(url.hash)) url.hash = '';
+    const host = url.host.toLowerCase().replace(/^www\./, '');
+    const siteParams = SITE_TRACKING_PARAMS.filter(([site]) => site.test(url.hostname.toLowerCase().replace(/^www\./, ''))).map(([, p]) => p);
     for (const k of [...url.searchParams.keys()]) {
-      if (TRACKING_PARAMS.test(k)) url.searchParams.delete(k);
+      if (TRACKING_PARAMS.test(k) || siteParams.some((p) => p.test(k))) url.searchParams.delete(k);
     }
-    let path = url.pathname.replace(/\/+$/, '') || '/';
+    const path = url.pathname.replace(/\/+$/, '') || '/';
     const search = url.searchParams.toString();
-    return `${url.hostname}${path}${search ? '?' + search : ''}`;
+    return `${host}${path}${search ? '?' + search : ''}${url.hash}`;
   } catch {
     return String(u || '').trim();
   }
 }
 
-// Map of normalized URL -> folder path, for every bookmark in the given folders.
-export function indexUrls(root, folders) {
+// Map of normalized URL -> where it already is, for every bookmark under the
+// root except the inbox: the given folders, links sitting directly in the
+// root (labelled with the root's name), and `extra` folders such as the
+// review folder (labelled with their title). Missing the review folder let a
+// link re-saved while its first copy waited for review be filed again.
+export function indexUrls(root, folders, extra = []) {
   const pathById = new Map(folders.map((f) => [f.id, f.path]));
+  const realFolder = new Set(pathById.keys()); // a real folder wins over root or review
+  for (const f of extra) if (f) pathById.set(f.id, f.title);
+  pathById.set(root.id, root.title);
   const idx = new Map();
   const walk = (node) => {
     for (const c of node.children || []) {
       if (c.url) {
-        const p = pathById.get(node.id);
-        if (p !== undefined) idx.set(normalizeUrl(c.url), p);
+        const key = normalizeUrl(c.url);
+        if (!idx.has(key) || realFolder.has(node.id)) idx.set(key, pathById.get(node.id));
       } else if (pathById.has(c.id)) {
         walk(c);
       }

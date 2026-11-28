@@ -38,7 +38,38 @@ test('collectFolders builds paths, skips _inbox/_review, newest samples first', 
 
 test('normalizeUrl strips tracking params and trailing slashes, keeps real query', () => {
   assert.equal(normalizeUrl('https://Medium.com/@a/post-123/?source=rss----abc&sk=1#x'), 'medium.com/@a/post-123');
+  assert.equal(normalizeUrl('https://eng.medium.com/post?source=rss'), 'eng.medium.com/post', 'Medium subdomains too');
   assert.equal(normalizeUrl('https://youtube.com/watch?v=abc&si=xyz'), 'youtube.com/watch?v=abc');
+  assert.equal(normalizeUrl('https://blog.x/a?utm_source=tw&fbclid=1&gclid=2&mc_cid=3'), 'blog.x/a');
+});
+
+test('normalizeUrl keeps parameters, ports and app routes that make a different page', () => {
+  const differ = [
+    ['https://blog.example/?s=kafka', 'https://blog.example/?s=spark'], // WordPress search
+    ['https://github.com/o/r/tree?ref=v1', 'https://github.com/o/r/tree?ref=v2'], // git ref
+    ['https://site.example/a?source=a', 'https://site.example/a?source=b'],
+    ['https://app.example/#/article/1', 'https://app.example/#/article/2'],
+    ['https://app.example/#!/a', 'https://app.example/#!/b'],
+    ['https://example.com:8443/a', 'https://example.com:9443/a'],
+  ];
+  for (const [a, b] of differ) assert.notEqual(normalizeUrl(a), normalizeUrl(b), `${a} vs ${b}`);
+  assert.equal(normalizeUrl('https://example.com:443/a#section-2'), normalizeUrl('https://example.com/a'), 'default port and in-page anchors ignored');
+});
+
+test('duplicates are found in the review folder and directly under the root, not in the inbox', () => {
+  const root = F('w', 'worthy-reads', [
+    F('i', '_inbox', [U('x', 'pending', 'https://p/new')]),
+    F('r', '_review', [U('rv', 'waiting', 'https://waiting.example/a')]),
+    U('loose', 'loose', 'https://loose.example/b'),
+    F('e', 'engineering', [F('ea', 'architecture', [U('1', 'x', 'https://both.example/c')])]),
+  ]);
+  root.children[1].children.push(U('rv2', 'x', 'https://both.example/c'));
+  const fs = collectFolders(root, { exclude: ['_inbox', '_review'] });
+  const idx = indexUrls(root, fs, [root.children[1]]);
+  assert.equal(idx.get(normalizeUrl('https://waiting.example/a')), '_review');
+  assert.equal(idx.get(normalizeUrl('https://loose.example/b')), 'worthy-reads');
+  assert.equal(idx.get(normalizeUrl('https://both.example/c')), 'engineering/architecture', 'a real folder wins over review');
+  assert.equal(idx.has(normalizeUrl('https://p/new')), false);
 });
 
 test('resolveFolder tolerates case and spacing, rejects unknown', () => {
