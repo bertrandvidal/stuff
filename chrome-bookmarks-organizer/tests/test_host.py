@@ -204,6 +204,30 @@ class TestNativeProtocol(HostTestCase):
         self.assertIs(ping["auth_ok"], False)
 
 
+class TestMalformedMessages(HostTestCase):
+    def test_bad_frames_get_an_error_and_the_host_keeps_serving(self):
+        frames = [b"[1, 2]", b'"just a string"', b"\xff\xfe not utf-8", b"{not json",
+                  json.dumps({"id": 9, "type": "ping"}).encode()]
+        p = subprocess.Popen([sys.executable, os.path.join(self.app, "host.py"), "chrome-extension://testid/"],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=self.env())
+        out, _ = p.communicate(b"".join(struct.pack("=I", len(f)) + f for f in frames), timeout=60)
+        replies = []
+        while out:
+            n = struct.unpack("=I", out[:4])[0]
+            replies.append(json.loads(out[4:4 + n]))
+            out = out[4 + n:]
+        self.assertEqual(p.returncode, 0)
+        self.assertEqual([r["ok"] for r in replies], [False, False, False, False, True])
+        self.assertIn("expected a JSON object", replies[0]["error"])
+        self.assertEqual(replies[-1]["id"], 9, "still answering after four bad frames")
+
+    def test_truncated_frame_ends_cleanly(self):
+        p = subprocess.Popen([sys.executable, os.path.join(self.app, "host.py"), "chrome-extension://testid/"],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=self.env())
+        out, _ = p.communicate(struct.pack("=I", 100) + b'{"id": 1', timeout=60)
+        self.assertEqual((p.returncode, out), (0, b""))
+
+
 class TestFolderNames(HostTestCase):
     def test_names_sync_from_extension_and_cli_follows(self):
         before = self.cli("--tree").stdout

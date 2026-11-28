@@ -521,12 +521,28 @@ def ping(cfg):
 
 # ---------------------------------------------------------------- native messaging
 
+class BadMessage(ValueError):
+    """A complete frame whose content isn't a JSON object. The stream is still
+    in step, so the host answers with an error and keeps serving."""
+
+
 def read_message(stream):
+    """One message, or None at the end of the stream (including a frame cut
+    short, after which the stream can't be trusted)."""
     raw = stream.read(4)
     if len(raw) < 4:
         return None
     (n,) = struct.unpack("=I", raw)
-    return json.loads(stream.read(n).decode("utf-8"))
+    data = stream.read(n)
+    if len(data) < n:
+        return None
+    try:
+        msg = json.loads(data.decode("utf-8"))
+    except ValueError as e:  # bad UTF-8 or bad JSON (UnicodeDecodeError is a ValueError)
+        raise BadMessage("not valid JSON: %s" % e)
+    if not isinstance(msg, dict):
+        raise BadMessage("expected a JSON object, got %s" % type(msg).__name__)
+    return msg
 
 
 def write_message(stream, obj):
@@ -584,9 +600,12 @@ def serve(inp, out):
     while True:
         try:
             msg = read_message(inp)
-        except Exception as e:
-            log("bad message: %r" % e)
-            break
+        except BadMessage as e:
+            # Answering keeps one bad frame from killing the host (a JSON array
+            # used to crash it in msg.get) and from stranding pending requests.
+            log("bad message: %s" % e)
+            write_message(out, {"ok": False, "error": "bad message: %s" % e, "id": None})
+            continue
         if msg is None:
             break
         resp = handle(msg, cfg)
