@@ -20,6 +20,11 @@ const LOCK_STALE_MS = 15 * 60 * 1000;
 // Bookmark ids we are moving ourselves, so onMoved doesn't record them as corrections.
 const selfMoves = new Set();
 let sweeping = false;
+// A trigger (new bookmark, alarm, "File inbox now") arrived while a sweep was
+// running. The sweep may have read the inbox before that link arrived, and
+// the skipped trigger was its only "sweep soon": without a rerun the link
+// waited for the 15-minute safety-net alarm.
+let sweepAgain = false;
 
 // ---------- lifecycle ----------
 
@@ -357,7 +362,10 @@ async function extractContent(url, s) {
 // ---------- the sweep ----------
 
 export async function sweep(reason = 'manual') {
-  if (sweeping) return { skipped: 'already running' };
+  if (sweeping) {
+    sweepAgain = true;
+    return { skipped: 'already running' };
+  }
   // Claim the sweep before the first await. Checking the flag, awaiting the
   // storage lock and only then setting the flag let two triggers that fire
   // together (the overdue alarms when the Mac wakes, or an alarm plus "File
@@ -380,6 +388,10 @@ export async function sweep(reason = 'manual') {
     }
   } finally {
     sweeping = false;
+    if (sweepAgain) {
+      sweepAgain = false;
+      scheduleSoon();
+    }
   }
 }
 

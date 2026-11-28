@@ -373,3 +373,15 @@ test('half an emoji in a saved title still gets the link filed', async () => {
   assert.ok(calls.jobs[0].bookmark.title.isWellFormed(), 'well-formed when it reaches the Mac');
   assert.equal(parentOf('emo'), 'gr');
 });
+
+test('a link that arrives during a sweep is picked up soon after, not 15 minutes later', async () => {
+  calls.alarms.length = 0;
+  const first = sweep('running');
+  // While that sweep runs, a new link syncs in and its trigger fires.
+  add({ id: 'late', parentId: 'inbox', title: 'late title', url: 'https://late.example/a' });
+  assert.equal((await sweep('alarm:sweep-soon')).skipped, 'already running');
+  await first; await settle();
+  assert.ok(calls.alarms.includes('sweep-soon'), 'a rerun is scheduled when the sweep ends');
+  await sweep('rerun'); await settle();
+  assert.equal(parentOf('late'), 'gr');
+});
