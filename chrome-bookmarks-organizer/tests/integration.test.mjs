@@ -293,3 +293,16 @@ test('signed out, usage limit or a lost bridge pause filing; three sweeps later 
   assert.equal(parentOf('acct1'), 'gr', 'filed once Claude Code works again');
   assert.equal(parentOf('acct2'), 'gr');
 });
+
+test('two sweeps started together run once: Claude is asked once per link', async () => {
+  add({ id: 'dup1', parentId: 'inbox', title: 'dup1 title', url: 'https://together.example/1' });
+  add({ id: 'dup2', parentId: 'inbox', title: 'dup2 title', url: 'https://together.example/2' });
+  calls.jobs.length = 0;
+  const results = await Promise.all([sweep('alarm:sweep'), sweep('alarm:sweep-soon'), sweep('manual')]);
+  await settle();
+  assert.equal(results.filter((r) => r.skipped).length, 2, 'the other two were skipped');
+  assert.equal(calls.jobs.length, 2, 'one Claude request per link');
+  assert.equal(parentOf('dup1'), 'gr');
+  assert.equal(parentOf('dup2'), 'gr');
+  assert.equal((await chrome.storage.session.get('lock')).lock, undefined, 'lock released');
+});

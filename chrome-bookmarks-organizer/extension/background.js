@@ -343,20 +343,28 @@ async function extractContent(url, s) {
 
 export async function sweep(reason = 'manual') {
   if (sweeping) return { skipped: 'already running' };
-  const { lock } = await chrome.storage.session.get('lock');
-  if (lock && Date.now() - lock < LOCK_STALE_MS) return { skipped: 'locked' };
+  // Claim the sweep before the first await. Checking the flag, awaiting the
+  // storage lock and only then setting the flag let two triggers that fire
+  // together (the overdue alarms when the Mac wakes, or an alarm plus "File
+  // inbox now") both run, asking Claude twice per link and moving it twice.
   sweeping = true;
-  await chrome.storage.session.set({ lock: Date.now() });
   try {
-    return await doSweep(reason);
-  } catch (e) {
-    await setStatus({ lastRun: Date.now(), lastError: e.message });
-    await log({ level: 'error', msg: `Sweep failed: ${e.message}` });
-    return { error: e.message };
+    // The storage lock covers a worker restart mid-sweep, which resets `sweeping`.
+    const { lock } = await chrome.storage.session.get('lock');
+    if (lock && Date.now() - lock < LOCK_STALE_MS) return { skipped: 'locked' };
+    await chrome.storage.session.set({ lock: Date.now() });
+    try {
+      return await doSweep(reason);
+    } catch (e) {
+      await setStatus({ lastRun: Date.now(), lastError: e.message });
+      await log({ level: 'error', msg: `Sweep failed: ${e.message}` });
+      return { error: e.message };
+    } finally {
+      await chrome.storage.session.remove('lock');
+      await updateBadge();
+    }
   } finally {
     sweeping = false;
-    await chrome.storage.session.remove('lock');
-    await updateBadge();
   }
 }
 
