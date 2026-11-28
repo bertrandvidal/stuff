@@ -59,12 +59,15 @@ printf '#!/bin/bash\nexec %q %q "$@"\n' "$PY" "$APP/host.py" > "$APP/run-host.sh
 chmod 755 "$APP/run-host.sh" "$APP/host.py"
 
 "$PY" - "$APP/config.json" "$CLAUDE" <<'PYEOF'
-import json, sys
+import json, os, sys
 path, claude = sys.argv[1], sys.argv[2]
-try:
-    cfg = json.load(open(path))
-except Exception:
-    cfg = {}
+cfg = {}
+if os.path.exists(path):
+    try:
+        cfg = json.load(open(path))
+    except ValueError as e:
+        # Overwriting would lose its settings, including any Claude Code token.
+        sys.exit("Error: %s isn't valid JSON (%s). Fix or delete it, then re-run." % (path, e))
 cfg["claude_path"] = claude
 cfg.pop("compat", None)  # no longer used
 json.dump(cfg, open(path, "w"), indent=2)

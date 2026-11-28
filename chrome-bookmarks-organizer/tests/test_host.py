@@ -242,6 +242,22 @@ class TestFolderNames(HostTestCase):
         self.assertIn("hiding _to-file and _needs-review", after)
         self.assertIn("- one-on-ones  [1]", after)
 
+    def test_unreadable_config_is_never_overwritten(self):
+        cfg = os.path.join(self.app, "config.json")
+        broken = '{"env": {"CLAUDE_CODE_OAUTH_TOKEN": "keep-me"}, "claude_path": "/x",'  # half-finished edit
+        with open(cfg, "w") as f:
+            f.write(broken)
+        self.native([{"id": 1, "type": "ping", "folderNames": {"root": "Worthy Reads", "inbox": "_new", "review": "_r"}}])
+        with open(cfg) as f:
+            self.assertEqual(f.read(), broken, "left as it was, token and all")
+
+    def test_config_saves_are_atomic_and_private(self):
+        self.native([{"id": 1, "type": "ping", "folderNames": {"root": "Worthy Reads", "inbox": "_new", "review": "_r"}}])
+        cfg = os.path.join(self.app, "config.json")
+        self.assertEqual(self.read_config()["inbox_folder_name"], "_new")
+        self.assertEqual(os.stat(cfg).st_mode & 0o777, 0o600)
+        self.assertFalse(os.path.exists(cfg + ".tmp"))
+
     def test_folder_names_with_slash_are_ignored(self):
         self.native([{"id": 1, "type": "ping",
                       "folderNames": {"root": "Worthy Reads", "inbox": "a/b", "review": "_needs-review"}}])

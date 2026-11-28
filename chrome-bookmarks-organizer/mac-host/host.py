@@ -106,20 +106,45 @@ def read_text(path, default=""):
         return default
 
 
+# True when config.json exists but couldn't be parsed (say, a half-finished
+# hand edit). Saving over it would replace its "env" (which can hold the
+# Claude Code token) and claude_path with defaults, so it is left alone.
+_config_unreadable = False
+
+
 def load_config():
+    global _config_unreadable
     cfg = dict(DEFAULT_CONFIG)
+    _config_unreadable = False
     try:
         with open(CONFIG_PATH, encoding="utf-8") as f:
-            cfg.update(json.load(f))
-    except (OSError, ValueError):
+            data = json.load(f)
+        if not isinstance(data, dict):
+            raise ValueError("not a JSON object")
+        cfg.update(data)
+    except FileNotFoundError:
         pass
+    except (OSError, ValueError) as e:
+        _config_unreadable = True
+        log("config.json can't be read (%s); using defaults and leaving the file as it is" % e)
     return cfg
 
 
 def save_config(cfg):
+    """Write config.json atomically (temporary file, then rename), mode 600,
+    so a crash mid-write can't leave a truncated file behind."""
+    if _config_unreadable:
+        log("not saving config: config.json can't be read; fix or delete it")
+        return
+    tmp = CONFIG_PATH + ".tmp"
     try:
-        with open(CONFIG_PATH, "w", encoding="utf-8") as f:
+        fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(cfg, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.chmod(tmp, 0o600)
+        os.replace(tmp, CONFIG_PATH)
     except OSError as e:
         log("could not save config: %r" % e)
 
