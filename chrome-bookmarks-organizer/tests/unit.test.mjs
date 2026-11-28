@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findRootFolder, collectFolders, normalizeUrl, resolveFolder, indexUrls, treeToMarkdown } from '../extension/lib/tree.js';
+import { findRootFolder, findChildFolder, collectFolders, normalizeUrl, resolveFolder, indexUrls, treeToMarkdown } from '../extension/lib/tree.js';
 import { parseHtmlMeta, looksBlocked, isGoodEnough, mergeContent, isPrivateHost } from '../extension/lib/extract.js';
 
 const F = (id, title, children = [], extra = {}) => ({ id, title, children, ...extra });
@@ -202,4 +202,35 @@ test('isPrivateHost spots this Mac and the local network', () => {
   for (const u of ['https://medium.com/x', 'https://172.32.0.1/', 'https://8.8.8.8/', 'https://[2606:4700::1]/', 'https://local.example.com/', 'https://192.168.1.1.nip.io/']) {
     assert.ok(!isPrivateHost(new URL(u).hostname), u);
   }
+});
+
+test('folder names: every script counts, ambiguity goes to review, depth comes from the tree', () => {
+  const root = F('w', 'worthy-reads', [
+    F('i', '_inbox'), F('inb', 'Inbox', [F('inbl', 'later')]),
+    F('jp', '日本語', [F('jpa', 'a')]), F('zh', '中文', [F('zha', 'a')]),
+    F('cafe', 'Café', [F('cn', 'N')]),
+    F('e', 'eng', [F('b1', '📚'), F('b2', '📖'), F('d1', 'arch'), F('d2', 'arch')]),
+    F('aiml', 'AI/ML', [U('u', 'x', 'https://x')]),
+    F('a', 'a', [F('ab', 'b')]),
+    F('a2', 'a/b'),
+    F('blank', '', [F('bl', 'leaf')]),
+  ]);
+  const fs = collectFolders(root, { exclude: ['_inbox', '_review'] });
+  const t = fs.filter(isFilingTarget);
+  const at = (p) => resolveFolder(t, p)?.id ?? null;
+  assert.ok(fs.some((f) => f.path === 'Inbox'), 'a category named "Inbox" is not taken for _inbox');
+  assert.ok(!fs.some((f) => f.path === '_inbox'));
+  assert.equal(at('中文/A'), 'zha', 'CJK names no longer all normalize to ""');
+  assert.equal(at('日本語/a'), 'jpa');
+  assert.equal(at('cafe/n'), 'cn', 'accents and case still tolerated');
+  assert.equal(at('ENG/📖'), 'b2', 'case-insensitive match');
+  assert.equal(at('eng/📕'), null, 'emoji-only names never match loosely (it used to pick eng/📚)');
+  assert.equal(at('eng/arch'), null, 'duplicate siblings are ambiguous: review');
+  assert.equal(fs.find((f) => f.id === 'aiml').depth, 1);
+  assert.ok(!isFilingTarget(fs.find((f) => f.id === 'aiml')), 'top-level "AI/ML" is not a filing target');
+  assert.equal(at('a/b'), 'ab', 'only the nested a/b is a target; the top-level "a/b" is not');
+  assert.equal(fs.find((f) => f.id === 'bl').path, '(untitled)/leaf');
+  assert.equal(findChildFolder(root, '_INBOX ')?.id, 'i');
+  assert.equal(findChildFolder(root, 'in-box'), null, 'no loose match for system folders');
+  assert.ok(!folderNameProblems({ rootFolderName: '読書', inboxName: '_受信', reviewName: '_確認' }).length, 'non-ASCII names allowed');
 });

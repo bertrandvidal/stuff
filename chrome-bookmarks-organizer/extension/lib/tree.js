@@ -1,7 +1,20 @@
 // Pure helpers for working with chrome.bookmarks trees. No chrome.* calls here.
 
+// Loose form of a name, for finding the root folder from what was typed in
+// settings ("Worthy Reads" finds "worthy-reads"): case, accents, spaces and
+// punctuation are ignored. Letters and digits of every script count; this
+// used to keep only a-z and 0-9, so "Café" became "caf" and a name in
+// Japanese or made of emoji became "", matching every other such name.
 export function normalizeName(s) {
-  return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return String(s || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+}
+
+// Strict form, for the inbox and review folders, which the organizer creates
+// itself: only case and surrounding spaces are ignored. With the loose form, a
+// category of yours named "Inbox" or "in-box" was taken for "_inbox".
+export function sameName(a, b) {
+  const strict = (x) => String(x || '').normalize('NFC').trim().toLowerCase();
+  return strict(a) === strict(b);
 }
 
 export function truncate(s, n) {
@@ -35,7 +48,8 @@ export function findRootFolder(tree, name) {
   };
   const score = (h) => {
     const s = syncState(h);
-    return (s === true ? 200 : s === undefined ? 100 : 0) - h.ancestors.length;
+    // Syncing matters most; then an exact spelling; then the shallowest copy.
+    return (s === true ? 200 : s === undefined ? 100 : 0) + (sameName(h.node.title, name) ? 50 : 0) - h.ancestors.length;
   };
   hits.sort((a, b) => score(b) - score(a));
   const warning = hits.length > 1
@@ -44,21 +58,28 @@ export function findRootFolder(tree, name) {
   return { node: hits[0].node, warning };
 }
 
+// A direct subfolder by name: an exact title first, then one that differs only
+// in case or surrounding spaces.
 export function findChildFolder(node, name) {
-  const want = normalizeName(name);
-  return (node.children || []).find((c) => !c.url && normalizeName(c.title) === want) || null;
+  const folders = (node.children || []).filter((c) => !c.url);
+  return folders.find((c) => c.title === name) || folders.find((c) => sameName(c.title, name)) || null;
 }
+
+// A folder's name as it appears in a path. An untitled folder would leave an
+// empty segment that path cleanup removes, merging it into its parent.
+const segment = (title) => (String(title || '').trim() ? title : '(untitled)');
 
 // Every folder under root (except the top-level system folders like _inbox and
 // _review), with its path and a few recent titles as examples.
 export function collectFolders(root, { exclude = [], samples = 6 } = {}) {
-  const ex = new Set(exclude.map(normalizeName));
   const out = [];
-  const walk = (node, prefix) => {
+  // depth comes from the walk, not from counting "/" in the path: a folder
+  // titled "AI/ML" at the top level is depth 1, not a filing target at depth 2.
+  const walk = (node, prefix, depth) => {
     for (const c of node.children || []) {
       if (c.url) continue;
-      if (prefix === '' && ex.has(normalizeName(c.title))) continue;
-      const path = prefix ? `${prefix}/${c.title}` : c.title;
+      if (depth === 1 && exclude.some((x) => sameName(c.title, x))) continue;
+      const path = prefix === null ? segment(c.title) : `${prefix}/${segment(c.title)}`;
       const links = (c.children || []).filter((x) => x.url);
       const sampleTitles = links
         .slice()
@@ -66,12 +87,11 @@ export function collectFolders(root, { exclude = [], samples = 6 } = {}) {
         .slice(0, samples)
         .map((x) => truncate(x.title || x.url, 100));
       const leaf = !(c.children || []).some((x) => !x.url);
-      const depth = path.split('/').length;
       out.push({ id: c.id, path, title: c.title, count: links.length, samples: sampleTitles, leaf, depth });
-      walk(c, path);
+      walk(c, path, depth + 1);
     }
   };
-  walk(root, '');
+  walk(root, null, 1);
   return out;
 }
 
@@ -151,15 +171,28 @@ export function cleanPath(p) {
   return String(p || '').trim().replace(/^\/+|\/+$/g, '').replace(/\s*\/\s*/g, '/');
 }
 
-// Resolve Claude's answer to a folder, tolerating case and spacing differences.
+// Resolve Claude's answer to a folder, tolerating case, spacing and accent
+// differences. Each step must find exactly one folder: two folders with the
+// same path (duplicate siblings, or a title containing "/" that reads like a
+// nested path) or two that differ only loosely are ambiguous, and an
+// ambiguous answer goes to review instead of to whichever folder came first.
 export function resolveFolder(folders, path) {
   const want = cleanPath(path);
   if (!want) return null;
-  const exact = folders.find((f) => f.path === want);
-  if (exact) return exact;
-  const norm = (p) => p.split('/').map(normalizeName).join('/');
-  const n = norm(want);
-  return folders.find((f) => norm(f.path) === n) || null;
+  const only = (matches) => (matches.length === 1 ? matches[0] : null);
+  const exact = folders.filter((f) => f.path === want);
+  if (exact.length) return only(exact);
+  const spaced = (p) => cleanPath(p).normalize('NFC').toLowerCase();
+  const ci = folders.filter((f) => spaced(f.path) === spaced(want));
+  if (ci.length) return only(ci);
+  // Loose match per segment, skipped when a segment has no letters or digits
+  // (an emoji-only name), which would otherwise match any other such name.
+  const loose = (p) => {
+    const parts = cleanPath(p).split('/').map(normalizeName);
+    return parts.every(Boolean) ? parts.join('/') : null;
+  };
+  const n = loose(want);
+  return n ? only(folders.filter((f) => loose(f.path) === n)) : null;
 }
 
 const NAME_FIELDS = [
@@ -205,8 +238,7 @@ export function planFolderRenames(root, prev, next) {
 export function treeToMarkdown(rootName, folders) {
   const lines = [`${rootName}/`];
   for (const f of folders) {
-    const depth = f.path.split('/').length;
-    lines.push(`${'  '.repeat(depth)}- ${f.title}  (${f.count})`);
+    lines.push(`${'  '.repeat(f.depth)}- ${f.title}  (${f.count})`);
   }
   return lines.join('\n');
 }

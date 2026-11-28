@@ -25,6 +25,7 @@ import subprocess
 import sys
 import time
 import traceback
+import unicodedata
 
 VERSION = "1.0.0"
 HOME = os.path.expanduser("~")
@@ -585,7 +586,19 @@ def serve(inp, out):
 # ---------------------------------------------------------------- Chrome bookmark files (CLI only)
 
 def _norm(s):
-    return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+    """Loose name match, same rule as normalizeName in extension/lib/tree.js:
+    case, accents, spaces and punctuation ignored, letters and digits of every
+    script kept."""
+    s = unicodedata.normalize("NFKD", str(s or ""))
+    return "".join(ch for ch in s if ch.isalnum() and not unicodedata.combining(ch)).lower()
+
+
+def _same(a, b):
+    """Strict name match for the inbox and review folders, same rule as
+    sameName in extension/lib/tree.js: only case and surrounding spaces."""
+    def strict(x):
+        return unicodedata.normalize("NFC", str(x or "")).strip().lower()
+    return strict(a) == strict(b)
 
 
 def load_chrome_folder(root_name):
@@ -620,22 +633,25 @@ def system_folders(cfg):
 
 
 def folders_from_chrome_node(root, exclude, samples=6):
+    """Same walk as collectFolders in extension/lib/tree.js: depth from the
+    tree (a title containing "/" doesn't make it deeper), "(untitled)" for a
+    folder without a name, system folders matched strictly."""
     out = []
-    excl = {_norm(x) for x in exclude}
 
-    def walk(node, prefix):
+    def walk(node, prefix, depth):
         for c in node.get("children") or []:
-            if c.get("type") != "folder" or (not prefix and _norm(c.get("name")) in excl):
+            if c.get("type") != "folder" or (depth == 1 and any(_same(c.get("name"), x) for x in exclude)):
                 continue
-            path = "%s/%s" % (prefix, c["name"]) if prefix else c["name"]
+            name = c.get("name") if str(c.get("name") or "").strip() else "(untitled)"
+            path = "%s/%s" % (prefix, name) if prefix is not None else name
             links = [x for x in c.get("children") or [] if x.get("type") == "url"]
             links.sort(key=lambda x: int(x.get("date_added") or 0), reverse=True)
             leaf = not any(x.get("type") == "folder" for x in c.get("children") or [])
-            out.append({"path": path, "count": len(links), "leaf": leaf,
+            out.append({"path": path, "name": name, "count": len(links), "leaf": leaf, "depth": depth,
                         "samples": [x.get("name") or x.get("url") for x in links[:samples]]})
-            walk(c, path)
+            walk(c, path, depth + 1)
 
-    walk(root, "")
+    walk(root, None, 1)
     return out
 
 
@@ -650,7 +666,7 @@ SAMPLE_FOLDERS = [  # used by --selftest when your folder isn't found
 def sample_job(cfg):
     node, where = load_chrome_folder(cfg.get("root_folder_name") or "worthy-reads")
     # Same rule as the extension: only leaf folders below the top level can be chosen.
-    folders = [f for f in folders_from_chrome_node(node, system_folders(cfg)) if f["leaf"] and "/" in f["path"]] if node else SAMPLE_FOLDERS
+    folders = [f for f in folders_from_chrome_node(node, system_folders(cfg)) if f["leaf"] and f["depth"] >= 2] if node else SAMPLE_FOLDERS
     return {
         "bookmark": {
             "title": "How to Run a Great 1:1 With Your Skip-Level Reports | by Some Author | Medium",
@@ -681,8 +697,7 @@ def main(argv):
             return 1
         print("# %s  (from %s; hiding %s)" % (node.get("name"), where, " and ".join(system_folders(cfg))))
         for f in folders_from_chrome_node(node, system_folders(cfg), samples=3):
-            depth = f["path"].count("/")
-            print("%s- %s  [%d]" % ("  " * depth, f["path"].split("/")[-1], f["count"]))
+            print("%s- %s  [%d]" % ("  " * (f["depth"] - 1), f["name"], f["count"]))
     elif cmd in ("--selftest", "--prompt", "--categorize"):
         if cmd == "--selftest":
             job, where = sample_job(cfg)

@@ -207,6 +207,25 @@ class TestFolderNames(HostTestCase):
         self.assertNotIn("inbox_folder_name", {k: v for k, v in cfg.items() if v == "a/b"})
         self.assertEqual(cfg.get("review_folder_name"), "_needs-review")
 
+    def test_cli_folder_walk_matches_the_extension(self):
+        sys.path.insert(0, self.app)
+        try:
+            import host
+        finally:
+            sys.path.pop(0)
+        root = folder("worthy-reads", [
+            folder("_inbox", []), folder("Inbox", [folder("later", [])]),
+            folder("AI/ML", [url("x", "https://x", 1)]), folder("", [folder("leaf", [])]),
+            folder("Caf\u00e9", [folder("n", [])]),
+        ])
+        fs = {f["path"]: f for f in host.folders_from_chrome_node(root, ("_inbox", "_review"))}
+        self.assertNotIn("_inbox", fs)
+        self.assertIn("Inbox", fs, "a category named Inbox isn't taken for _inbox")
+        self.assertEqual(fs["AI/ML"]["depth"], 1, "depth from the tree, not from '/' in the title")
+        self.assertIn("(untitled)/leaf", fs)
+        self.assertEqual(host._norm("Caf\u00e9 Notes!"), "cafenotes")
+        self.assertEqual(host._norm("\u65e5\u672c\u8a9e"), "\u65e5\u672c\u8a9e", "non-ASCII letters kept")
+
     def test_root_found_with_loose_matching(self):
         out = self.cli("--tree").stdout  # default "worthy-reads" matches "Worthy Reads"
         self.assertIn("# Worthy Reads", out)
