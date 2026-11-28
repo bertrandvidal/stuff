@@ -13,8 +13,10 @@ const decisions = {
 };
 let failHost = true;
 let failSetup = false;
+let hostGone = null; // a Chrome disconnect message, to simulate losing the bridge
 const m = makeChrome({ decide: async (job) => {
   const host = new URL(job.bookmark.url).hostname;
+  if (hostGone) return { disconnect: hostGone };
   if (host === 'flaky.example' && failHost) return { ok: false, error: 'Claude Code took longer than 240s' };
   if (failSetup) return { ok: false, systemic: true, error: "This Claude Code doesn't support --strict-mcp-config. Update Claude Code." };
   const d = decisions[host] || { folder_path: 'general/reading', confidence: 'high' };
@@ -266,4 +268,28 @@ test('#1: a Claude Code setup problem pauses filing without counting failures', 
   failSetup = false;
   await sweep('setup fixed'); await settle();
   assert.equal(parentOf('setup'), 'gr', 'filed normally once Claude Code is fixed');
+});
+
+test('signed out, usage limit or a lost bridge pause filing; three sweeps later nothing is in review', async () => {
+  // The host reports account problems as systemic (see test_host.py); the
+  // extension must also treat every kind of lost bridge as systemic.
+  add({ id: 'acct1', parentId: 'inbox', title: 'acct1 title', url: 'https://acct.example/1' });
+  add({ id: 'acct2', parentId: 'inbox', title: 'acct2 title', url: 'https://acct.example/2' });
+  for (const gone of ['Error when communicating with the native messaging host.', 'Failed to start native messaging host.', 'Native host has exited.']) {
+    hostGone = gone;
+    const r = await sweep('bridge down'); await settle();
+    assert.equal(r.paused, true, gone);
+  }
+  hostGone = null;
+  failSetup = true; // what the host sends for "Not logged in · Please run /login"
+  for (let i = 0; i < 3; i++) { await sweep('signed out'); await settle(); }
+  failSetup = false;
+  assert.equal(parentOf('acct1'), 'inbox', 'still waiting in the inbox, not parked');
+  assert.equal(parentOf('acct2'), 'inbox');
+  const { attempts, status } = await chrome.storage.local.get(['attempts', 'status']);
+  assert.equal(attempts.acct1, undefined, 'no attempts counted');
+  assert.match(status.lastError, /Update Claude Code|isn't signed in|Lost the connection/);
+  await sweep('back'); await settle();
+  assert.equal(parentOf('acct1'), 'gr', 'filed once Claude Code works again');
+  assert.equal(parentOf('acct2'), 'gr');
 });

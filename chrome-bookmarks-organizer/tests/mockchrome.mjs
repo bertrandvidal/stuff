@@ -17,7 +17,10 @@ export function makeChrome({ decide }) {
     async update(id, ch) { Object.assign(nodes.get(id), ch); return flat(id); } };
   const calls = { alarms: [], badge: [], windows: 0, jobs: [] };
   const portFactory = () => { const onMessage = ev(), onDisconnect = ev(); return { onMessage, onDisconnect,
-    postMessage(m) { setTimeout(async () => { calls.lastFolderNames = m.folderNames; if (m.type === 'categorize') calls.jobs.push(m.job); const r = m.type === 'ping' ? { ok: true, auth_ok: true } : await decide(m.job); onMessage.fire({ id: m.id, ...r }); }, 5); },
+    postMessage(m) { setTimeout(async () => { calls.lastFolderNames = m.folderNames; if (m.type === 'categorize') calls.jobs.push(m.job); const r = m.type === 'ping' ? { ok: true, auth_ok: true } : await decide(m.job);
+      // decide() can simulate the bridge going away, the way Chrome reports it.
+      if (r.disconnect) { chrome.runtime.lastError = { message: r.disconnect }; await onDisconnect.fire(); chrome.runtime.lastError = null; return; }
+      onMessage.fire({ id: m.id, ...r }); }, 5); },
     disconnect() {} }; };
   const chrome = {
     bookmarks: bm,

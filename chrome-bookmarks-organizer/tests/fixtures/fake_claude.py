@@ -25,8 +25,21 @@ assert "-p" in args and "--json-schema" in args and "--system-prompt-file" in ar
 schema = json.loads(args[args.index("--json-schema") + 1])
 assert schema["type"] == "object"
 assert os.path.isfile(args[args.index("--system-prompt-file") + 1])
-if mode == "error":
-    print(json.dumps({"type": "result", "subtype": "success", "is_error": True, "result": "Invalid API key · Please run /login"})); sys.exit(1)
+# Failure shapes copied from real `claude -p --output-format json` runs (2.1.332).
+if mode == "error":  # signed out
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True, "terminal_reason": "api_error",
+                      "api_error_status": None, "result": "Not logged in · Please run /login"})); sys.exit(1)
+if mode == "limit":  # plan usage limit
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True, "terminal_reason": "api_error",
+                      "api_error_status": 429, "result": "Claude AI usage limit reached|1764370800"})); sys.exit(1)
+if mode == "oldsignedout":  # older Claude Code: no terminal_reason field
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True,
+                      "result": "OAuth token has expired · Please run /login"})); sys.exit(1)
+if mode == "badrequest":  # a 400 can be about this link's content: not account-wide
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True, "terminal_reason": "api_error",
+                      "api_error_status": 400, "result": "API Error: 400 invalid_request_error"})); sys.exit(1)
+if mode == "maxturns":
+    print(json.dumps({"type": "result", "subtype": "error_max_turns", "is_error": True, "num_turns": 6})); sys.exit(1)
 if mode == "textjson":
     print(json.dumps({"type": "result", "subtype": "success", "is_error": False, "result": 'Here you go: {"folder_path": "management", "confidence": "HIGH", "is_career_relevant": true, "clean_title": "X", "reason": "r", "new_folder_suggestion": ""}'})); sys.exit(0)
 # pick a folder mentioned in the prompt based on keywords

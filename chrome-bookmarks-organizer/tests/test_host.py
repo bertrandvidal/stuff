@@ -151,10 +151,30 @@ class TestNativeProtocol(HostTestCase):
         self.assertEqual(len(self.calls()), 1)
         self.assertIn("--safe-mode", self.calls()[0])
 
-    def test_claude_error_is_reported(self):
+    def test_signed_out_pauses_filing(self):
         (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}], mode="error")
         self.assertFalse(cat["ok"])
-        self.assertIn("Please run /login", cat["error"])
+        self.assertTrue(cat["systemic"], "account problem, not this link's: pause, don't count")
+        self.assertIn("isn't signed in", cat["error"])
+        self.assertIn("claude auth login", cat["error"])
+
+    def test_usage_limit_and_older_signed_out_wording_pause_filing(self):
+        for mode, words in (("limit", "usage limit"), ("oldsignedout", "isn't signed in")):
+            (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}], mode=mode)
+            self.assertTrue(cat.get("systemic"), mode)
+            self.assertIn(words, cat["error"])
+
+    def test_link_specific_failures_still_count(self):
+        for mode in ("badrequest", "maxturns"):
+            (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}], mode=mode)
+            self.assertFalse(cat["ok"], mode)
+            self.assertFalse(cat.get("systemic", False), mode)
+
+    def test_missing_claude_pauses_filing(self):
+        os.remove(os.path.join(self.home, ".local", "bin", "claude"))
+        (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}])
+        self.assertTrue(cat["systemic"])
+        self.assertIn("Claude Code CLI not found", cat["error"])
 
     def test_json_inside_text_result_is_accepted_and_normalized(self):
         (cat,) = self.native([{"id": 1, "type": "categorize", "job": self.JOB}], mode="textjson")

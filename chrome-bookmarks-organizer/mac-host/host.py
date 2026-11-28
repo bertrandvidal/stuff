@@ -139,7 +139,8 @@ def find_claude(cfg):
     found = shutil.which("claude", path=child_env(cfg)["PATH"])
     if found:
         return found
-    raise RuntimeError("Claude Code CLI not found. Install it, sign in with `claude auth login`, then re-run install.sh.")
+    # Not the link's fault: pause filing (SetupError) instead of failing each link.
+    raise SetupError("Claude Code CLI not found. Install it, sign in with `claude auth login`, then re-run install.sh.")
 
 
 # ---------------------------------------------------------------- prompt
@@ -307,6 +308,36 @@ def normalize_decision(d):
     }
 
 
+# Failures that say nothing about the link being filed: Claude Code is signed
+# out, hit the plan's usage limit, or couldn't reach Claude (Mac offline, API
+# down). Counting them as a failed attempt per link would push the whole inbox
+# into review after a few sweeps, so they pause filing instead (SetupError).
+SIGNED_OUT = re.compile(r"/login|not logged in|log ?in again|oauth token|token (has )?expired|authenticat", re.I)
+USAGE_LIMIT = re.compile(r"usage limit|limit reached|hit your limit|rate.?limit|quota", re.I)
+
+
+def account_error(data):
+    """A user-facing message if this failed result is an account or connection
+    problem, else None (the failure is about this link: retry, then review)."""
+    detail = clip(data.get("result") or data.get("errors") or data.get("subtype"), 300)
+    status = data.get("api_error_status")
+    # Current Claude Code marks API failures with terminal_reason "api_error";
+    # a signed-out run has api_error_status null. A 400-range status other than
+    # 401/403/429 is a bad request, which can be about this link's content.
+    api_failure = data.get("terminal_reason") == "api_error" and (
+        status is None or status in (401, 403, 429) or (isinstance(status, int) and status >= 500))
+    # Older Claude Code has no terminal_reason: fall back to its error wording.
+    if not (api_failure or SIGNED_OUT.search(detail) or USAGE_LIMIT.search(detail)):
+        return None
+    if SIGNED_OUT.search(detail) or status in (401, 403):
+        return ("Claude Code isn't signed in (%s). Run `claude auth login` in Terminal; "
+                "links wait in the inbox and filing resumes on the next run." % detail)
+    if USAGE_LIMIT.search(detail) or status == 429:
+        return "Claude usage limit reached (%s). Links wait in the inbox until it resets." % detail
+    return ("Claude Code couldn't reach Claude (%s). Links wait in the inbox; "
+            "filing resumes on the next run." % detail)
+
+
 def parse_claude_output(stdout, stderr, returncode):
     data = None
     out = (stdout or "").strip()
@@ -324,6 +355,9 @@ def parse_claude_output(stdout, stderr, returncode):
     if not isinstance(data, dict):
         raise RuntimeError("Claude Code exited %s: %s" % (returncode, clip(stderr or out or "no output", 400)))
     if data.get("is_error") or data.get("subtype", "success") != "success":
+        problem = account_error(data)
+        if problem:
+            raise SetupError(problem)
         detail = data.get("result") or data.get("errors") or data.get("subtype")
         raise RuntimeError("Claude Code error: %s" % clip(detail, 400))
     decision = data.get("structured_output") or extract_json(data.get("result"))

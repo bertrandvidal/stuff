@@ -134,6 +134,14 @@ async function moveTo(id, parentId) {
 
 // ---------- native host (Claude Code) ----------
 
+// A failure of the bridge or of Claude Code itself, not of the link being
+// filed. The sweep pauses on these and leaves links in the inbox, uncounted.
+function systemicError(message) {
+  const e = new Error(message);
+  e.systemic = true;
+  return e;
+}
+
 class HostClient {
   constructor(name) {
     this.name = name;
@@ -160,14 +168,18 @@ class HostClient {
       } else if (/exited/i.test(raw)) {
         this.dead = `Native host crashed (${raw}) Check ~/.chrome-bookmarks-organizer/host.log.`;
       } else {
-        this.dead = raw;
+        // Any other way of losing the bridge ("Failed to start native messaging
+        // host.", "Error when communicating with the native messaging host.").
+        this.dead = `Lost the connection to the Mac bridge (${raw}) Check ~/.chrome-bookmarks-organizer/host.log.`;
       }
-      for (const p of this.pending.values()) { clearTimeout(p.timer); p.reject(new Error(this.dead)); }
+      // Whatever the cause, it isn't the link's fault: reject as systemic so the
+      // sweep pauses instead of counting a failed attempt for every link.
+      for (const p of this.pending.values()) { clearTimeout(p.timer); p.reject(systemicError(this.dead)); }
       this.pending.clear();
     });
   }
   request(type, payload = {}, timeoutMs = 300000) {
-    if (this.dead) return Promise.reject(new Error(this.dead));
+    if (this.dead) return Promise.reject(systemicError(this.dead));
     const id = ++this.seq;
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
@@ -180,7 +192,7 @@ class HostClient {
       } catch (e) {
         clearTimeout(timer);
         this.pending.delete(id);
-        reject(e);
+        reject(systemicError(`Lost the connection to the Mac bridge (${e.message})`)); // port already closed
       }
     });
   }
@@ -398,8 +410,9 @@ async function doSweep(reason) {
         urlIndex.set(normalizeUrl(item.url), path); // a second copy later in this run is a duplicate
         delete attempts[item.id];
       } catch (e) {
-        // Problems with Claude Code or the bridge pause filing; links wait in the inbox untouched.
-        if (e.systemic || /Native host (not installed|refused|crashed)/.test(e.message)) {
+        // Problems with Claude Code (signed out, usage limit, offline, too old)
+        // or the bridge pause filing; links wait in the inbox, attempts uncounted.
+        if (e.systemic) {
           await log({ level: 'error', msg: `Filing paused: ${e.message}` });
           await setStatus({ lastRun: Date.now(), lastError: e.message });
           return { error: e.message, paused: true };
